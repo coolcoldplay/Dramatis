@@ -54,6 +54,7 @@
         by: 'creation',
         order: 'asc',
       },
+      clusterSpacing: 1,
       graphIndex: null,
       _pendingLinkFrom: null,
       forceConfig: {

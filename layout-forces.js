@@ -23,6 +23,8 @@
         changed += 1;
         node.x = nextX;
         node.y = nextY;
+        node.vx = 0;
+        node.vy = 0;
         node.fx = null;
         node.fy = null;
       }
@@ -59,17 +61,33 @@
     return force;
   }
 
-  function distributeClusterCenters(keys, bounds) {
+  function normalizeSpacing(value) {
+    var n = Number(value);
+    if (!Number.isFinite(n)) return 1;
+    return Math.min(2.4, Math.max(0.5, n));
+  }
+
+  function distributeClusterCenters(keys, bounds, options) {
     var ids = Array.from(keys || []);
     var centers = new Map();
     if (!ids.length) return centers;
 
+    var opts = options || {};
+    var spacing = normalizeSpacing(opts.spacing);
+    var inset = Math.max(40, Number(opts.margin) || 40);
     var width = Math.max(1, bounds.maxX - bounds.minX);
     var height = Math.max(1, bounds.maxY - bounds.minY);
-    var radiusX = Math.max(80, width * 0.34);
-    var radiusY = Math.max(80, height * 0.30);
+    var maxRadiusX = Math.max(0, width / 2 - inset);
+    var maxRadiusY = Math.max(0, height / 2 - inset);
+    var radiusX = Math.min(maxRadiusX, Math.max(80, width * 0.34) * spacing);
+    var radiusY = Math.min(maxRadiusY, Math.max(80, height * 0.30) * spacing);
     var cx = bounds.minX + width / 2;
     var cy = bounds.minY + height / 2;
+
+    if (ids.length === 1) {
+      centers.set(ids[0], { x: cx, y: cy });
+      return centers;
+    }
 
     ids.forEach(function(id, index) {
       var angle = -Math.PI / 2 + index * Math.PI * 2 / ids.length;
@@ -81,7 +99,7 @@
     return centers;
   }
 
-  function buildClusterTargets(nodes, category, bounds) {
+  function buildClusterTargets(nodes, category, bounds, options) {
     var tags = (category && category.tags) || [];
     var tagById = new Map();
     tags.forEach(function(tag) {
@@ -98,7 +116,7 @@
       if (node && node.id) nodeClusterKey.set(node.id, key);
     });
 
-    var clusterCenters = distributeClusterCenters(clusterKeys, bounds);
+    var clusterCenters = distributeClusterCenters(clusterKeys, bounds, options);
     var nodeTargets = new Map();
     (nodes || []).forEach(function(node) {
       if (!node || !node.id) return;

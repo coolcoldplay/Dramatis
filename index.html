@@ -1397,6 +1397,11 @@
 			<select id="cluster-category-select" style="flex:1;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);padding:6px 6px;border-radius:4px;font-size:12px;outline:none"></select>
 			<button class="btn btn-secondary btn-small" id="btn-cluster-by-tag" style="flex:0 0 auto">按标签分群</button>
 		</div>
+		<div class="field-row" style="gap:6px;align-items:center;margin-top:6px">
+			<span style="font-size:11px;color:var(--text-muted);white-space:nowrap;flex:0 0 42px">群距</span>
+			<input type="range" id="cluster-spacing" value="1" min="0.6" max="2.4" step="0.05" style="flex:1;accent-color:var(--accent);height:24px">
+			<span id="cluster-spacing-val" style="flex:0 0 36px;font-size:11px;color:var(--text-muted);text-align:right">1.00</span>
+		</div>
 		<div id="cluster-layout-summary" class="hint-text" style="margin-top:6px"></div>
 	</div>
 
@@ -1852,6 +1857,9 @@ let undoStack = [];
 let redoStack = [];
 let _undoDirty = false;
 let toolbarHidden = false;
+let temporaryLinkStrengthTimer = null;
+let temporaryLinkStrengthToken = 0;
+const temporaryForceTokens = new Map();
 
 var EYE_OPEN_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 var EYE_CLOSED_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
@@ -1862,6 +1870,12 @@ function normalizeNodeLabelPlacement(value) {
 
 function normalizeGraphStyle(style) {
   return DramatisAppState.normalizeGraphStyle(style);
+}
+
+function normalizeClusterSpacing(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 1;
+  return Math.min(2.4, Math.max(0.5, n));
 }
 
 function invalidateGraphIndex() {
@@ -1917,6 +1931,7 @@ function applySnapshot(snap) {
   state.linkTypes = snap.linkTypes;
   state.graphBackgroundColor = snap.graphBackgroundColor;
   state.characterSort = snap.characterSort;
+  state.clusterSpacing = normalizeClusterSpacing(snap.clusterSpacing);
   state.forceConfig = snap.forceConfig || { centerStrength: 0.05, chargeStrength: -650, linkStrength: 0.5, linkDistance: 170 };
   rebuildGraphIndex();
 }
@@ -2642,6 +2657,7 @@ function renderUI() {
   renderCharacterList();
   renderTagCategoriesPanel();
   updateClusterCategoryOptions();
+  updateClusterSpacingUI();
   updateEpisodeSlider();
   updateMultiSelectUI();
   updateFreePlacementUI();
@@ -2685,6 +2701,15 @@ function updateClusterCategoryOptions() {
   if (current && Array.from(select.options).some(option => option.value === current)) {
     select.value = current;
   }
+}
+
+function updateClusterSpacingUI() {
+  const input = document.getElementById('cluster-spacing');
+  const label = document.getElementById('cluster-spacing-val');
+  if (!input || !label) return;
+  state.clusterSpacing = normalizeClusterSpacing(state.clusterSpacing);
+  input.value = state.clusterSpacing;
+  label.textContent = state.clusterSpacing.toFixed(2);
 }
 
 function degreeFilterControls() {
@@ -2746,13 +2771,51 @@ function graphViewportBounds(padding) {
   return { minX: 0, maxX: s.width, minY: 0, maxY: s.height };
 }
 
-function scheduleTemporaryForce(name, force, durationMs) {
+function scheduleTemporaryForce(name, force, durationMs, onComplete) {
+  const token = {};
+  temporaryForceTokens.set(name, token);
   simulation.force(name, force);
-  simulation.alphaTarget(0.18).alpha(0.85).restart();
+  simulation.alphaTarget(0.20).alpha(Math.max(simulation.alpha(), 0.85)).restart();
   window.setTimeout(() => {
+    if (temporaryForceTokens.get(name) !== token) return;
+    temporaryForceTokens.delete(name);
     simulation.force(name, null);
+    if (typeof onComplete === 'function') onComplete();
     simulation.alphaTarget(0);
   }, durationMs || 1800);
+}
+
+function finishViewportRelaxation(nodes, boundsPadding, nodePadding) {
+  if (!window.DramatisLayoutForces) return 0;
+  const changed = DramatisLayoutForces.pullNodesInsideBounds(
+    nodes,
+    graphViewportBounds(boundsPadding || 0),
+    nodePadding || 0
+  );
+  if (changed > 0) tick();
+  simulation.alphaTarget(0);
+  if (!state.freePlacement) {
+    simulation.alpha(0);
+    simulation.stop();
+  }
+  return changed;
+}
+
+function temporarilyScaleLinkStrength(scale, durationMs) {
+  const linkForce = simulation.force('link');
+  if (!linkForce || typeof linkForce.strength !== 'function') return () => {};
+  clearTimeout(temporaryLinkStrengthTimer);
+  const token = temporaryLinkStrengthToken + 1;
+  temporaryLinkStrengthToken = token;
+  const restore = () => {
+    if (temporaryLinkStrengthToken !== token) return;
+    if (temporaryLinkStrengthTimer) clearTimeout(temporaryLinkStrengthTimer);
+    linkForce.strength(state.forceConfig.linkStrength != null ? state.forceConfig.linkStrength : 0.5);
+    temporaryLinkStrengthTimer = null;
+  };
+  linkForce.strength((state.forceConfig.linkStrength != null ? state.forceConfig.linkStrength : 0.5) * scale);
+  temporaryLinkStrengthTimer = window.setTimeout(restore, durationMs || 1800);
+  return restore;
 }
 
 function clampAllNodesToCurrentViewport() {
@@ -2760,14 +2823,21 @@ function clampAllNodesToCurrentViewport() {
   const status = document.getElementById('viewport-clamp-summary');
 
   pushUndo();
-  const bounds = graphViewportBounds(64);
-  const changed = DramatisLayoutForces.pullNodesInsideBounds(state.nodes, bounds, 48);
+  const changed = DramatisLayoutForces.pullNodesInsideBounds(state.nodes, graphViewportBounds(88), 60);
   const boundaryForce = DramatisLayoutForces.createBoundaryForce(
     () => graphViewportBounds(0),
-    { margin: Math.max(90, NODE_R * 3), strength: 0.06 }
+    { margin: Math.max(120, NODE_R * 4), strength: 0.12 }
   );
-  scheduleTemporaryForce('viewportBoundary', boundaryForce, 2200);
   render(false);
+  scheduleTemporaryForce('viewportBoundary', boundaryForce, 3600, () => {
+    const finalChanged = finishViewportRelaxation(state.nodes, 88, 60);
+    if (status) {
+      const totalChanged = Math.max(changed, finalChanged);
+      status.textContent = totalChanged > 0
+        ? '已收回 ' + totalChanged + ' 个节点，并完成边界内重排'
+        : '所有节点已保持在视野内，并完成边界内重排';
+    }
+  });
 
   if (status) {
     status.textContent = changed > 0
@@ -2794,18 +2864,20 @@ function clusterBySelectedTagCategory() {
   }
 
   pushUndo();
+  const spacing = normalizeClusterSpacing(state.clusterSpacing);
   const targets = DramatisLayoutForces.buildClusterTargets(
     visibleNodes,
     category,
-    graphViewportBounds(96)
+    graphViewportBounds(112),
+    { spacing: spacing, margin: Math.max(80, NODE_R * 3) }
   );
   const clusterForce = DramatisLayoutForces.createClusterForce(
     targets.nodeTargets,
-    { strength: 0.10 }
+    { strength: 0.18 }
   );
   const boundaryForce = DramatisLayoutForces.createBoundaryForce(
     () => graphViewportBounds(0),
-    { margin: Math.max(90, NODE_R * 3), strength: 0.04 }
+    { margin: Math.max(120, NODE_R * 4), strength: 0.08 }
   );
 
   visibleNodes.forEach(node => {
@@ -2813,12 +2885,17 @@ function clusterBySelectedTagCategory() {
     node.fy = null;
   });
 
-  scheduleTemporaryForce('tagCluster', clusterForce, 2600);
-  scheduleTemporaryForce('clusterBoundary', boundaryForce, 2600);
   render(false);
+  const duration = 3800;
+  const restoreLinkStrength = temporarilyScaleLinkStrength(0.25, duration + 200);
+  scheduleTemporaryForce('tagCluster', clusterForce, duration);
+  scheduleTemporaryForce('clusterBoundary', boundaryForce, duration, () => {
+    finishViewportRelaxation(visibleNodes, 88, 56);
+    restoreLinkStrength();
+  });
 
   if (summary) {
-    summary.textContent = '按「' + (category.name || category.id) + '」生成 ' + targets.clusterCenters.size + ' 个分群';
+    summary.textContent = '按「' + (category.name || category.id) + '」生成 ' + targets.clusterCenters.size + ' 个分群，群距 ' + spacing.toFixed(2);
   }
 }
 
@@ -4309,6 +4386,11 @@ document.getElementById('btn-degree-show').addEventListener('click', () => {
 });
 document.getElementById('btn-clamp-to-view').addEventListener('click', clampAllNodesToCurrentViewport);
 document.getElementById('btn-cluster-by-tag').addEventListener('click', clusterBySelectedTagCategory);
+document.getElementById('cluster-spacing').addEventListener('input', (event) => {
+  state.clusterSpacing = normalizeClusterSpacing(event.target.value);
+  document.getElementById('cluster-spacing-val').textContent = state.clusterSpacing.toFixed(2);
+});
+document.getElementById('cluster-spacing').addEventListener('change', () => { _undoDirty = false; });
 document.getElementById('btn-clamp-toolbar').addEventListener('click', clampAllNodesToCurrentViewport);
 document.getElementById('btn-toolbar-toggle').addEventListener('click', () => setToolbarHidden(true));
 document.getElementById('btn-toolbar-restore').addEventListener('click', () => setToolbarHidden(false));
@@ -4624,6 +4706,7 @@ document.getElementById('btn-export').addEventListener('click', () => {
     })),
     tagCategories: state.tagCategories,
     nextId: state.nextId,
+    clusterSpacing: normalizeClusterSpacing(state.clusterSpacing),
     graphStyle: normalizeGraphStyle(state.graphStyle),
     linkTypes: {
       relation: { ...state.linkTypes.relation },
@@ -4663,6 +4746,7 @@ document.getElementById('import-input').addEventListener('change', e => {
       state.graphBackgroundColor = imported.graphBackgroundColor;
       state.linkTypes = imported.linkTypes;
       state.forceConfig = imported.forceConfig;
+      state.clusterSpacing = normalizeClusterSpacing(imported.clusterSpacing);
       rebuildGraphIndex();
 
       state.currentEpisode = null;

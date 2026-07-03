@@ -18,6 +18,7 @@ test('creates the default graph editing state', () => {
   assert.equal(state.linkTypes.relation.label, '\u5173\u7cfb');
   assert.equal(state.linkTypes.action.label, '\u884c\u52a8');
   assert.equal(state.forceConfig.linkDistance, 170);
+  assert.equal(state.clusterSpacing, 1);
 });
 
 test('normalizes graph style defaults', () => {

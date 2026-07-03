@@ -38,6 +38,12 @@
     return Math.max(dataNextId || 1, maxId + 1);
   }
 
+  function normalizeClusterSpacing(value) {
+    var n = Number(value);
+    if (!Number.isFinite(n)) return 1;
+    return Math.min(2.4, Math.max(0.5, n));
+  }
+
   function normalizeImportedGraph(data, options) {
     var input = data || {};
     var opts = options || {};
@@ -85,6 +91,7 @@
       graphStyle: normalizeGraphStyle(input.graphStyle),
       graphBackgroundColor: input.graphBackgroundColor || (input.graphBackground && input.graphBackground.value) || '#0d0e12',
       linkTypes: cloneLinkTypes(opts.defaultLinkTypes, input.linkTypes),
+      clusterSpacing: normalizeClusterSpacing(input.clusterSpacing),
       forceConfig: input.forceConfig || {
         centerStrength: 0.05,
         chargeStrength: -650,

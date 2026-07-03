@@ -31,6 +31,26 @@ test('pulls nodes into viewport interior and clears fixed positions', () => {
   ]);
 });
 
+test('pulling nodes inside bounds cancels carried velocity on moved nodes', () => {
+  const nodes = [
+    { id: 'N1', x: -50, y: 150, vx: -12, vy: 3 },
+    { id: 'N2', x: 150, y: 150, vx: 4, vy: -2 },
+  ];
+
+  pullNodesInsideBounds(nodes, {
+    minX: 0,
+    maxX: 300,
+    minY: 0,
+    maxY: 300,
+  }, 40);
+
+  assert.equal(nodes[0].x, 40);
+  assert.equal(nodes[0].vx, 0);
+  assert.equal(nodes[0].vy, 0);
+  assert.equal(nodes[1].vx, 4);
+  assert.equal(nodes[1].vy, -2);
+});
+
 test('boundary force pushes nodes away from viewport edges', () => {
   const nodes = [
     { id: 'N1', x: 5, y: 150, vx: 0, vy: 0 },
@@ -65,6 +85,26 @@ test('distributes cluster centers around the visible canvas', () => {
   assert.ok(centers.get('A').x <= 520);
   assert.ok(centers.get('A').y >= 80);
   assert.ok(centers.get('A').y <= 320);
+});
+
+test('scales cluster center spacing without leaving the canvas', () => {
+  const bounds = {
+    minX: 0,
+    maxX: 800,
+    minY: 0,
+    maxY: 500,
+  };
+  const compact = distributeClusterCenters(['A', 'B', 'C', 'D'], bounds, { spacing: 0.7 });
+  const wide = distributeClusterCenters(['A', 'B', 'C', 'D'], bounds, { spacing: 1.6 });
+  const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+
+  assert.ok(distance(wide.get('A'), wide.get('C')) > distance(compact.get('A'), compact.get('C')) * 1.4);
+  for (const center of wide.values()) {
+    assert.ok(center.x >= bounds.minX + 40);
+    assert.ok(center.x <= bounds.maxX - 40);
+    assert.ok(center.y >= bounds.minY + 40);
+    assert.ok(center.y <= bounds.maxY - 40);
+  }
 });
 
 test('assigns nodes to tag cluster targets with an untagged fallback', () => {
