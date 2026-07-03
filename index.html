@@ -6,6 +6,10 @@
 <title>剧集人物关系图</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="degree-filter.js"></script>
+<script src="viewport-tools.js"></script>
+<script src="toolbar-visibility.js"></script>
+<script src="node-label-layout.js"></script>
 <style>
   :root {
     --bg-deep: #0d0e12;
@@ -632,6 +636,18 @@
   .tool-btn svg { width: 16px; height: 16px; }
   .tool-btn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
   .tool-divider { width: 1px; background: var(--border); margin: 4px 2px; }
+  .toolbar.toolbar-hidden { display: none; }
+  .toolbar-restore {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 6;
+    display: none;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .toolbar-restore.visible { display: flex; }
 
   /* 家系图 overlay */
   .family-tree-overlay {
@@ -1339,6 +1355,7 @@
 		<div class="field-row" style="gap:6px">
 			<input type="color" id="style-node-color" value="#e8e4d6" style="flex:0 0 auto;width:32px;height:32px;padding:0;border:1px solid var(--border);border-radius:4px;cursor:pointer">
 			<input type="number" id="style-node-size" value="13" min="0" max="24" style="flex:0 0 55px;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);padding:4px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none">
+			<button class="btn btn-secondary btn-small" id="btn-node-label-placement" title="Toggle node label placement" style="flex:1;min-width:92px">Name: outside</button>
 			
 		</div>
 	</div>
@@ -1352,6 +1369,26 @@
 				<input type="range" id="style-node-opacity" value="1" min="0" max="1" step="0.05" style="flex:1;accent-color:var(--accent);height:24px">
 				<span id="style-node-opacity-val" style="flex:0 0 32px;font-size:11px;color:var(--text-muted);text-align:right">1.0</span>
 			</div>
+
+	<div class="divider" style="margin:12px 0"></div>
+
+	<div class="panel-section">
+		<div class="panel-label">网络清理 · Cleanup</div>
+		<div class="field-row" style="gap:6px;align-items:center">
+			<span style="font-size:11px;color:var(--text-muted);white-space:nowrap;flex:0 0 42px">连接数</span>
+			<select id="degree-filter-op" style="flex:0 0 54px;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);padding:6px 6px;border-radius:4px;font-size:12px;outline:none">
+				<option value="<=" selected>&le;</option>
+				<option value="=">=</option>
+				<option value=">=">&ge;</option>
+			</select>
+			<input type="number" id="degree-filter-count" value="1" min="0" max="99" style="flex:0 0 52px;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);padding:6px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;outline:none">
+			<button class="btn btn-secondary btn-small" id="btn-degree-hide" style="flex:1">隐藏节点</button>
+			<button class="btn btn-secondary btn-small" id="btn-degree-show" style="flex:1">显示节点</button>
+		</div>
+		<div id="degree-filter-summary" class="hint-text" style="margin-top:6px">匹配 0 个节点</div>
+		<button class="btn btn-secondary btn-small" id="btn-clamp-to-view" style="margin-top:8px">收回当前视野</button>
+		<div id="viewport-clamp-summary" class="hint-text" style="margin-top:6px"></div>
+	</div>
 
 	<div class="divider" style="margin:12px 0"></div>
 
@@ -1541,6 +1578,12 @@
     <button class="tool-btn" id="btn-show-all" title="显示全部">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
     </button>
+    <button class="tool-btn" id="btn-clamp-toolbar" title="收回当前视野">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/><path d="M9 4L4 9"/><path d="M15 4l5 5"/><path d="M9 20l-5-5"/><path d="M15 20l5-5"/></svg>
+    </button>
+    <button class="tool-btn" id="btn-toolbar-toggle" title="隐藏工具栏 (T)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
     <div class="tool-divider"></div>
     <button class="tool-btn" id="btn-undo" title="撤销 (Ctrl+Z)" disabled>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10h13a4 4 0 0 1 0 8H7"/><path d="M7 6l-4 4 4 4"/></svg>
@@ -1613,6 +1656,9 @@
       <button class="align-btn" data-align="hdist" title="水平分布">⇄</button>
     </div>
   </div>
+  <button class="tool-btn toolbar-restore" id="btn-toolbar-restore" title="显示工具栏 (T)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+  </button>
 
   <div class="statusbar">
     <span>人物 <strong id="stat-nodes">0</strong></span>
@@ -1796,6 +1842,7 @@ const state = {
     nodeLabelFontSize: 13,
     nodeScale: 1.0,
     nodeLabelOpacity: 1.0,
+    nodeLabelPlacement: 'outside',
   },
   linkTypes: {
     relation: {
@@ -1842,9 +1889,35 @@ const MAX_HISTORY = 50;
 let undoStack = [];
 let redoStack = [];
 let _undoDirty = false;
+let toolbarHidden = false;
 
 var EYE_OPEN_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 var EYE_CLOSED_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+
+function normalizeNodeLabelPlacement(value) {
+  if (window.DramatisNodeLabelLayout && window.DramatisNodeLabelLayout.normalizeNodeLabelPlacement) {
+    return window.DramatisNodeLabelLayout.normalizeNodeLabelPlacement(value);
+  }
+  return value === 'inside' ? 'inside' : 'outside';
+}
+
+function normalizeGraphStyle(style) {
+  const gs = { ...(style || {}) };
+  if (!gs.nodeLabelColor) gs.nodeLabelColor = '#e8e4d6';
+  if (gs.nodeLabelFontSize == null) gs.nodeLabelFontSize = 13;
+  if (gs.nodeScale == null) gs.nodeScale = 1.0;
+  if (gs.nodeLabelOpacity == null) gs.nodeLabelOpacity = 1.0;
+  gs.nodeLabelPlacement = normalizeNodeLabelPlacement(gs.nodeLabelPlacement);
+  return gs;
+}
+
+function setToolbarHidden(hidden) {
+  toolbarHidden = !!hidden;
+  const toolbar = document.querySelector('.toolbar');
+  const restore = document.getElementById('btn-toolbar-restore');
+  if (toolbar) toolbar.classList.toggle('toolbar-hidden', toolbarHidden);
+  if (restore) restore.classList.toggle('visible', toolbarHidden);
+}
 
 function snapshotState() {
   const clone = structuredClone(state);
@@ -1872,9 +1945,7 @@ function applySnapshot(snap) {
   state.linkMode = snap.linkMode;
   state.linkFrom = snap.linkFrom;
   state.editing = snap.editing;
-  state.graphStyle = snap.graphStyle;
-  if (state.graphStyle.nodeScale == null) state.graphStyle.nodeScale = 1.0;
-  if (state.graphStyle.nodeLabelOpacity == null) state.graphStyle.nodeLabelOpacity = 1.0;
+  state.graphStyle = normalizeGraphStyle(snap.graphStyle);
   state.linkTypes = snap.linkTypes;
   state.graphBackgroundColor = snap.graphBackgroundColor;
   state.characterSort = snap.characterSort;
@@ -2166,6 +2237,111 @@ function updateNodeScale() {
   simulation.force('collide').radius(Math.round(58 * s));
 }
 
+function estimateNodeLabelMaxChars(radius, fontSize) {
+  if (window.DramatisNodeLabelLayout && window.DramatisNodeLabelLayout.estimateMaxCharsPerLine) {
+    return window.DramatisNodeLabelLayout.estimateMaxCharsPerLine(radius, fontSize);
+  }
+  return Math.max(1, Math.floor((radius * 1.55) / Math.max(4, fontSize * 0.58)));
+}
+
+function wrapNodeLabelText(label, maxChars, maxLines) {
+  if (window.DramatisNodeLabelLayout && window.DramatisNodeLabelLayout.wrapNodeLabel) {
+    return window.DramatisNodeLabelLayout.wrapNodeLabel(label, {
+      maxCharsPerLine: maxChars,
+      maxLines: maxLines,
+    });
+  }
+  return [String(label || '?')];
+}
+
+function estimateNodeLabelLineWeight(line) {
+  return String(line || '').split('').reduce((sum, ch) => {
+    if (/[^\x00-\xff]/.test(ch)) return sum + 1.0;
+    if (/[A-Z]/.test(ch)) return sum + 0.72;
+    if (/[a-z0-9]/.test(ch)) return sum + 0.58;
+    if (ch === ' ') return sum + 0.35;
+    return sum + 0.68;
+  }, 0);
+}
+
+function textBoxFitsCircle(textEl, radius) {
+  if (!textEl || !textEl.getBBox) return true;
+  try {
+    const box = textEl.getBBox();
+    const limit = Math.max(1, radius - 2);
+    const points = [
+      [box.x, box.y],
+      [box.x + box.width, box.y],
+      [box.x, box.y + box.height],
+      [box.x + box.width, box.y + box.height],
+    ];
+    return points.every(([x, y]) => (x * x + y * y) <= (limit * limit));
+  } catch (err) {
+    return true;
+  }
+}
+
+function setInsideNodeLabelLines(label, lines, fontSize) {
+  const lineHeight = Math.max(5, fontSize * 0.92);
+  const startY = -((lines.length - 1) * lineHeight) / 2;
+  label
+    .text(null)
+    .attr('dy', null)
+    .attr('y', 0)
+    .attr('font-size', fontSize + 'px')
+    .attr('dominant-baseline', 'middle')
+    .style('font-size', fontSize + 'px')
+    .style('display', null);
+
+  lines.forEach((line, index) => {
+    label.append('tspan')
+      .attr('x', 0)
+      .attr('y', startY + index * lineHeight)
+      .text(line);
+  });
+}
+
+function renderNodeLabel(label, node) {
+  const fontSize = Number(state.graphStyle.nodeLabelFontSize);
+  const placement = normalizeNodeLabelPlacement(state.graphStyle.nodeLabelPlacement);
+  label.selectAll('tspan').remove();
+
+  if (!Number.isFinite(fontSize) || fontSize <= 0) {
+    label.text(null).style('display', 'none');
+    return;
+  }
+
+  if (placement !== 'inside') {
+    label
+      .attr('dy', RING_R_OUTER + 18)
+      .attr('y', null)
+      .attr('font-size', null)
+      .attr('dominant-baseline', null)
+      .text(node.name)
+      .style('font-size', null)
+      .style('display', null);
+    return;
+  }
+
+  const radius = Math.max(5, RING_R_INNER - 3);
+  const maxLines = radius >= fontSize * 2.4 ? 3 : 2;
+  let maxChars = estimateNodeLabelMaxChars(radius, fontSize) + (maxLines <= 2 ? 1 : 0);
+  if (/[^\x00-\xff]/.test(String(node.name || ''))) {
+    maxChars = Math.min(maxChars, Math.max(1, Math.floor((radius * 1.45) / fontSize)));
+  }
+  const lines = wrapNodeLabelText(node.name, maxChars, maxLines);
+  const verticalFont = Math.floor((radius * 1.55) / Math.max(1, lines.length));
+  const maxLineWeight = Math.max.apply(null, lines.map(estimateNodeLabelLineWeight));
+  const horizontalFont = Math.floor((radius * 1.7) / Math.max(1, maxLineWeight));
+  let fittedFont = Math.min(fontSize, Math.max(5, verticalFont), Math.max(5, horizontalFont));
+
+  setInsideNodeLabelLines(label, lines, fittedFont);
+  while (fittedFont > 5 && !textBoxFitsCircle(label.node(), radius)) {
+    fittedFont -= 1;
+    setInsideNodeLabelLines(label, lines, fittedFont);
+  }
+}
+
 function computeNodeRingSegments(node) {
   const visibleCats = state.tagCategories.filter(c => c.visible);
   const segments = [];
@@ -2346,9 +2522,11 @@ function render(restartSimulation) {
     .attr('href', d => d.avatar || null)
     .style('display', d => d.avatar ? 'block' : 'none');
 
+  const nodeLabelPlacement = normalizeNodeLabelPlacement(state.graphStyle.nodeLabelPlacement);
+
   allNodes.select('text.node-initial')
     .text(d => d.avatar ? '' : (d.name ? d.name[0] : '?'))
-    .style('display', d => d.avatar ? 'none' : 'block');
+    .style('display', d => (nodeLabelPlacement === 'inside' || d.avatar) ? 'none' : 'block');
 
   // 更新节点几何（支持缩放）
   allNodes.select('clipPath circle').attr('r', RING_R_INNER);
@@ -2358,9 +2536,9 @@ function render(restartSimulation) {
     .attr('width', RING_R_INNER * 2).attr('height', RING_R_INNER * 2);
 
   allNodes.select('text.node-label')
-    .attr('dy', RING_R_OUTER + 18)
-    .text(d => d.name)
-    .style('display', state.graphStyle.nodeLabelFontSize <= 0 ? 'none' : null);
+    .each(function(d) {
+      renderNodeLabel(d3.select(this), d);
+    });
 
   allNodes
     .on('click', function(event, d) {
@@ -2493,11 +2671,21 @@ function linkType(link) {
 }
 
 function applyGraphStyles() {
+  state.graphStyle = normalizeGraphStyle(state.graphStyle);
   const gs = state.graphStyle;
   const root = document.documentElement;
   root.style.setProperty('--node-label-color', gs.nodeLabelColor);
   root.style.setProperty('--node-label-font-size', gs.nodeLabelFontSize + 'px');
   root.style.setProperty('--node-label-opacity', gs.nodeLabelOpacity != null ? gs.nodeLabelOpacity : 1.0);
+}
+
+function updateNodeLabelPlacementButton() {
+  const btn = document.getElementById('btn-node-label-placement');
+  if (!btn) return;
+  const placement = normalizeNodeLabelPlacement(state.graphStyle.nodeLabelPlacement);
+  btn.textContent = placement === 'inside' ? 'Name: inside' : 'Name: outside';
+  btn.title = placement === 'inside' ? 'Current: labels inside nodes' : 'Current: labels below nodes';
+  btn.classList.toggle('active', placement === 'inside');
 }
 
 function renderGraph(restartSim) {
@@ -2537,6 +2725,7 @@ function renderUI() {
   var no = state.graphStyle.nodeLabelOpacity != null ? state.graphStyle.nodeLabelOpacity : 1.0;
   document.getElementById('style-node-opacity').value = no;
   document.getElementById('style-node-opacity-val').textContent = no.toFixed(2);
+  updateNodeLabelPlacementButton();
   // 同步力场拉杆
   var fc = state.forceConfig || {};
   document.getElementById('force-center').value = fc.centerStrength != null ? fc.centerStrength : 0.05;
@@ -2549,6 +2738,7 @@ function renderUI() {
   document.getElementById('force-link-distance-val').textContent = fc.linkDistance != null ? fc.linkDistance : 170;
 
   updateStats();
+  updateDegreeFilterSummary();
   renderCharacterList();
   renderTagCategoriesPanel();
   updateEpisodeSlider();
@@ -2573,6 +2763,69 @@ function updateFreePlacementUI() {
       <circle cx="12" cy="12" r="9"/>
       <path d="M8 12h8M12 8v8" stroke-width="2.5"/>
     </svg>`;
+  }
+}
+
+function degreeFilterControls() {
+  const opEl = document.getElementById('degree-filter-op');
+  const countEl = document.getElementById('degree-filter-count');
+  return {
+    op: opEl ? opEl.value : '<=',
+    count: countEl ? Math.max(0, parseInt(countEl.value, 10) || 0) : 1,
+  };
+}
+
+function degreeFilterMatches() {
+  if (!window.DramatisDegreeFilter) return [];
+  const controls = degreeFilterControls();
+  return DramatisDegreeFilter.getNodesMatchingDegree(
+    state.nodes,
+    state.links,
+    controls.op,
+    controls.count
+  );
+}
+
+function updateDegreeFilterSummary() {
+  const summary = document.getElementById('degree-filter-summary');
+  if (!summary || !window.DramatisDegreeFilter) return;
+  const matches = degreeFilterMatches();
+  const hiddenMatches = matches.filter(n => n.hidden).length;
+  summary.textContent = '匹配 ' + matches.length + ' 个节点，已隐藏 ' + hiddenMatches + ' 个';
+}
+
+function applyDegreeFilterVisibility(hidden) {
+  const matches = degreeFilterMatches();
+  const changed = matches.filter(n => n.hidden !== hidden);
+  if (changed.length === 0) {
+    updateDegreeFilterSummary();
+    return;
+  }
+
+  pushUndo();
+  changed.forEach(n => { n.hidden = hidden; });
+  render(true);
+  updateDegreeFilterSummary();
+}
+
+function clampAllNodesToCurrentViewport() {
+  if (!window.DramatisViewportTools || state.nodes.length === 0) return;
+  const status = document.getElementById('viewport-clamp-summary');
+  const s = getSize();
+  const t = currentTransform();
+
+  pushUndo();
+  const changed = DramatisViewportTools.clampNodesToViewport(state.nodes, t, s, 64);
+  state.freePlacement = true;
+  simulation.stop();
+  updateFreePlacementUI();
+  render(false);
+  tick();
+
+  if (status) {
+    status.textContent = changed > 0
+      ? '已收回 ' + changed + ' 个跑出视野的节点，并固定当前位置'
+      : '所有节点已在当前视野内，并固定当前位置';
   }
 }
 
@@ -3966,6 +4219,14 @@ document.getElementById('style-node-size').addEventListener('change', (e) => {
   render(false);
 });
 
+document.getElementById('btn-node-label-placement').addEventListener('click', () => {
+  pushUndo();
+  const current = normalizeNodeLabelPlacement(state.graphStyle.nodeLabelPlacement);
+  state.graphStyle.nodeLabelPlacement = current === 'inside' ? 'outside' : 'inside';
+  updateNodeLabelPlacementButton();
+  render(false);
+});
+
 // 关系/行动类型样式
 document.querySelectorAll('.style-link-type-color').forEach(el => {
   el.addEventListener('input', (e) => {
@@ -4036,6 +4297,19 @@ document.querySelectorAll('.label-orient-toggle').forEach(function(btn) {
 });
 
 // 颜色拖拽结束时重置 dirty 标记
+document.getElementById('degree-filter-op').addEventListener('change', updateDegreeFilterSummary);
+document.getElementById('degree-filter-count').addEventListener('input', updateDegreeFilterSummary);
+document.getElementById('btn-degree-hide').addEventListener('click', () => {
+  applyDegreeFilterVisibility(true);
+});
+document.getElementById('btn-degree-show').addEventListener('click', () => {
+  applyDegreeFilterVisibility(false);
+});
+document.getElementById('btn-clamp-to-view').addEventListener('click', clampAllNodesToCurrentViewport);
+document.getElementById('btn-clamp-toolbar').addEventListener('click', clampAllNodesToCurrentViewport);
+document.getElementById('btn-toolbar-toggle').addEventListener('click', () => setToolbarHidden(true));
+document.getElementById('btn-toolbar-restore').addEventListener('click', () => setToolbarHidden(false));
+
 ['style-node-color', 'bg-color-input'].forEach(id => {
   document.getElementById(id).addEventListener('change', () => { _undoDirty = false; });
 });
@@ -4220,6 +4494,11 @@ window.addEventListener('keydown', e => {
     if (e.shiftKey) { redo(); } else { undo(); }
     return;
   }
+  if (window.DramatisToolbarVisibility && DramatisToolbarVisibility.isToolbarToggleShortcut(e)) {
+    e.preventDefault();
+    setToolbarHidden(DramatisToolbarVisibility.nextToolbarHidden(toolbarHidden));
+    return;
+  }
   if (e.key === 'Escape') {
     if (document.getElementById('family-tree-overlay').style.display === 'flex') {
       closeFamilyTree();
@@ -4341,6 +4620,7 @@ document.getElementById('btn-export').addEventListener('click', () => {
     })),
     tagCategories: state.tagCategories,
     nextId: state.nextId,
+    graphStyle: normalizeGraphStyle(state.graphStyle),
     linkTypes: {
       relation: { ...state.linkTypes.relation },
       action: { ...state.linkTypes.action },
@@ -4383,7 +4663,7 @@ document.getElementById('import-input').addEventListener('change', e => {
         ...c, visible: c.visible !== false, tags: c.tags || [],
       }));
       state.nextId = data.nextId || 1;
-      state.graphStyle = data.graphStyle || { nodeLabelColor: '#e8e4d6', nodeLabelFontSize: 13 };
+      state.graphStyle = normalizeGraphStyle(data.graphStyle);
       state.graphBackgroundColor = data.graphBackgroundColor || (data.graphBackground && data.graphBackground.value) || '#0d0e12';
       if (data.linkTypes) {
         state.linkTypes.relation = { ...state.linkTypes.relation, ...data.linkTypes.relation };
@@ -4395,8 +4675,7 @@ document.getElementById('import-input').addEventListener('change', e => {
         if (state.linkTypes[t].labelOrientation == null) state.linkTypes[t].labelOrientation = 'horizontal';
       });
       // 旧数据兼容: graphStyle 新字段
-      if (state.graphStyle.nodeScale == null) state.graphStyle.nodeScale = 1.0;
-      if (state.graphStyle.nodeLabelOpacity == null) state.graphStyle.nodeLabelOpacity = 1.0;
+      state.graphStyle = normalizeGraphStyle(state.graphStyle);
       // 旧数据兼容: forceConfig
       state.forceConfig = data.forceConfig || { centerStrength: 0.05, chargeStrength: -650, linkStrength: 0.5, linkDistance: 170 };
 
@@ -4731,7 +5010,7 @@ function exportToHTML() {
     nodes: state.nodes.map(function(n) { return { id:n.id, name:n.name, gender:n.gender, avatar:null, notes:n.notes, tags:n.tags, episodes:n.episodes, hidden:n.hidden, x:n.x, y:n.y, fx:n.fx, fy:n.fy }; }),
     links: state.links.map(function(l) { var sid = l.source.id || l.source; var tid = l.target.id || l.target; return { id:l.id, source:sid, target:tid, label:l.label, type:l.type||(l.directed!==false?'action':'relation'), episodes:l.episodes, notes:l.notes, hidden:l.hidden, familyRelation:l.familyRelation||'' }; }),
     tagCategories: state.tagCategories,
-    graphStyle: state.graphStyle,
+    graphStyle: normalizeGraphStyle(state.graphStyle),
     graphBackgroundColor: state.graphBackgroundColor,
     linkTypes: state.linkTypes,
     forceConfig: state.forceConfig || {}

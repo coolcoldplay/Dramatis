@@ -1,0 +1,6202 @@
+{
+  "version": 4,
+  "title": "Twin Peaks Season 2 Atlas",
+  "description": "Structured extraction dataset for visualizing Twin Peaks Season 2 character relationships and plot development. Built from public episode guides and recap sources; no transcript text is reproduced.",
+  "nodes": [
+    {
+      "id": "N1",
+      "name": "Dale Cooper",
+      "avatar": null,
+      "notes": "FBI special agent; Season 2 follows his recovery, Laura Palmer case resolution, suspension, Windom Earle conflict, and Black Lodge entry.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T18",
+        "C3": "T30",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 0,
+      "y": 0,
+      "fx": 0,
+      "fy": 0,
+      "gender": "male"
+    },
+    {
+      "id": "N2",
+      "name": "Harry S. Truman",
+      "avatar": null,
+      "notes": "Twin Peaks sheriff and Cooper's closest local partner; his bond with Cooper anchors the investigation.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T18",
+        "C3": "T31",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": -170,
+      "y": 70,
+      "fx": -170,
+      "fy": 70,
+      "gender": "male"
+    },
+    {
+      "id": "N3",
+      "name": "Albert Rosenfield",
+      "avatar": null,
+      "notes": "FBI forensic specialist; repeatedly returns with decisive evidence on Laura, Maddy, Cooper's shooting, Windom Earle, and Josie.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T18",
+        "C3": "T30",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "hidden": false,
+      "x": -190,
+      "y": -70,
+      "fx": -190,
+      "fy": -70,
+      "gender": "male"
+    },
+    {
+      "id": "N4",
+      "name": "Gordon Cole",
+      "avatar": null,
+      "notes": "Cooper's FBI superior; later returns with information on Project Blue Book and reinstates Cooper.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T12",
+        "C3": "T30",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        }
+      ],
+      "hidden": false,
+      "x": -300,
+      "y": -140,
+      "fx": -300,
+      "fy": -140,
+      "gender": "male"
+    },
+    {
+      "id": "N5",
+      "name": "Garland Briggs",
+      "avatar": null,
+      "notes": "Major Briggs links the town story to Project Blue Book, Owl Cave, Windom Earle, and the White/Black Lodge mythology.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T11",
+        "C3": "T36",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        },
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": false,
+      "x": -160,
+      "y": -240,
+      "fx": -160,
+      "fy": -240,
+      "gender": "male"
+    },
+    {
+      "id": "N6",
+      "name": "Windom Earle",
+      "avatar": null,
+      "notes": "Former FBI agent and Cooper's ex-partner; arrives as the late-season antagonist seeking revenge and access to the Black Lodge.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T12",
+        "C3": "T30",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 290,
+      "y": -360,
+      "fx": 290,
+      "fy": -360,
+      "gender": "male"
+    },
+    {
+      "id": "N7",
+      "name": "Annie Blackburn",
+      "avatar": null,
+      "notes": "Norma's sister; becomes Cooper's love interest and the target Earle uses to lure Cooper into the Black Lodge.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T19",
+        "C3": "T40",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 80,
+      "y": -370,
+      "fx": 80,
+      "fy": -370,
+      "gender": "female"
+    },
+    {
+      "id": "N8",
+      "name": "Caroline Earle",
+      "avatar": null,
+      "notes": "Windom Earle's murdered wife and Cooper's former love; her memory explains Cooper and Earle's feud.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T12",
+        "C3": "T30",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 155,
+      "y": -455,
+      "fx": 155,
+      "fy": -455,
+      "gender": "female"
+    },
+    {
+      "id": "N9",
+      "name": "Laura Palmer",
+      "avatar": null,
+      "notes": "Murdered teenager whose case still structures the first half of Season 2 through visions, diary fragments, and the killer reveal.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T10",
+        "C3": "T32",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": -30,
+      "y": 165,
+      "fx": -30,
+      "fy": 165,
+      "gender": "female"
+    },
+    {
+      "id": "N10",
+      "name": "Leland Palmer",
+      "avatar": null,
+      "notes": "Laura's father; white-haired, unstable, revealed as BOB's host and Laura/Maddy's killer before dying in custody.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T10",
+        "C3": "T32",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 175,
+      "y": 115,
+      "fx": 175,
+      "fy": 115,
+      "gender": "male"
+    },
+    {
+      "id": "N11",
+      "name": "Sarah Palmer",
+      "avatar": null,
+      "notes": "Laura's mother; haunted by visions and later left to process Leland and Laura's deaths.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T10",
+        "C3": "T32",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        }
+      ],
+      "hidden": false,
+      "x": 45,
+      "y": 275,
+      "fx": 45,
+      "fy": 275,
+      "gender": "female"
+    },
+    {
+      "id": "N12",
+      "name": "Maddy Ferguson",
+      "avatar": null,
+      "notes": "Laura's cousin; her murder becomes the second major killing that exposes the Palmer/BOB truth.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T10",
+        "C3": "T32",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 235,
+      "y": 215,
+      "fx": 235,
+      "fy": 215,
+      "gender": "female"
+    },
+    {
+      "id": "N13",
+      "name": "BOB",
+      "avatar": null,
+      "notes": "Malevolent possessing entity connected to Laura's murder, Leland, Maddy's murder, and the final Cooper cliffhanger.",
+      "tags": {
+        "C1": "T4",
+        "C2": "T11",
+        "C3": "T41",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 280,
+      "y": -55,
+      "fx": 280,
+      "fy": -55,
+      "gender": "male"
+    },
+    {
+      "id": "N14",
+      "name": "MIKE / Phillip Gerard",
+      "avatar": null,
+      "notes": "One-armed man/inhabited host whose withdrawal lets MIKE point Cooper toward BOB.",
+      "tags": {
+        "C1": "T4",
+        "C2": "T11",
+        "C3": "T41",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "hidden": false,
+      "x": 150,
+      "y": -150,
+      "fx": 150,
+      "fy": -150,
+      "gender": "male"
+    },
+    {
+      "id": "N15",
+      "name": "The Giant",
+      "avatar": null,
+      "notes": "Visionary figure who gives Cooper clues and later returns during the Black Lodge mythology.",
+      "tags": {
+        "C1": "T4",
+        "C2": "T11",
+        "C3": "T41",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 80,
+      "y": -255,
+      "fx": 80,
+      "fy": -255,
+      "gender": "male"
+    },
+    {
+      "id": "N16",
+      "name": "Man From Another Place",
+      "avatar": null,
+      "notes": "Red Room/Lodge figure tied to Cooper's dream language and Season 2 finale imagery.",
+      "tags": {
+        "C1": "T4",
+        "C2": "T11",
+        "C3": "T41",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 430,
+      "y": -35,
+      "fx": 430,
+      "fy": -35,
+      "gender": "male"
+    },
+    {
+      "id": "N17",
+      "name": "Ronette Pulaski",
+      "avatar": null,
+      "notes": "Survivor of Laura's attack; her hospital attack and memory fragments remain part of the Laura case.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T10",
+        "C3": "T42",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        }
+      ],
+      "hidden": false,
+      "x": 275,
+      "y": -215,
+      "fx": 275,
+      "fy": -215,
+      "gender": "female"
+    },
+    {
+      "id": "N18",
+      "name": "Donna Hayward",
+      "avatar": null,
+      "notes": "Laura's friend; investigates Laura's secret life through Harold Smith and later the Tremond/Chalfont clue.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T15",
+        "C3": "T34",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": false,
+      "x": -520,
+      "y": 100,
+      "fx": -520,
+      "fy": 100,
+      "gender": "female"
+    },
+    {
+      "id": "N19",
+      "name": "James Hurley",
+      "avatar": null,
+      "notes": "Laura/Donna's love triangle figure; after the killer reveal he drifts into the Evelyn Marsh subplot.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T20",
+        "C3": "T35",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "hidden": false,
+      "x": -610,
+      "y": 190,
+      "fx": -610,
+      "fy": 190,
+      "gender": "male"
+    },
+    {
+      "id": "N20",
+      "name": "Harold Smith",
+      "avatar": null,
+      "notes": "Reclusive friend of Laura who holds her secret diary; his death and torn diary redirect the investigation.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T15",
+        "C3": "T42",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        }
+      ],
+      "hidden": false,
+      "x": -445,
+      "y": 25,
+      "fx": -445,
+      "fy": 25,
+      "gender": "male"
+    },
+    {
+      "id": "N21",
+      "name": "Audrey Horne",
+      "avatar": null,
+      "notes": "Ben Horne's daughter; rescued from One-Eyed Jack's, helps clear Cooper, then enters the Wheeler/Ghostwood/Miss Twin Peaks arcs.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T14",
+        "C3": "T33",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 540,
+      "y": 80,
+      "fx": 540,
+      "fy": 80,
+      "gender": "female"
+    },
+    {
+      "id": "N22",
+      "name": "Ben Horne",
+      "avatar": null,
+      "notes": "Great Northern owner; tied to One-Eyed Jack's, arrested for Laura's murder, then spirals before turning to Ghostwood and Wheeler.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T14",
+        "C3": "T33",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 625,
+      "y": -30,
+      "fx": 625,
+      "fy": -30,
+      "gender": "male"
+    },
+    {
+      "id": "N23",
+      "name": "Jerry Horne",
+      "avatar": null,
+      "notes": "Ben's brother and business accomplice; context node for Horne schemes.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T14",
+        "C3": "T33",
+        "C4": "T53"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        }
+      ],
+      "hidden": true,
+      "x": 735,
+      "y": -45,
+      "fx": 735,
+      "fy": -45,
+      "gender": "male"
+    },
+    {
+      "id": "N24",
+      "name": "John Justice Wheeler",
+      "avatar": null,
+      "notes": "Businessman Ben brings in to help; forms a short romance with Audrey.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T14",
+        "C3": "T33",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "hidden": false,
+      "x": 565,
+      "y": 210,
+      "fx": 565,
+      "fy": 210,
+      "gender": "male"
+    },
+    {
+      "id": "N25",
+      "name": "Jean Renault",
+      "avatar": null,
+      "notes": "Jacques and Bernard's brother; blackmails Ben and targets Cooper during the Audrey/One-Eyed Jack's plot.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T14",
+        "C3": "T39",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        }
+      ],
+      "hidden": false,
+      "x": 815,
+      "y": 115,
+      "fx": 815,
+      "fy": 115,
+      "gender": "male"
+    },
+    {
+      "id": "N26",
+      "name": "Blackie O'Reilly",
+      "avatar": null,
+      "notes": "Madam at One-Eyed Jack's involved in Audrey's captivity.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T14",
+        "C3": "T39",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        }
+      ],
+      "hidden": false,
+      "x": 830,
+      "y": 210,
+      "fx": 830,
+      "fy": 210,
+      "gender": "female"
+    },
+    {
+      "id": "N27",
+      "name": "Bobby Briggs",
+      "avatar": null,
+      "notes": "Shelly's lover and Major Briggs's son; later works with Ben and reveals Hank shot Leo.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T16",
+        "C3": "T37",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": false,
+      "x": -425,
+      "y": 360,
+      "fx": -425,
+      "fy": 360,
+      "gender": "male"
+    },
+    {
+      "id": "N28",
+      "name": "Shelly Johnson",
+      "avatar": null,
+      "notes": "Leo's wife and Bobby's lover; handles Leo's home care and later survives his escape.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T16",
+        "C3": "T37",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "hidden": false,
+      "x": -320,
+      "y": 430,
+      "fx": -320,
+      "fy": 430,
+      "gender": "female"
+    },
+    {
+      "id": "N29",
+      "name": "Leo Johnson",
+      "avatar": null,
+      "notes": "Violent husband of Shelly; survives shooting, becomes incapacitated, escapes, and is later used by Windom Earle.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T16",
+        "C3": "T37",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": false,
+      "x": -225,
+      "y": 385,
+      "fx": -225,
+      "fy": 385,
+      "gender": "male"
+    },
+    {
+      "id": "N30",
+      "name": "Hank Jennings",
+      "avatar": null,
+      "notes": "Criminal husband of Norma; implicated in Leo's shooting and Packard/Josie plots.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T16",
+        "C3": "T40",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "hidden": false,
+      "x": -160,
+      "y": 305,
+      "fx": -160,
+      "fy": 305,
+      "gender": "male"
+    },
+    {
+      "id": "N31",
+      "name": "Norma Jennings",
+      "avatar": null,
+      "notes": "Double R owner; Annie's sister and Ed's longtime love.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T17",
+        "C3": "T40",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": -520,
+      "y": 430,
+      "fx": -520,
+      "fy": 430,
+      "gender": "female"
+    },
+    {
+      "id": "N32",
+      "name": "Ed Hurley",
+      "avatar": null,
+      "notes": "Married to Nadine and in love with Norma; their triangle resurfaces at season end.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T17",
+        "C3": "T35",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": -705,
+      "y": 360,
+      "fx": -705,
+      "fy": 360,
+      "gender": "male"
+    },
+    {
+      "id": "N33",
+      "name": "Nadine Hurley",
+      "avatar": null,
+      "notes": "Wakes believing she is a high-schooler, joins wrestling, dates Mike, then regains memory after head trauma.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T17",
+        "C3": "T35",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": -790,
+      "y": 280,
+      "fx": -790,
+      "fy": 280,
+      "gender": "female"
+    },
+    {
+      "id": "N34",
+      "name": "Mike Nelson",
+      "avatar": null,
+      "notes": "High-school boy who becomes involved with Nadine during her amnesiac return to school.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T17",
+        "C3": "T42",
+        "C4": "T53"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        }
+      ],
+      "hidden": true,
+      "x": -875,
+      "y": 245,
+      "fx": -875,
+      "fy": 245,
+      "gender": "male"
+    },
+    {
+      "id": "N35",
+      "name": "Lucy Moran",
+      "avatar": null,
+      "notes": "Sheriff's station receptionist; chooses Andy as father of her baby during the Miss Twin Peaks arc.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T18",
+        "C3": "T31",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        },
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": false,
+      "x": -160,
+      "y": 625,
+      "fx": -160,
+      "fy": 625,
+      "gender": "female"
+    },
+    {
+      "id": "N36",
+      "name": "Andy Brennan",
+      "avatar": null,
+      "notes": "Deputy; comic-investigative thread with Dick and key clue work near the finale.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T18",
+        "C3": "T31",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": false,
+      "x": -300,
+      "y": 625,
+      "fx": -300,
+      "fy": 625,
+      "gender": "male"
+    },
+    {
+      "id": "N37",
+      "name": "Dick Tremayne",
+      "avatar": null,
+      "notes": "Lucy's other suitor; shares Little Nicky subplot and becomes part of the baby-father choice.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T18",
+        "C3": "T42",
+        "C4": "T53"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": true,
+      "x": -40,
+      "y": 645,
+      "fx": -40,
+      "fy": 645,
+      "gender": "male"
+    },
+    {
+      "id": "N38",
+      "name": "Little Nicky",
+      "avatar": null,
+      "notes": "Orphan subplot connected to Andy and Dick; low-priority context node.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T18",
+        "C3": "T42",
+        "C4": "T53"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        }
+      ],
+      "hidden": true,
+      "x": -25,
+      "y": 760,
+      "fx": -25,
+      "fy": 760,
+      "gender": "male"
+    },
+    {
+      "id": "N39",
+      "name": "Josie Packard",
+      "avatar": null,
+      "notes": "Packard widow; flees after the mill fire, is revealed as Cooper's shooter, and dies after the Eckhardt confrontation.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T13",
+        "C3": "T38",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        }
+      ],
+      "hidden": false,
+      "x": 560,
+      "y": 365,
+      "fx": 560,
+      "fy": 365,
+      "gender": "female"
+    },
+    {
+      "id": "N40",
+      "name": "Catherine Martell",
+      "avatar": null,
+      "notes": "Survives the mill fire, returns disguised, and contests Packard/Ghostwood control.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T13",
+        "C3": "T38",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 705,
+      "y": 345,
+      "fx": 705,
+      "fy": 345,
+      "gender": "female"
+    },
+    {
+      "id": "N41",
+      "name": "Pete Martell",
+      "avatar": null,
+      "notes": "Catherine's husband; survives the mill fire and helps open Eckhardt's puzzle box.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T13",
+        "C3": "T38",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 790,
+      "y": 265,
+      "fx": 790,
+      "fy": 265,
+      "gender": "male"
+    },
+    {
+      "id": "N42",
+      "name": "Andrew Packard",
+      "avatar": null,
+      "notes": "Presumed-dead Packard who resurfaces, reshaping Josie/Catherine/Eckhardt stakes.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T13",
+        "C3": "T38",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 825,
+      "y": 385,
+      "fx": 825,
+      "fy": 385,
+      "gender": "male"
+    },
+    {
+      "id": "N43",
+      "name": "Thomas Eckhardt",
+      "avatar": null,
+      "notes": "Josie's former lover/enemy whose arrival triggers her final crisis.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T13",
+        "C3": "T38",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        }
+      ],
+      "hidden": false,
+      "x": 685,
+      "y": 485,
+      "fx": 685,
+      "fy": 485,
+      "gender": "male"
+    },
+    {
+      "id": "N44",
+      "name": "Jonathan",
+      "avatar": null,
+      "notes": "Eckhardt/Josie-associated enforcer; context node for the Packard threat.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T13",
+        "C3": "T38",
+        "C4": "T53"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "hidden": true,
+      "x": 580,
+      "y": 490,
+      "fx": 580,
+      "fy": 490,
+      "gender": "male"
+    },
+    {
+      "id": "N45",
+      "name": "Evelyn Marsh",
+      "avatar": null,
+      "notes": "Wealthy woman who draws James into an off-town murder frame-up.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T20",
+        "C3": "T42",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "hidden": false,
+      "x": -790,
+      "y": 625,
+      "fx": -790,
+      "fy": 625,
+      "gender": "female"
+    },
+    {
+      "id": "N46",
+      "name": "Malcolm Sloan",
+      "avatar": null,
+      "notes": "Evelyn's accomplice/lover in the James frame-up subplot.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T20",
+        "C3": "T42",
+        "C4": "T53"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "hidden": true,
+      "x": -915,
+      "y": 650,
+      "fx": -915,
+      "fy": 650,
+      "gender": "male"
+    },
+    {
+      "id": "N47",
+      "name": "Dwayne Milford",
+      "avatar": null,
+      "notes": "Town mayor; context for the Milford/Lana subplot.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T18",
+        "C3": "T42",
+        "C4": "T53"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        }
+      ],
+      "hidden": true,
+      "x": -920,
+      "y": 520,
+      "fx": -920,
+      "fy": 520,
+      "gender": "male"
+    },
+    {
+      "id": "N48",
+      "name": "Lana Milford",
+      "avatar": null,
+      "notes": "Younger woman in the Milford subplot; low-priority context node.",
+      "tags": {
+        "C1": "T1",
+        "C2": "T18",
+        "C3": "T42",
+        "C4": "T53"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        }
+      ],
+      "hidden": true,
+      "x": -1010,
+      "y": 560,
+      "fx": -1010,
+      "fy": 560,
+      "gender": "female"
+    },
+    {
+      "id": "N49",
+      "name": "Laura Palmer Case",
+      "avatar": null,
+      "notes": "Season 2's first-half murder investigation; use as a hub instead of connecting every investigator directly to every clue.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T10",
+        "C3": "T42",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "hidden": false,
+      "x": 115,
+      "y": 0,
+      "fx": 115,
+      "fy": 0
+    },
+    {
+      "id": "N50",
+      "name": "Cooper Shooting / Giant Clues",
+      "avatar": null,
+      "notes": "Cooper recovers from being shot and receives the Giant's clues: a supernatural frame for the remaining Laura investigation.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T11",
+        "C3": "T30",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        }
+      ],
+      "hidden": false,
+      "x": 80,
+      "y": -105,
+      "fx": 80,
+      "fy": -105
+    },
+    {
+      "id": "N51",
+      "name": "Packard Mill Fire Aftermath",
+      "avatar": null,
+      "notes": "Fallout from the mill fire: Shelly and Pete survive, Catherine disappears, Josie flees, Leo is guarded.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T13",
+        "C3": "T38",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        }
+      ],
+      "hidden": false,
+      "x": 780,
+      "y": 560,
+      "fx": 780,
+      "fy": 560
+    },
+    {
+      "id": "N52",
+      "name": "Secret Diary / Harold Smith",
+      "avatar": null,
+      "notes": "Donna and Maddy's attempt to retrieve Laura's diary from Harold; ends with Harold's death and diary damage.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T15",
+        "C3": "T42",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        }
+      ],
+      "hidden": false,
+      "x": -360,
+      "y": 60,
+      "fx": -360,
+      "fy": 60
+    },
+    {
+      "id": "N53",
+      "name": "One-Eyed Jack's Rescue",
+      "avatar": null,
+      "notes": "Audrey's captivity and Cooper/Truman's unauthorized raid; later causes Cooper's FBI suspension.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T14",
+        "C3": "T39",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        }
+      ],
+      "hidden": false,
+      "x": 710,
+      "y": 100,
+      "fx": 710,
+      "fy": 100
+    },
+    {
+      "id": "N54",
+      "name": "Maddy Murder",
+      "avatar": null,
+      "notes": "Second killing by Leland/BOB that lets Cooper connect the case spiritually and forensically.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T10",
+        "C3": "T32",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "hidden": false,
+      "x": 305,
+      "y": 205,
+      "fx": 305,
+      "fy": 205
+    },
+    {
+      "id": "N55",
+      "name": "Killer Reveal / Leland Death",
+      "avatar": null,
+      "notes": "Cooper exposes Leland as BOB's host; BOB departs and Leland dies in custody.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T10",
+        "C3": "T32",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "hidden": false,
+      "x": 360,
+      "y": 95,
+      "fx": 360,
+      "fy": 95
+    },
+    {
+      "id": "N56",
+      "name": "Cooper Suspension",
+      "avatar": null,
+      "notes": "FBI suspends Cooper after the One-Eyed Jack's raid, keeping him in Twin Peaks as Earle approaches.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T12",
+        "C3": "T30",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        }
+      ],
+      "hidden": false,
+      "x": -70,
+      "y": -120,
+      "fx": -70,
+      "fy": -120
+    },
+    {
+      "id": "N57",
+      "name": "Project Blue Book",
+      "avatar": null,
+      "notes": "Air Force/Briggs research context connecting Owl Cave, the Lodges, and Windom Earle.",
+      "tags": {
+        "C1": "T3",
+        "C2": "T11",
+        "C3": "T36",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "hidden": false,
+      "x": -10,
+      "y": -310,
+      "fx": -10,
+      "fy": -310
+    },
+    {
+      "id": "N58",
+      "name": "Briggs Disappearance",
+      "avatar": null,
+      "notes": "Major Briggs vanishes in the woods and returns with no memory and a strange mark.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T11",
+        "C3": "T36",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        }
+      ],
+      "hidden": false,
+      "x": -70,
+      "y": -405,
+      "fx": -70,
+      "fy": -405
+    },
+    {
+      "id": "N59",
+      "name": "Windom Earle Chess Game",
+      "avatar": null,
+      "notes": "Earle announces his revenge on Cooper through a deadly chess game.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T12",
+        "C3": "T30",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        }
+      ],
+      "hidden": false,
+      "x": 365,
+      "y": -300,
+      "fx": 365,
+      "fy": -300
+    },
+    {
+      "id": "N60",
+      "name": "Josie Revealed / Death",
+      "avatar": null,
+      "notes": "Albert reveals Josie shot Cooper; her death after Eckhardt leaves Harry devastated and supernatural questions open.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T13",
+        "C3": "T38",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        }
+      ],
+      "hidden": false,
+      "x": 625,
+      "y": 420,
+      "fx": 625,
+      "fy": 420
+    },
+    {
+      "id": "N61",
+      "name": "Owl Cave Petroglyph",
+      "avatar": null,
+      "notes": "Map-like symbol discovered by Cooper, Briggs, Truman, Andy and others; key to entering the Black Lodge.",
+      "tags": {
+        "C1": "T5",
+        "C2": "T11",
+        "C3": "T41",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": false,
+      "x": 505,
+      "y": -300,
+      "fx": 505,
+      "fy": -300
+    },
+    {
+      "id": "N62",
+      "name": "White Lodge / Black Lodge Lore",
+      "avatar": null,
+      "notes": "Late-season mythology explaining Earle's objective and Cooper's danger.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T11",
+        "C3": "T41",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 430,
+      "y": -420,
+      "fx": 430,
+      "fy": -420
+    },
+    {
+      "id": "N63",
+      "name": "Miss Twin Peaks Pageant",
+      "avatar": null,
+      "notes": "Earle targets the pageant and uses Annie as the gateway victim for the Black Lodge.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T19",
+        "C3": "T42",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 525,
+      "y": -535,
+      "fx": 525,
+      "fy": -535
+    },
+    {
+      "id": "N64",
+      "name": "Black Lodge",
+      "avatar": null,
+      "notes": "The extradimensional destination of Earle, Annie, Cooper, BOB, and the finale's cliffhanger.",
+      "tags": {
+        "C1": "T3",
+        "C2": "T11",
+        "C3": "T41",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 455,
+      "y": -125,
+      "fx": 455,
+      "fy": -125
+    },
+    {
+      "id": "N65",
+      "name": "Possessed Cooper Cliffhanger",
+      "avatar": null,
+      "notes": "Final state of Season 2: Cooper returns, but BOB's reflection indicates possession or replacement.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T11",
+        "C3": "T41",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 205,
+      "y": -535,
+      "fx": 205,
+      "fy": -535
+    },
+    {
+      "id": "N66",
+      "name": "Ghostwood Estates",
+      "avatar": null,
+      "notes": "Development/business plot connecting Ben, Catherine, Packard power, and Audrey's protest.",
+      "tags": {
+        "C1": "T3",
+        "C2": "T13",
+        "C3": "T33",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 665,
+      "y": -180,
+      "fx": 665,
+      "fy": -180
+    },
+    {
+      "id": "N67",
+      "name": "Double R Diner",
+      "avatar": null,
+      "notes": "Norma's diner; social hub and Annie's arrival point.",
+      "tags": {
+        "C1": "T3",
+        "C2": "T17",
+        "C3": "T40",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "hidden": false,
+      "x": -625,
+      "y": 485,
+      "fx": -625,
+      "fy": 485
+    },
+    {
+      "id": "N68",
+      "name": "Twin Peaks Sheriff's Department",
+      "avatar": null,
+      "notes": "Main investigation workspace for Cooper, Truman, Hawk, Andy, Lucy, and FBI visitors.",
+      "tags": {
+        "C1": "T3",
+        "C2": "T18",
+        "C3": "T31",
+        "C4": "T50"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": false,
+      "x": -290,
+      "y": 5,
+      "fx": -290,
+      "fy": 5
+    },
+    {
+      "id": "N69",
+      "name": "Great Northern Hotel",
+      "avatar": null,
+      "notes": "Ben Horne's hotel and a recurring site for Cooper, One-Eyed Jack's business, and Laura-case clues.",
+      "tags": {
+        "C1": "T3",
+        "C2": "T14",
+        "C3": "T33",
+        "C4": "T51"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "hidden": false,
+      "x": 590,
+      "y": -145,
+      "fx": 590,
+      "fy": -145
+    },
+    {
+      "id": "N70",
+      "name": "Marsh Murder Frame-Up",
+      "avatar": null,
+      "notes": "James is drawn into Evelyn and Malcolm's scheme around Jeffrey Marsh's death.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T20",
+        "C3": "T42",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "hidden": false,
+      "x": -790,
+      "y": 765,
+      "fx": -790,
+      "fy": 765
+    },
+    {
+      "id": "N71",
+      "name": "Lucy Baby Choice",
+      "avatar": null,
+      "notes": "Lucy resolves the Andy/Dick baby-father triangle at the Miss Twin Peaks event.",
+      "tags": {
+        "C1": "T2",
+        "C2": "T18",
+        "C3": "T31",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "hidden": false,
+      "x": -185,
+      "y": 740,
+      "fx": -185,
+      "fy": 740
+    },
+    {
+      "id": "N72",
+      "name": "Eckhardt Puzzle Box",
+      "avatar": null,
+      "notes": "Eckhardt's final nested box/lockbox subplot with Andrew, Pete, and Catherine.",
+      "tags": {
+        "C1": "T5",
+        "C2": "T13",
+        "C3": "T38",
+        "C4": "T52"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "hidden": false,
+      "x": 890,
+      "y": 465,
+      "fx": 890,
+      "fy": 465
+    }
+  ],
+  "links": [
+    {
+      "id": "L1",
+      "source": "N1",
+      "target": "N68",
+      "label": "works with",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Cooper continues working with the sheriff's department throughout the Laura investigation.",
+      "hidden": false
+    },
+    {
+      "id": "L2",
+      "source": "N2",
+      "target": "N68",
+      "label": "leads",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Truman anchors local law enforcement.",
+      "hidden": false
+    },
+    {
+      "id": "L3",
+      "source": "N1",
+      "target": "N2",
+      "label": "partners",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Cooper and Truman function as the main investigative pair.",
+      "hidden": false
+    },
+    {
+      "id": "L4",
+      "source": "N3",
+      "target": "N1",
+      "label": "forensic support",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "notes": "Albert gives Cooper key forensic and investigative updates.",
+      "hidden": false
+    },
+    {
+      "id": "L5",
+      "source": "N1",
+      "target": "N49",
+      "label": "investigates",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Main arc: Cooper pushes the Laura Palmer investigation to resolution.",
+      "hidden": false
+    },
+    {
+      "id": "L6",
+      "source": "N9",
+      "target": "N49",
+      "label": "victim at center",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "raw": "S2E2"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Laura is the case's absent center.",
+      "hidden": false
+    },
+    {
+      "id": "L7",
+      "source": "N50",
+      "target": "N1",
+      "label": "gives clues to",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        }
+      ],
+      "notes": "The Giant appears to Cooper after the shooting.",
+      "hidden": false
+    },
+    {
+      "id": "L8",
+      "source": "N15",
+      "target": "N50",
+      "label": "appears in",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        }
+      ],
+      "notes": "The Giant frames the mystery in supernatural terms.",
+      "hidden": false
+    },
+    {
+      "id": "L9",
+      "source": "N50",
+      "target": "N49",
+      "label": "redirects",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        }
+      ],
+      "notes": "The clues point Cooper beyond ordinary suspects.",
+      "hidden": false
+    },
+    {
+      "id": "L10",
+      "source": "N17",
+      "target": "N49",
+      "label": "survivor witness",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        }
+      ],
+      "notes": "Ronette remains a witness/victim connected to Laura's attack.",
+      "hidden": false
+    },
+    {
+      "id": "L11",
+      "source": "N14",
+      "target": "N1",
+      "label": "points toward BOB",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "MIKE/Gerard helps Cooper find BOB when Gerard is off medication.",
+      "hidden": false
+    },
+    {
+      "id": "L12",
+      "source": "N14",
+      "target": "N13",
+      "label": "former killing partners",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "MIKE describes a prior connection to BOB.",
+      "hidden": false
+    },
+    {
+      "id": "L13",
+      "source": "N13",
+      "target": "N10",
+      "label": "possesses host",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "BOB is tied to Leland as host/possessor.",
+      "hidden": false
+    },
+    {
+      "id": "L14",
+      "source": "N10",
+      "target": "N9",
+      "label": "father / killer reveal",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Leland is Laura's father and is revealed as the killer under BOB's influence.",
+      "hidden": false,
+      "familyRelation": "parent"
+    },
+    {
+      "id": "L15",
+      "source": "N10",
+      "target": "N12",
+      "label": "murders",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Maddy's killing confirms the pattern and exposes Leland/BOB.",
+      "hidden": false
+    },
+    {
+      "id": "L16",
+      "source": "N54",
+      "target": "N12",
+      "label": "victim",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Maddy is the victim of the second major killing.",
+      "hidden": false
+    },
+    {
+      "id": "L17",
+      "source": "N54",
+      "target": "N10",
+      "label": "killer",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Leland/BOB commits the murder.",
+      "hidden": false
+    },
+    {
+      "id": "L18",
+      "source": "N54",
+      "target": "N55",
+      "label": "leads to reveal",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Maddy's death gives Cooper the final case momentum.",
+      "hidden": false
+    },
+    {
+      "id": "L19",
+      "source": "N1",
+      "target": "N55",
+      "label": "sets trap / reveals",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Cooper stages the confrontation that reveals Leland/BOB.",
+      "hidden": false
+    },
+    {
+      "id": "L20",
+      "source": "N55",
+      "target": "N13",
+      "label": "BOB departs",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "BOB leaves Leland as Leland dies.",
+      "hidden": false
+    },
+    {
+      "id": "L21",
+      "source": "N55",
+      "target": "N10",
+      "label": "dies in custody",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Leland remembers and dies after the reveal.",
+      "hidden": false
+    },
+    {
+      "id": "L22",
+      "source": "N11",
+      "target": "N10",
+      "label": "widow / survivor",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        }
+      ],
+      "notes": "Sarah is left to process Leland and Laura's deaths.",
+      "hidden": false,
+      "familyRelation": "spouse"
+    },
+    {
+      "id": "L23",
+      "source": "N11",
+      "target": "N9",
+      "label": "mother",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        }
+      ],
+      "notes": "Sarah remains Laura's grieving mother.",
+      "hidden": false,
+      "familyRelation": "parent"
+    },
+    {
+      "id": "L24",
+      "source": "N18",
+      "target": "N52",
+      "label": "investigates diary",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        }
+      ],
+      "notes": "Donna uses Harold to reach Laura's secret diary.",
+      "hidden": false
+    },
+    {
+      "id": "L25",
+      "source": "N20",
+      "target": "N52",
+      "label": "keeps diary",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        }
+      ],
+      "notes": "Harold holds Laura's private writings.",
+      "hidden": false
+    },
+    {
+      "id": "L26",
+      "source": "N9",
+      "target": "N52",
+      "label": "diary source",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        }
+      ],
+      "notes": "Laura's diary continues to reveal hidden life details.",
+      "hidden": false
+    },
+    {
+      "id": "L27",
+      "source": "N19",
+      "target": "N18",
+      "label": "romantic tension",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "Donna and James reaffirm their love after Maddy disappears.",
+      "hidden": false
+    },
+    {
+      "id": "L28",
+      "source": "N19",
+      "target": "N9",
+      "label": "former lover",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "raw": "S2E9"
+        }
+      ],
+      "notes": "James remains emotionally tied to Laura and her double life.",
+      "hidden": true
+    },
+    {
+      "id": "L29",
+      "source": "N20",
+      "target": "N18",
+      "label": "befriends / unnerves",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        }
+      ],
+      "notes": "Harold's bond with Donna becomes tense and unstable.",
+      "hidden": false
+    },
+    {
+      "id": "L30",
+      "source": "N52",
+      "target": "N49",
+      "label": "clue path",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        }
+      ],
+      "notes": "The diary path helps Cooper and Donna reach Mrs. Tremond/Chalfont clues.",
+      "hidden": false
+    },
+    {
+      "id": "L31",
+      "source": "N21",
+      "target": "N53",
+      "label": "held captive / rescued",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        }
+      ],
+      "notes": "Audrey's One-Eyed Jack's crisis is a major early-season rescue arc.",
+      "hidden": false
+    },
+    {
+      "id": "L32",
+      "source": "N25",
+      "target": "N53",
+      "label": "blackmails Ben",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        }
+      ],
+      "notes": "Jean Renault uses Audrey to pressure Ben and trap Cooper.",
+      "hidden": false
+    },
+    {
+      "id": "L33",
+      "source": "N26",
+      "target": "N53",
+      "label": "controls house",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        }
+      ],
+      "notes": "Blackie is part of the One-Eyed Jack's captivity plot.",
+      "hidden": false
+    },
+    {
+      "id": "L34",
+      "source": "N22",
+      "target": "N53",
+      "label": "targeted by blackmail",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        }
+      ],
+      "notes": "Ben is forced into the Audrey ransom/blackmail scheme.",
+      "hidden": false
+    },
+    {
+      "id": "L35",
+      "source": "N1",
+      "target": "N53",
+      "label": "unauthorized rescue raid",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        }
+      ],
+      "notes": "Cooper and Truman raid One-Eyed Jack's to recover Audrey.",
+      "hidden": false
+    },
+    {
+      "id": "L36",
+      "source": "N2",
+      "target": "N53",
+      "label": "backs raid",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        }
+      ],
+      "notes": "The raid later contributes to Cooper's suspension.",
+      "hidden": false
+    },
+    {
+      "id": "L37",
+      "source": "N53",
+      "target": "N56",
+      "label": "causes suspension",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        }
+      ],
+      "notes": "The unauthorized raid becomes the FBI basis for suspending Cooper.",
+      "hidden": false
+    },
+    {
+      "id": "L38",
+      "source": "N21",
+      "target": "N22",
+      "label": "daughter / father",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "raw": "S2E4"
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Audrey and Ben's relationship shifts from rebellion to rescue/rehabilitation of Ben.",
+      "hidden": false,
+      "familyRelation": "child"
+    },
+    {
+      "id": "L39",
+      "source": "N22",
+      "target": "N69",
+      "label": "owns / operates",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "raw": "S2E3"
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "raw": "S2E7"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "notes": "Ben's power base is the Great Northern Hotel.",
+      "hidden": false
+    },
+    {
+      "id": "L40",
+      "source": "N22",
+      "target": "N66",
+      "label": "development scheme",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Ben remains tied to Ghostwood business stakes.",
+      "hidden": false
+    },
+    {
+      "id": "L41",
+      "source": "N21",
+      "target": "N24",
+      "label": "romance",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "notes": "Audrey and Wheeler begin a short romantic arc.",
+      "hidden": false
+    },
+    {
+      "id": "L42",
+      "source": "N24",
+      "target": "N22",
+      "label": "brought in by",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        }
+      ],
+      "notes": "Ben enlists Wheeler for business help.",
+      "hidden": false
+    },
+    {
+      "id": "L43",
+      "source": "N21",
+      "target": "N63",
+      "label": "candidate / protest arc",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Audrey is drawn into pageant/Ghostwood climax and protests in the finale.",
+      "hidden": false
+    },
+    {
+      "id": "L44",
+      "source": "N23",
+      "target": "N22",
+      "label": "brother / accomplice",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        }
+      ],
+      "notes": "Jerry is context for Horne business schemes.",
+      "hidden": true,
+      "familyRelation": "sibling"
+    },
+    {
+      "id": "L45",
+      "source": "N27",
+      "target": "N28",
+      "label": "lovers",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "raw": "S2E6"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "notes": "Bobby and Shelly repeatedly reaffirm their relationship despite Leo/Hank fallout.",
+      "hidden": false
+    },
+    {
+      "id": "L46",
+      "source": "N29",
+      "target": "N28",
+      "label": "abusive husband",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "notes": "Leo's marriage to Shelly remains threatening.",
+      "hidden": false,
+      "familyRelation": "spouse"
+    },
+    {
+      "id": "L47",
+      "source": "N29",
+      "target": "N51",
+      "label": "survives shooting/fire fallout",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        }
+      ],
+      "notes": "Leo survives but is incapacitated under guard.",
+      "hidden": false
+    },
+    {
+      "id": "L48",
+      "source": "N51",
+      "target": "N28",
+      "label": "survives mill fire",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        }
+      ],
+      "notes": "Shelly survives the Packard mill fire aftermath.",
+      "hidden": false
+    },
+    {
+      "id": "L49",
+      "source": "N27",
+      "target": "N29",
+      "label": "reveals Hank shot Leo",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "notes": "Bobby tells Truman he saw Hank shoot Leo.",
+      "hidden": false
+    },
+    {
+      "id": "L50",
+      "source": "N30",
+      "target": "N29",
+      "label": "shot / framed fallout",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "notes": "Hank is blamed/imprisoned for Leo-related violence.",
+      "hidden": false
+    },
+    {
+      "id": "L51",
+      "source": "N6",
+      "target": "N29",
+      "label": "uses as captive pawn",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Earle later punishes Leo for freeing Briggs.",
+      "hidden": false
+    },
+    {
+      "id": "L52",
+      "source": "N28",
+      "target": "N67",
+      "label": "works at",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "notes": "Shelly is part of the Double R social world.",
+      "hidden": true
+    },
+    {
+      "id": "L53",
+      "source": "N31",
+      "target": "N67",
+      "label": "owns / runs",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 8,
+          "raw": "S2E8"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "notes": "Norma's diner is a town hub.",
+      "hidden": false
+    },
+    {
+      "id": "L54",
+      "source": "N31",
+      "target": "N32",
+      "label": "longtime love",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Ed and Norma's relationship resurfaces when Nadine's amnesia breaks.",
+      "hidden": false
+    },
+    {
+      "id": "L55",
+      "source": "N32",
+      "target": "N33",
+      "label": "married",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "raw": "S2E5"
+        },
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Ed is married to Nadine; her head trauma resets the amnesia plot.",
+      "hidden": false,
+      "familyRelation": "spouse"
+    },
+    {
+      "id": "L56",
+      "source": "N33",
+      "target": "N34",
+      "label": "high-school affair",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        }
+      ],
+      "notes": "Nadine's altered state draws her into Mike Nelson's school world.",
+      "hidden": true
+    },
+    {
+      "id": "L57",
+      "source": "N31",
+      "target": "N7",
+      "label": "sisters",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        }
+      ],
+      "notes": "Annie arrives as Norma's sister.",
+      "hidden": false,
+      "familyRelation": "sibling"
+    },
+    {
+      "id": "L58",
+      "source": "N36",
+      "target": "N35",
+      "label": "romance / baby father",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Lucy ultimately chooses Andy as the father figure for her baby.",
+      "hidden": false
+    },
+    {
+      "id": "L59",
+      "source": "N37",
+      "target": "N35",
+      "label": "rival suitor",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Dick is the alternative baby-father candidate.",
+      "hidden": true
+    },
+    {
+      "id": "L60",
+      "source": "N36",
+      "target": "N37",
+      "label": "Little Nicky investigation",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        }
+      ],
+      "notes": "Andy and Dick investigate Little Nicky together.",
+      "hidden": true
+    },
+    {
+      "id": "L61",
+      "source": "N38",
+      "target": "N36",
+      "label": "orphan subplot",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        }
+      ],
+      "notes": "Low-priority comic subplot.",
+      "hidden": true
+    },
+    {
+      "id": "L62",
+      "source": "N35",
+      "target": "N71",
+      "label": "chooses father",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Lucy resolves the baby-father triangle at the pageant.",
+      "hidden": false
+    },
+    {
+      "id": "L63",
+      "source": "N36",
+      "target": "N61",
+      "label": "clue work",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Andy is involved in clue discovery near the Owl Cave/Black Lodge arc.",
+      "hidden": false
+    },
+    {
+      "id": "L64",
+      "source": "N51",
+      "target": "N40",
+      "label": "missing after fire",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        }
+      ],
+      "notes": "Catherine disappears after the fire, later returning in disguise.",
+      "hidden": false
+    },
+    {
+      "id": "L65",
+      "source": "N51",
+      "target": "N39",
+      "label": "flees suspicion",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        }
+      ],
+      "notes": "Josie flees after the mill fire.",
+      "hidden": false
+    },
+    {
+      "id": "L66",
+      "source": "N40",
+      "target": "N41",
+      "label": "married",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "raw": "S2E1"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Catherine and Pete remain tied through Packard/Martell stakes.",
+      "hidden": false,
+      "familyRelation": "spouse"
+    },
+    {
+      "id": "L67",
+      "source": "N39",
+      "target": "N42",
+      "label": "widow / false death",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "notes": "Andrew's return exposes Packard deception around Josie.",
+      "hidden": false,
+      "familyRelation": "spouse"
+    },
+    {
+      "id": "L68",
+      "source": "N39",
+      "target": "N60",
+      "label": "revealed shooter / dies",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        }
+      ],
+      "notes": "Josie is revealed as Cooper's shooter and dies after the Eckhardt confrontation.",
+      "hidden": false
+    },
+    {
+      "id": "L69",
+      "source": "N3",
+      "target": "N60",
+      "label": "reveals evidence",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "notes": "Albert reveals Josie shot Cooper.",
+      "hidden": false
+    },
+    {
+      "id": "L70",
+      "source": "N2",
+      "target": "N60",
+      "label": "grieves Josie",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        }
+      ],
+      "notes": "Harry falls into depression after Josie's death.",
+      "hidden": false
+    },
+    {
+      "id": "L71",
+      "source": "N43",
+      "target": "N39",
+      "label": "past lover / threat",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        }
+      ],
+      "notes": "Eckhardt's arrival drives Josie's final crisis.",
+      "hidden": false
+    },
+    {
+      "id": "L72",
+      "source": "N44",
+      "target": "N43",
+      "label": "enforcer context",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        }
+      ],
+      "notes": "Jonathan supports the Eckhardt/Josie threat line.",
+      "hidden": true
+    },
+    {
+      "id": "L73",
+      "source": "N40",
+      "target": "N66",
+      "label": "business conflict",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 16,
+          "raw": "S2E16"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Catherine is connected to Ghostwood/Packard property stakes.",
+      "hidden": false
+    },
+    {
+      "id": "L74",
+      "source": "N42",
+      "target": "N72",
+      "label": "opens final box",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Andrew works through Eckhardt's nested puzzle box.",
+      "hidden": false
+    },
+    {
+      "id": "L75",
+      "source": "N41",
+      "target": "N72",
+      "label": "opens with Andrew",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Pete helps Andrew open the box.",
+      "hidden": false
+    },
+    {
+      "id": "L76",
+      "source": "N40",
+      "target": "N72",
+      "label": "inherits stakes",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Catherine is tied to Eckhardt's box aftermath.",
+      "hidden": false
+    },
+    {
+      "id": "L77",
+      "source": "N19",
+      "target": "N45",
+      "label": "hired / seduced",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "notes": "James is drawn into Evelyn's off-town storyline.",
+      "hidden": false
+    },
+    {
+      "id": "L78",
+      "source": "N45",
+      "target": "N70",
+      "label": "frames murder",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "notes": "Evelyn is central to the Marsh murder frame-up.",
+      "hidden": false
+    },
+    {
+      "id": "L79",
+      "source": "N46",
+      "target": "N70",
+      "label": "accomplice",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "notes": "Malcolm is part of the scheme against James.",
+      "hidden": true
+    },
+    {
+      "id": "L80",
+      "source": "N19",
+      "target": "N70",
+      "label": "suspect / flees",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "notes": "Police search for James after the Marsh murder frame-up.",
+      "hidden": false
+    },
+    {
+      "id": "L81",
+      "source": "N6",
+      "target": "N1",
+      "label": "former partner / enemy",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Earle seeks revenge on Cooper and exploits Cooper's past with Caroline.",
+      "hidden": false
+    },
+    {
+      "id": "L82",
+      "source": "N6",
+      "target": "N8",
+      "label": "murdered wife",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        }
+      ],
+      "notes": "Caroline's murder explains the Cooper/Earle feud.",
+      "hidden": false,
+      "familyRelation": "spouse"
+    },
+    {
+      "id": "L83",
+      "source": "N1",
+      "target": "N8",
+      "label": "former love",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Cooper's guilt over Caroline is a vulnerability Earle uses.",
+      "hidden": false
+    },
+    {
+      "id": "L84",
+      "source": "N6",
+      "target": "N59",
+      "label": "runs deadly chess game",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        }
+      ],
+      "notes": "Earle announces himself with a chess-based murder game.",
+      "hidden": false
+    },
+    {
+      "id": "L85",
+      "source": "N59",
+      "target": "N1",
+      "label": "targets",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        },
+        {
+          "season": 2,
+          "episode": 14,
+          "raw": "S2E14"
+        },
+        {
+          "season": 2,
+          "episode": 15,
+          "raw": "S2E15"
+        },
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        }
+      ],
+      "notes": "The chess game is directed at Cooper.",
+      "hidden": false
+    },
+    {
+      "id": "L86",
+      "source": "N5",
+      "target": "N57",
+      "label": "studied woods / signals",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "notes": "Briggs's Air Force work frames the Lodge mythology.",
+      "hidden": false
+    },
+    {
+      "id": "L87",
+      "source": "N5",
+      "target": "N58",
+      "label": "vanishes / returns marked",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "raw": "S2E11"
+        },
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        }
+      ],
+      "notes": "Briggs's disappearance is a supernatural and Project Blue Book clue.",
+      "hidden": false
+    },
+    {
+      "id": "L88",
+      "source": "N58",
+      "target": "N57",
+      "label": "connects to research",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 12,
+          "raw": "S2E12"
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "raw": "S2E13"
+        }
+      ],
+      "notes": "Briggs's disappearance ties to his classified work.",
+      "hidden": false
+    },
+    {
+      "id": "L89",
+      "source": "N6",
+      "target": "N57",
+      "label": "former Project Blue Book link",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        }
+      ],
+      "notes": "Gordon reveals Earle once worked with Briggs on Project Blue Book.",
+      "hidden": false
+    },
+    {
+      "id": "L90",
+      "source": "N4",
+      "target": "N1",
+      "label": "reinstates FBI status",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        }
+      ],
+      "notes": "Gordon returns and reinstates Cooper.",
+      "hidden": false
+    },
+    {
+      "id": "L91",
+      "source": "N4",
+      "target": "N57",
+      "label": "reports Earle/Briggs past",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        }
+      ],
+      "notes": "Gordon brings the Blue Book information.",
+      "hidden": false
+    },
+    {
+      "id": "L92",
+      "source": "N1",
+      "target": "N61",
+      "label": "finds map clue",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Cooper interprets the Owl Cave petroglyph as the way to the Lodge.",
+      "hidden": false
+    },
+    {
+      "id": "L93",
+      "source": "N5",
+      "target": "N61",
+      "label": "interprets with Cooper",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Briggs helps decode the Lodge path.",
+      "hidden": false
+    },
+    {
+      "id": "L94",
+      "source": "N6",
+      "target": "N62",
+      "label": "seeks Lodge power",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Earle's objective is access to Black Lodge power.",
+      "hidden": false
+    },
+    {
+      "id": "L95",
+      "source": "N62",
+      "target": "N64",
+      "label": "explains destination",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "The lore culminates in the Black Lodge entry.",
+      "hidden": false
+    },
+    {
+      "id": "L96",
+      "source": "N1",
+      "target": "N7",
+      "label": "romance",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        },
+        {
+          "season": 2,
+          "episode": 18,
+          "raw": "S2E18"
+        },
+        {
+          "season": 2,
+          "episode": 19,
+          "raw": "S2E19"
+        },
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Cooper and Annie form the emotional line Earle exploits.",
+      "hidden": false
+    },
+    {
+      "id": "L97",
+      "source": "N7",
+      "target": "N63",
+      "label": "Miss Twin Peaks candidate",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Annie enters the pageant and becomes Earle's target.",
+      "hidden": false
+    },
+    {
+      "id": "L98",
+      "source": "N6",
+      "target": "N63",
+      "label": "targets pageant",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 20,
+          "raw": "S2E20"
+        },
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Earle sets his trap at Miss Twin Peaks.",
+      "hidden": false
+    },
+    {
+      "id": "L99",
+      "source": "N6",
+      "target": "N7",
+      "label": "kidnaps",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        },
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Earle abducts Annie to lure Cooper into the Lodge.",
+      "hidden": false
+    },
+    {
+      "id": "L100",
+      "source": "N1",
+      "target": "N64",
+      "label": "enters",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Cooper follows Earle and Annie into the Black Lodge.",
+      "hidden": false
+    },
+    {
+      "id": "L101",
+      "source": "N6",
+      "target": "N64",
+      "label": "enters / defeated",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Earle reaches the Lodge, where BOB takes his soul.",
+      "hidden": false
+    },
+    {
+      "id": "L102",
+      "source": "N7",
+      "target": "N64",
+      "label": "taken into",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Annie is taken into the Lodge as bait.",
+      "hidden": false
+    },
+    {
+      "id": "L103",
+      "source": "N13",
+      "target": "N64",
+      "label": "dominates finale",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "BOB appears as the controlling danger in the Lodge.",
+      "hidden": false
+    },
+    {
+      "id": "L104",
+      "source": "N64",
+      "target": "N65",
+      "label": "returns wrong Cooper",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "The Lodge sequence leads directly to the possessed-Cooper cliffhanger.",
+      "hidden": false
+    },
+    {
+      "id": "L105",
+      "source": "N13",
+      "target": "N65",
+      "label": "reflected in Cooper",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "BOB appears in the mirror with Cooper at the end.",
+      "hidden": false
+    },
+    {
+      "id": "L106",
+      "source": "N1",
+      "target": "N65",
+      "label": "cliffhanger body",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "The finale leaves Cooper's state unresolved.",
+      "hidden": false
+    },
+    {
+      "id": "L107",
+      "source": "N15",
+      "target": "N64",
+      "label": "Lodge figure",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "The Giant is part of the finale's supernatural frame.",
+      "hidden": false
+    },
+    {
+      "id": "L108",
+      "source": "N16",
+      "target": "N64",
+      "label": "Red Room figure",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "The Man From Another Place appears in Red Room/Lodge imagery.",
+      "hidden": false
+    },
+    {
+      "id": "L109",
+      "source": "N9",
+      "target": "N64",
+      "label": "appears in Red Room",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Laura's image returns in the finale's Lodge space.",
+      "hidden": false
+    },
+    {
+      "id": "L110",
+      "source": "N12",
+      "target": "N64",
+      "label": "appears in Lodge space",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Maddy appears in Cooper's Lodge experience.",
+      "hidden": false
+    },
+    {
+      "id": "L111",
+      "source": "N10",
+      "target": "N64",
+      "label": "appears in Lodge space",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Leland appears during the finale's Lodge sequence.",
+      "hidden": false
+    },
+    {
+      "id": "L112",
+      "source": "N47",
+      "target": "N48",
+      "label": "brother objects to marriage",
+      "type": "relation",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 10,
+          "raw": "S2E10"
+        }
+      ],
+      "notes": "Milford subplot context from Dispute Between Brothers.",
+      "hidden": true
+    },
+    {
+      "id": "L113",
+      "source": "N63",
+      "target": "N71",
+      "label": "pageant side resolution",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 21,
+          "raw": "S2E21"
+        }
+      ],
+      "notes": "Lucy's choice happens in the Miss Twin Peaks episode.",
+      "hidden": false
+    },
+    {
+      "id": "L114",
+      "source": "N31",
+      "target": "N7",
+      "label": "brings Annie to town",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 17,
+          "raw": "S2E17"
+        }
+      ],
+      "notes": "Annie arrives through Norma's Double R world.",
+      "hidden": false
+    },
+    {
+      "id": "L115",
+      "source": "N33",
+      "target": "N63",
+      "label": "head trauma in finale",
+      "type": "action",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 22,
+          "raw": "S2E22"
+        }
+      ],
+      "notes": "Nadine's trauma at the finale changes the Ed/Norma/Nadine triangle.",
+      "hidden": false
+    }
+  ],
+  "tagCategories": [
+    {
+      "id": "C1",
+      "name": "Node Type",
+      "visible": true,
+      "tags": [
+        {
+          "id": "T1",
+          "name": "Person",
+          "color": "#d4a574"
+        },
+        {
+          "id": "T2",
+          "name": "Event",
+          "color": "#c75c5c"
+        },
+        {
+          "id": "T3",
+          "name": "Place/Org",
+          "color": "#4a90b8"
+        },
+        {
+          "id": "T4",
+          "name": "Spirit/Entity",
+          "color": "#b87aa8"
+        },
+        {
+          "id": "T5",
+          "name": "Object/Clue",
+          "color": "#7ba05b"
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "Plotline",
+      "visible": true,
+      "tags": [
+        {
+          "id": "T10",
+          "name": "Laura Case",
+          "color": "#e06666"
+        },
+        {
+          "id": "T11",
+          "name": "Black Lodge",
+          "color": "#9c6ade"
+        },
+        {
+          "id": "T12",
+          "name": "Windom Earle/FBI",
+          "color": "#6fa8dc"
+        },
+        {
+          "id": "T13",
+          "name": "Packard/Ghostwood",
+          "color": "#76a5af"
+        },
+        {
+          "id": "T14",
+          "name": "Horne/One-Eyed Jack's",
+          "color": "#e69138"
+        },
+        {
+          "id": "T15",
+          "name": "Teen/Harold/James",
+          "color": "#c27ba0"
+        },
+        {
+          "id": "T16",
+          "name": "Johnson/Leo/Bobby",
+          "color": "#93c47d"
+        },
+        {
+          "id": "T17",
+          "name": "Ed/Norma/Nadine",
+          "color": "#f1c232"
+        },
+        {
+          "id": "T18",
+          "name": "Sheriff/FBI",
+          "color": "#999999"
+        },
+        {
+          "id": "T19",
+          "name": "Miss Twin Peaks",
+          "color": "#d5a6bd"
+        },
+        {
+          "id": "T20",
+          "name": "James/Evelyn",
+          "color": "#a67c52"
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "Group",
+      "visible": false,
+      "tags": [
+        {
+          "id": "T30",
+          "name": "FBI",
+          "color": "#6fa8dc"
+        },
+        {
+          "id": "T31",
+          "name": "Sheriff Dept",
+          "color": "#999999"
+        },
+        {
+          "id": "T32",
+          "name": "Palmer",
+          "color": "#e06666"
+        },
+        {
+          "id": "T33",
+          "name": "Horne",
+          "color": "#e69138"
+        },
+        {
+          "id": "T34",
+          "name": "Hayward",
+          "color": "#c27ba0"
+        },
+        {
+          "id": "T35",
+          "name": "Hurley",
+          "color": "#8e7cc3"
+        },
+        {
+          "id": "T36",
+          "name": "Briggs",
+          "color": "#6fa8dc"
+        },
+        {
+          "id": "T37",
+          "name": "Johnson/Briggs",
+          "color": "#93c47d"
+        },
+        {
+          "id": "T38",
+          "name": "Packard/Martell",
+          "color": "#76a5af"
+        },
+        {
+          "id": "T39",
+          "name": "Renault/One-Eyed",
+          "color": "#cc0000"
+        },
+        {
+          "id": "T40",
+          "name": "Double R",
+          "color": "#f1c232"
+        },
+        {
+          "id": "T41",
+          "name": "Lodge",
+          "color": "#9c6ade"
+        },
+        {
+          "id": "T42",
+          "name": "Town",
+          "color": "#b7b7b7"
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "Importance",
+      "visible": true,
+      "tags": [
+        {
+          "id": "T50",
+          "name": "Core",
+          "color": "#ffd966"
+        },
+        {
+          "id": "T51",
+          "name": "Major",
+          "color": "#b6d7a8"
+        },
+        {
+          "id": "T52",
+          "name": "Supporting",
+          "color": "#a4c2f4"
+        },
+        {
+          "id": "T53",
+          "name": "Context/Hidden",
+          "color": "#666666"
+        }
+      ]
+    }
+  ],
+  "nextId": 500,
+  "linkTypes": {
+    "relation": {
+      "label": "关系",
+      "color": "#6f7f86",
+      "width": 1.3,
+      "dasharray": "4,4",
+      "labelColor": "#b9c4c8",
+      "directed": false,
+      "labelFontSize": 0,
+      "labelOrientation": "parallel"
+    },
+    "action": {
+      "label": "行动",
+      "color": "#68a36f",
+      "width": 1.8,
+      "dasharray": "",
+      "labelColor": "#8dcc8d",
+      "directed": true,
+      "labelFontSize": 0,
+      "labelOrientation": "parallel"
+    }
+  },
+  "graphStyle": {
+    "nodeLabelColor": "#e8e4d6",
+    "nodeLabelFontSize": 11,
+    "nodeScale": 0.85,
+    "nodeLabelOpacity": 0.95
+  },
+  "graphBackgroundColor": "#050708",
+  "forceConfig": {
+    "centerStrength": 0.02,
+    "chargeStrength": -450,
+    "linkStrength": 0.25,
+    "linkDistance": 170
+  },
+  "sources": [
+    {
+      "id": "src-paramount-s2",
+      "label": "Paramount+ Season 2 episode guide",
+      "url": "https://www.paramountplus.com/shows/twin_peaks/episodes/2/",
+      "usage": "Episode titles and official one-line episode descriptions."
+    },
+    {
+      "id": "src-tvguide-s2",
+      "label": "TV Guide Season 2 episode guide",
+      "url": "https://www.tvguide.com/tvshows/twin-peaks/episodes-season-2/1030204942/",
+      "usage": "Episode-by-episode plot points used for extraction."
+    },
+    {
+      "id": "src-wikipedia-episodes",
+      "label": "Wikipedia list of Twin Peaks episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Twin_Peaks_episodes#Season_2_(1990%E2%80%9391)",
+      "usage": "Season length, air dates, and broad season arc."
+    },
+    {
+      "id": "src-twinpeaks-wiki-episodes",
+      "label": "Twin Peaks Wiki episode index",
+      "url": "https://twinpeaks.fandom.com/wiki/Episodes",
+      "usage": "Cross-checking episode numbering and continuity."
+    },
+    {
+      "id": "src-time-recap",
+      "label": "TIME season 2 recap before The Return",
+      "url": "https://time.com/4780089/twin-peaks-2017-season-2-recap/",
+      "usage": "Cross-checking late-season Windom Earle and Black Lodge arc."
+    },
+    {
+      "id": "src-scriptslug-s2e1",
+      "label": "Script Slug S2E1 script landing page",
+      "url": "https://www.scriptslug.com/script/twin-peaks-201-episode-2-1-1990",
+      "usage": "Transcript/script availability check; not copied into outputs."
+    },
+    {
+      "id": "src-forever-dreaming-index",
+      "label": "Forever Dreaming Twin Peaks transcript index",
+      "url": "https://transcripts.foreverdreaming.org/viewforum.php?f=1187",
+      "usage": "Transcript availability check; not copied into outputs."
+    },
+    {
+      "id": "src-subslikescript-index",
+      "label": "Subs Like Script Twin Peaks index",
+      "url": "https://subslikescript.com/series/Twin_Peaks-98936",
+      "usage": "Transcript availability check; not copied into outputs."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+.codex-remote-attachments/
+.playwright-cli/
+.worktrees/
+worktrees/
+node_modules/
+output/
+*.log
+.DS_Store
+Thumbs.db
