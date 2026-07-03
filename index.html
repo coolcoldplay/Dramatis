@@ -14,6 +14,7 @@
 <script src="node-label-layout.js"></script>
 <script src="src/app-state.js"></script>
 <script src="src/episode-timeline.js"></script>
+<script src="src/import-export.js"></script>
 <style>
   :root {
     --bg-deep: #0d0e12;
@@ -4649,64 +4650,20 @@ document.getElementById('import-input').addEventListener('change', e => {
   reader.onload = ev => {
     try {
       const data = JSON.parse(ev.target.result);
-      state.nodes = (data.nodes || []).map(n => ({
-        ...n, notes: n.notes || '', tags: n.tags || {},
-        episodes: n.episodes || [], hidden: n.hidden || false,
-        fx: (n.fx != null) ? n.fx : null,
-        fy: (n.fy != null) ? n.fy : null,
-      }));
-      state.links = (data.links || []).map(l => ({
-        ...l,
-        type: l.type || (l.directed !== false ? 'action' : 'relation'),
-        episodes: l.episodes || [],
-        notes: l.notes || '',
-        hidden: l.hidden || false,
-      }));
-      state.tagCategories = (data.tagCategories || []).map(c => ({
-        ...c, visible: c.visible !== false, tags: c.tags || [],
-      }));
-      state.nextId = data.nextId || 1;
-      state.graphStyle = normalizeGraphStyle(data.graphStyle);
-      state.graphBackgroundColor = data.graphBackgroundColor || (data.graphBackground && data.graphBackground.value) || '#0d0e12';
-      if (data.linkTypes) {
-        state.linkTypes.relation = { ...state.linkTypes.relation, ...data.linkTypes.relation };
-        state.linkTypes.action = { ...state.linkTypes.action, ...data.linkTypes.action };
-      }
-      // 旧数据兼容: 确保 per-type label 字段存在
-      ['relation', 'action'].forEach(t => {
-        if (state.linkTypes[t].labelFontSize == null) state.linkTypes[t].labelFontSize = 11;
-        if (state.linkTypes[t].labelOrientation == null) state.linkTypes[t].labelOrientation = 'horizontal';
+      const imported = DramatisImportExport.normalizeImportedGraph(data, {
+        defaultLinkTypes: state.linkTypes,
+        graphIndex: window.DramatisGraphIndex,
+        normalizeGraphStyle,
       });
-      // 旧数据兼容: graphStyle 新字段
-      state.graphStyle = normalizeGraphStyle(state.graphStyle);
-      // 旧数据兼容: forceConfig
-      state.forceConfig = data.forceConfig || { centerStrength: 0.05, chargeStrength: -650, linkStrength: 0.5, linkDistance: 170 };
-
-      if (window.DramatisGraphIndex) {
-        const resolved = DramatisGraphIndex.resolveLinkEndpoints(state.nodes, state.links);
-        state.links = resolved.links;
-      } else {
-        state.links.forEach(l => {
-          if (typeof l.source === 'string') l.source = state.nodes.find(n => n.id === l.source);
-          if (typeof l.target === 'string') l.target = state.nodes.find(n => n.id === l.target);
-        });
-        state.links = state.links.filter(l => l.source && l.target);
-      }
+      state.nodes = imported.nodes;
+      state.links = imported.links;
+      state.tagCategories = imported.tagCategories;
+      state.nextId = imported.nextId;
+      state.graphStyle = imported.graphStyle;
+      state.graphBackgroundColor = imported.graphBackgroundColor;
+      state.linkTypes = imported.linkTypes;
+      state.forceConfig = imported.forceConfig;
       rebuildGraphIndex();
-
-      const maxIdNum = (arr, prefix) => Math.max(0, ...arr
-        .map(x => x.id)
-        .filter(id => typeof id === 'string' && id.startsWith(prefix))
-        .map(id => parseInt(id.slice(prefix.length), 10))
-        .filter(Number.isFinite));
-      let maxId = 0;
-      maxId = Math.max(maxId, maxIdNum(state.nodes, 'N'));
-      maxId = Math.max(maxId, maxIdNum(state.links, 'L'));
-      maxId = Math.max(maxId, maxIdNum(state.tagCategories, 'C'));
-      state.tagCategories.forEach(c => {
-        maxId = Math.max(maxId, maxIdNum(c.tags, 'T'));
-      });
-      state.nextId = Math.max(state.nextId, maxId + 1);
 
       state.currentEpisode = null;
 
