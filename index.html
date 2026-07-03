@@ -1712,7 +1712,7 @@
     <button class="tool-btn" id="btn-clamp-toolbar" title="收回当前视野">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/><path d="M9 4L4 9"/><path d="M15 4l5 5"/><path d="M9 20l-5-5"/><path d="M15 20l5-5"/></svg>
     </button>
-    <button class="tool-btn" id="btn-declutter-labels" title="整理连线注释">
+    <button class="tool-btn" id="btn-declutter-labels" title="拉开连线注释空间">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h10"/><path d="M4 12h16"/><path d="M4 17h8"/><path d="M18 5l3 3-3 3"/><path d="M6 19l-3-3 3-3"/></svg>
     </button>
     <button class="tool-btn" id="btn-toolbar-toggle" title="隐藏工具栏 (T)">
@@ -1965,6 +1965,7 @@
         <div class="help-row"><span>网络清理</span><span>按连线数批量隐藏/显示弱连接节点，或把散落节点收回当前视野</span></div>
         <div class="help-row"><span>标签分群</span><span>按某一类标签生成分群，群距滑杆可拉开不同群体中心</span></div>
         <div class="help-row"><span>拓扑大小</span><span>按度数或连通性放大主要节点，弱连接节点保持较小</span></div>
+        <div class="help-row"><span>注释避让</span><span>检测连线文字遮挡，临时增强相关节点和连线的力场以拉开空间</span></div>
       </div>
     </div>
   </div>
@@ -2019,6 +2020,8 @@ let nodeSearchQuery = '';
 let nodeSearchMatchIds = new Set();
 let nodeRadiusCache = new Map();
 let collisionPaddingBoost = 0;
+let labelDeclutterDistanceBoosts = new Map();
+let labelDeclutterRuntimeToken = 0;
 
 var EYE_OPEN_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 var EYE_CLOSED_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
@@ -2045,6 +2048,36 @@ function normalizeTopologySizing(value) {
   const mode = input.mode === 'degree' || input.mode === 'connectivity' ? input.mode : 'none';
   const strength = Math.min(1, Math.max(0, Number(input.strength) || 0));
   return { mode, strength };
+}
+
+function baseLinkDistance() {
+  const distance = state.forceConfig && Number(state.forceConfig.linkDistance);
+  return Number.isFinite(distance) ? distance : 170;
+}
+
+function linkForceDistance(link) {
+  const id = link && link.id;
+  return baseLinkDistance() + (Number(labelDeclutterDistanceBoosts.get(id)) || 0);
+}
+
+function updateLinkForceDistance() {
+  const linkForce = simulation && simulation.force('link');
+  if (linkForce && typeof linkForce.distance === 'function') {
+    linkForce.distance(linkForceDistance);
+  }
+}
+
+function setLabelDeclutterDistanceBoosts(boosts) {
+  labelDeclutterDistanceBoosts = new Map();
+  if (boosts && typeof boosts.forEach === 'function') {
+    boosts.forEach((value, key) => {
+      const boost = Number(value);
+      if (key && Number.isFinite(boost) && boost > 0) {
+        labelDeclutterDistanceBoosts.set(key, boost);
+      }
+    });
+  }
+  updateLinkForceDistance();
 }
 
 function invalidateGraphIndex() {
@@ -2103,6 +2136,7 @@ function applySnapshot(snap) {
   state.clusterSpacing = normalizeClusterSpacing(snap.clusterSpacing);
   state.topologySizing = normalizeTopologySizing(snap.topologySizing);
   state.forceConfig = snap.forceConfig || { centerStrength: 0.05, chargeStrength: -650, linkStrength: 0.5, linkDistance: 170 };
+  labelDeclutterDistanceBoosts = new Map();
   rebuildGraphIndex();
 }
 
@@ -2264,7 +2298,7 @@ function currentTransform() {
 const size = getSize();
 const fc = state.forceConfig;
 const simulation = d3.forceSimulation()
-  .force('link', d3.forceLink().id(d => d.id).distance(fc.linkDistance).strength(fc.linkStrength))
+  .force('link', d3.forceLink().id(d => d.id).distance(linkForceDistance).strength(fc.linkStrength))
   .force('charge', d3.forceManyBody().strength(fc.chargeStrength))
   .force('center', d3.forceCenter(size.width / 2, size.height / 2).strength(fc.centerStrength))
   .force('collide', d3.forceCollide().radius(nodeCollisionRadius).strength(0.9))
@@ -2825,7 +2859,7 @@ function applyForceConfig() {
   simulation.force('center').strength(fc.centerStrength);
   simulation.force('charge').strength(fc.chargeStrength);
   simulation.force('link').strength(fc.linkStrength);
-  simulation.force('link').distance(fc.linkDistance);
+  updateLinkForceDistance();
 }
 
 function updateArrowColors() {
@@ -3276,15 +3310,8 @@ function tick() {
 
     const lt = state.linkTypes[linkType(d)];
     const labelOffset = lt.width / 2 + 3;
-    const baseLabelX = labelX;
-    const baseLabelY = labelY - labelOffset;
-    const shiftX = Number(d._labelShiftX) || 0;
-    const shiftY = Number(d._labelShiftY) || 0;
-    const displayLabelX = baseLabelX + shiftX;
-    const displayLabelY = baseLabelY + shiftY;
-    d._labelAnchorX = baseLabelX;
-    d._labelAnchorY = baseLabelY;
-    d._labelX = displayLabelX;
+    const displayLabelY = labelY - labelOffset;
+    d._labelX = labelX;
     d._labelY = displayLabelY;
     g.select('path.link')
       .attr('stroke', lt.color)
@@ -3295,13 +3322,13 @@ function tick() {
     g.select('text.link-label')
       .attr('fill', lt.labelColor)
       .attr('font-size', lt.labelFontSize > 0 ? lt.labelFontSize + 'px' : '0px')
-      .attr('x', displayLabelX).attr('y', displayLabelY)
+      .attr('x', labelX).attr('y', displayLabelY)
       .style('display', lt.labelFontSize <= 0 ? 'none' : null)
       .attr('transform', () => {
         if (lt.labelOrientation === 'parallel') {
           const angle = Math.atan2(dy, dx) * 180 / Math.PI;
           const finalAngle = (angle > 90 || angle < -90) ? angle + 180 : angle;
-          return 'rotate(' + finalAngle + ', ' + displayLabelX + ', ' + displayLabelY + ')';
+          return 'rotate(' + finalAngle + ', ' + labelX + ', ' + displayLabelY + ')';
         }
         return null;
       });
@@ -3428,16 +3455,18 @@ function readVisibleLinkLabelBoxes() {
       width = String(d.label || '').length * lt.labelFontSize * 0.62;
     }
     if (!Number.isFinite(width) || width <= 0) width = String(d.label || '').length * lt.labelFontSize * 0.62;
+    const source = d.source && typeof d.source === 'object' ? d.source : null;
+    const target = d.target && typeof d.target === 'object' ? d.target : null;
     boxes.push({
       linkId: d.id,
       sourceId: linkEndpointId(d.source),
       targetId: linkEndpointId(d.target),
       x: d._labelX,
       y: d._labelY,
-      anchorX: Number.isFinite(d._labelAnchorX) ? d._labelAnchorX : d._labelX,
-      anchorY: Number.isFinite(d._labelAnchorY) ? d._labelAnchorY : d._labelY,
-      shiftX: Number(d._labelShiftX) || 0,
-      shiftY: Number(d._labelShiftY) || 0,
+      sourceX: source ? source.x : NaN,
+      sourceY: source ? source.y : NaN,
+      targetX: target ? target.x : NaN,
+      targetY: target ? target.y : NaN,
       width: Math.max(24, width),
       height: Math.max(14, lt.labelFontSize * 1.35),
     });
@@ -3445,37 +3474,65 @@ function readVisibleLinkLabelBoxes() {
   return boxes;
 }
 
-function applyLinkLabelDeclutterOffsets() {
-  if (!window.DramatisLinkLabelDeclutter) return { labels: 0, moved: 0 };
-  tick();
-  const boxes = readVisibleLinkLabelBoxes();
-  const offsets = DramatisLinkLabelDeclutter.resolveLabelOffsets(boxes, {
-    padding: 10,
-    iterations: 160,
-    maxShift: 210,
-    anchorStrength: 0.003,
-  });
-  const linkById = new Map(state.links.map(link => [link.id, link]));
-  let moved = 0;
-  offsets.forEach((offset, linkId) => {
-    const link = linkById.get(linkId);
-    if (!link) return;
-    const previousX = Number(link._labelShiftX) || 0;
-    const previousY = Number(link._labelShiftY) || 0;
-    link._labelShiftX = offset.x;
-    link._labelShiftY = offset.y;
-    if (Math.abs(previousX - offset.x) > 0.5 || Math.abs(previousY - offset.y) > 0.5) moved += 1;
-  });
-  tick();
-  return { labels: boxes.length, moved };
+function temporarilyStrengthenLabelForces(durationMs) {
+  const token = labelDeclutterRuntimeToken + 1;
+  labelDeclutterRuntimeToken = token;
+  const duration = durationMs || 3600;
+  const chargeForce = simulation.force('charge');
+  const linkForce = simulation.force('link');
+  const originalCharge = state.forceConfig.chargeStrength != null ? state.forceConfig.chargeStrength : -650;
+  const originalLinkStrength = state.forceConfig.linkStrength != null ? state.forceConfig.linkStrength : 0.5;
+  const previousCollisionBoost = collisionPaddingBoost;
+
+  collisionPaddingBoost = Math.max(collisionPaddingBoost, 24);
+  simulation.force('collide').radius(nodeCollisionRadius);
+  if (chargeForce && typeof chargeForce.strength === 'function') {
+    chargeForce.strength(originalCharge < 0 ? originalCharge * 1.35 : -850);
+  }
+  if (linkForce && typeof linkForce.strength === 'function') {
+    linkForce.strength(Math.min(1.2, originalLinkStrength * 1.1));
+  }
+
+  window.setTimeout(() => {
+    if (labelDeclutterRuntimeToken !== token) return;
+    collisionPaddingBoost = previousCollisionBoost;
+    simulation.force('collide').radius(nodeCollisionRadius);
+    if (chargeForce && typeof chargeForce.strength === 'function') chargeForce.strength(originalCharge);
+    if (linkForce && typeof linkForce.strength === 'function') linkForce.strength(originalLinkStrength);
+  }, duration);
 }
 
 function declutterLinkLabels() {
   if (!window.DramatisLinkLabelDeclutter || state.links.length === 0) return;
   render(false);
-  applyLinkLabelDeclutterOffsets();
-  simulation.alphaTarget(0);
-  if (!state.freePlacement) simulation.stop();
+  tick();
+  const boxes = readVisibleLinkLabelBoxes();
+  const plan = DramatisLinkLabelDeclutter.calculateLabelForcePlan(boxes, {
+    padding: 10,
+    strength: 1.35,
+    maxPairs: 5200,
+    maxNodeImpulse: 230,
+    maxLinkDistanceBoost: 520,
+  });
+  setLabelDeclutterDistanceBoosts(plan.linkDistanceBoosts);
+  if (!plan.overlapCount) return;
+
+  const duration = 4200;
+  const impulseForce = DramatisLinkLabelDeclutter.createImpulseForce(plan.impulses, { strength: 0.078 });
+  const boundaryForce = DramatisLayoutForces.createBoundaryForce(
+    () => graphViewportBounds(0),
+    { margin: Math.max(130, NODE_R * 4), strength: 0.09 }
+  );
+  temporarilyStrengthenLabelForces(duration);
+  scheduleTemporaryForce('labelDeclutterNodeForce', impulseForce, duration);
+  scheduleTemporaryForce('labelDeclutterBoundary', boundaryForce, duration, () => {
+    tick();
+    if (!state.freePlacement) {
+      simulation.alpha(0);
+      simulation.stop();
+    }
+  });
+  simulation.alphaTarget(0.16).alpha(Math.max(simulation.alpha(), 0.72)).restart();
 }
 
 svg.on('click', () => {
@@ -4886,7 +4943,7 @@ document.getElementById('force-link-distance').addEventListener('input', (e) => 
   const val = parseFloat(e.target.value);
   document.getElementById('force-link-distance-val').textContent = val;
   state.forceConfig.linkDistance = val;
-  simulation.force('link').distance(val);
+  updateLinkForceDistance();
   simulation.alpha(Math.max(simulation.alpha(), 0.05)).restart();
 });
 
@@ -4894,6 +4951,7 @@ document.getElementById('force-link-distance').addEventListener('input', (e) => 
 document.getElementById('btn-force-reset').addEventListener('click', () => {
   pushUndo();
   state.forceConfig = { centerStrength: 0.05, chargeStrength: -650, linkStrength: 0.5, linkDistance: 170 };
+  setLabelDeclutterDistanceBoosts(new Map());
   applyForceConfig();
   renderUI();
   simulation.alpha(0.3).restart();
@@ -5209,6 +5267,7 @@ document.getElementById('import-input').addEventListener('change', e => {
       state.forceConfig = imported.forceConfig;
       state.clusterSpacing = normalizeClusterSpacing(imported.clusterSpacing);
       state.topologySizing = normalizeTopologySizing(imported.topologySizing);
+      setLabelDeclutterDistanceBoosts(new Map());
       rebuildGraphIndex();
 
       state.currentEpisode = null;

@@ -2,9 +2,9 @@ const assert = require('node:assert/strict');
 const test = require('node:test');
 
 const {
+  calculateLabelForcePlan,
   calculateLabelDeclutterImpulses,
   labelBoxesOverlap,
-  resolveLabelOffsets,
 } = require('../link-label-declutter.js');
 
 test('detects overlapping label boxes with padding', () => {
@@ -41,21 +41,58 @@ test('does not move nodes when labels do not overlap', () => {
   assert.equal(impulses.size, 0);
 });
 
-test('resolves overlapping label offsets while staying near anchors', () => {
-  const offsets = resolveLabelOffsets([
-    { linkId: 'L1', x: 100, y: 100, width: 100, height: 18 },
-    { linkId: 'L2', x: 112, y: 104, width: 100, height: 18 },
-  ], { padding: 6, iterations: 50, maxShift: 90, anchorStrength: 0 });
+test('plans node forces and link distance boosts for overlapping labels', () => {
+  const plan = calculateLabelForcePlan([
+    {
+      linkId: 'L1',
+      sourceId: 'A',
+      targetId: 'B',
+      x: 100,
+      y: 100,
+      sourceX: 60,
+      sourceY: 100,
+      targetX: 140,
+      targetY: 100,
+      width: 120,
+      height: 18,
+    },
+    {
+      linkId: 'L2',
+      sourceId: 'C',
+      targetId: 'D',
+      x: 124,
+      y: 104,
+      sourceX: 84,
+      sourceY: 104,
+      targetX: 164,
+      targetY: 104,
+      width: 120,
+      height: 18,
+    },
+  ], { padding: 8, strength: 1 });
 
-  assert.equal(offsets.size, 2);
-  const l1 = offsets.get('L1');
-  const l2 = offsets.get('L2');
-  assert.ok(Math.abs(l1.x) > 0 || Math.abs(l1.y) > 0);
-  assert.ok(Math.abs(l2.x) > 0 || Math.abs(l2.y) > 0);
-  assert.ok(Math.hypot(l1.x, l1.y) <= 90);
-  assert.ok(Math.hypot(l2.x, l2.y) <= 90);
+  assert.equal(plan.overlapCount, 1);
+  assert.equal(plan.labelOffsets, undefined);
+  assert.ok(plan.linkDistanceBoosts.get('L1') >= 120);
+  assert.ok(plan.linkDistanceBoosts.get('L2') >= 120);
 
-  const movedA = { x: 100 + l1.x, y: 100 + l1.y, width: 100, height: 18 };
-  const movedB = { x: 112 + l2.x, y: 104 + l2.y, width: 100, height: 18 };
-  assert.equal(labelBoxesOverlap(movedA, movedB, 6), false);
+  const a = plan.impulses.get('A');
+  const b = plan.impulses.get('B');
+  const c = plan.impulses.get('C');
+  const d = plan.impulses.get('D');
+  assert.ok(a && b && c && d);
+
+  assert.ok((b.x - a.x) > 0, 'L1 endpoints should be pushed apart along the link');
+  assert.ok((d.x - c.x) > 0, 'L2 endpoints should be pushed apart along the link');
+});
+
+test('does not plan node movement when link labels do not overlap', () => {
+  const plan = calculateLabelForcePlan([
+    { linkId: 'L1', sourceId: 'A', targetId: 'B', x: 100, y: 100, sourceX: 60, sourceY: 100, targetX: 140, targetY: 100, width: 80, height: 18 },
+    { linkId: 'L2', sourceId: 'C', targetId: 'D', x: 300, y: 100, sourceX: 260, sourceY: 100, targetX: 340, targetY: 100, width: 80, height: 18 },
+  ], { padding: 4, strength: 1 });
+
+  assert.equal(plan.overlapCount, 0);
+  assert.equal(plan.impulses.size, 0);
+  assert.equal(plan.linkDistanceBoosts.size, 0);
 });
