@@ -12,6 +12,7 @@
 <script src="viewport-tools.js"></script>
 <script src="toolbar-visibility.js"></script>
 <script src="node-label-layout.js"></script>
+<script src="graph-highlight.js"></script>
 <script src="search-highlight.js"></script>
 <script src="topology-sizing.js"></script>
 <script src="link-label-declutter.js"></script>
@@ -3397,23 +3398,19 @@ function stabilizeSimulationForInspection() {
 // ============================================================
 function highlightNode(node, options) {
   const opts = options || {};
-  const connectedIds = new Set([node.id]);
-  const connectedLinks = new Set();
-  state.links.forEach(l => {
-    const sid = l.source.id || l.source;
-    const tid = l.target.id || l.target;
-    if (sid === node.id || tid === node.id) {
-      connectedIds.add(sid); connectedIds.add(tid);
-      connectedLinks.add(l.id);
-    }
-  });
+  const helpers = window.DramatisGraphHighlight;
+  const connectedIds = helpers
+    ? helpers.connectedNodeIds(state.links, node.id)
+    : new Set([node.id]);
 
   nodesLayer.selectAll('g.node')
     .classed('highlight', d => d.id === node.id)
     .classed('dimmed', d => !connectedIds.has(d.id));
 
   linksLayer.selectAll('g.link-group').each(function(d) {
-    const hit = connectedLinks.has(d.id);
+    const hit = helpers
+      ? helpers.linkTouchesNode(d, node.id)
+      : (linkEndpointId(d.source) === node.id || linkEndpointId(d.target) === node.id);
     const lt = state.linkTypes[linkType(d)];
     d3.select(this).select('path.link')
       .classed('highlight', hit).classed('dimmed', !hit)

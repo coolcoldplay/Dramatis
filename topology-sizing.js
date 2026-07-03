@@ -90,9 +90,10 @@
     var range = metricRange(metricMap);
     var value = metricMap.get(nodeId) || 0;
     var normalized = range.max > range.min ? (value - range.min) / (range.max - range.min) : (value > 0 ? 1 : 0);
-    var maxBoost = 0.85 * opts.strength;
-    var minScale = 1 - 0.22 * opts.strength;
-    var scale = minScale + normalized * (1 + maxBoost - minScale);
+    var contrast = Math.pow(normalized, 0.72);
+    var maxBoost = 1.35 * opts.strength;
+    var minScale = 1 - 0.38 * opts.strength;
+    var scale = minScale + contrast * (1 + maxBoost - minScale);
     return Math.round(baseRadius * scale * 10) / 10;
   }
 

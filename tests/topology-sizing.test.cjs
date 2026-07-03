@@ -49,6 +49,13 @@ test('scales radius by degree and connectivity metrics', () => {
   assert.equal(degreeRadii.get('N1'), degreeRadii.get('N2'));
 });
 
+test('uses high contrast sizing at full strength', () => {
+  const metrics = buildTopologyMetrics(nodes, links);
+  const radii = nodeRadiusMap(nodes, metrics, { mode: 'degree', baseRadius: 31, strength: 1 });
+
+  assert.ok(radii.get('N1') / radii.get('N4') >= 3.2);
+});
+
 test('normalizes topology sizing options', () => {
   assert.deepEqual(normalizeTopologySizing({ mode: 'degree', strength: 2 }), {
     mode: 'degree',
