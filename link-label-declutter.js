@@ -92,6 +92,21 @@
     });
   }
 
+  function normalizeObstacleItems(obstacles) {
+    return (obstacles || []).filter(function(obstacle) {
+      return obstacle && Number.isFinite(obstacle.x) && Number.isFinite(obstacle.y);
+    }).map(function(obstacle, index) {
+      return {
+        id: obstacle.id || ('obstacle-' + index),
+        nodeId: obstacle.nodeId || obstacle.id || '',
+        x: Number(obstacle.x) || 0,
+        y: Number(obstacle.y) || 0,
+        width: Math.max(2, Number(obstacle.width) || 2),
+        height: Math.max(2, Number(obstacle.height) || 2),
+      };
+    });
+  }
+
   function calculateLabelForcePlan(labels, options) {
     var opts = options || {};
     var padding = Math.max(0, Number(opts.padding) || 8);
@@ -102,6 +117,7 @@
     var impulses = new Map();
     var linkDistanceBoosts = new Map();
     var items = normalizeLabelItems(labels);
+    var obstacles = normalizeObstacleItems(opts.obstacles);
     var pairCount = 0;
     var overlapCount = 0;
 
@@ -147,6 +163,44 @@
         pushLinkLonger(impulses, b, lengthenAmount);
         addDistanceBoost(linkDistanceBoosts, a.linkId, distanceBoost, maxLinkDistanceBoost);
         addDistanceBoost(linkDistanceBoosts, b.linkId, distanceBoost, maxLinkDistanceBoost);
+      }
+    }
+
+    for (var li = 0; li < items.length; li += 1) {
+      var label = items[li];
+      for (var oi = 0; oi < obstacles.length; oi += 1) {
+        if (pairCount >= maxPairs) {
+          return {
+            impulses: capImpulses(impulses, maxNodeImpulse),
+            linkDistanceBoosts: linkDistanceBoosts,
+            overlapCount: overlapCount,
+          };
+        }
+        var obstacle = obstacles[oi];
+        if (!labelBoxesOverlap(label, obstacle, padding)) continue;
+        pairCount += 1;
+        overlapCount += 1;
+
+        var odx = label.x - obstacle.x;
+        var ody = label.y - obstacle.y;
+        var olen = Math.sqrt(odx * odx + ody * ody);
+        if (!olen) {
+          odx = (li % 2 === 0 ? 1 : -1);
+          ody = (oi % 2 === 0 ? 1 : -1);
+          olen = Math.sqrt(odx * odx + ody * ody);
+        }
+        var overlapOX = halfWidth(label, padding) + halfWidth(obstacle, padding) - Math.abs(label.x - obstacle.x);
+        var overlapOY = halfHeight(label, padding) + halfHeight(obstacle, padding) - Math.abs(label.y - obstacle.y);
+        var obstacleOverlap = Math.max(0, Math.min(overlapOX, overlapOY));
+        var obstacleAmount = Math.max(14, Math.min(90, obstacleOverlap * strength));
+        var oux = odx / olen;
+        var ouy = ody / olen;
+        var obstacleDistanceBoost = Math.max(90, Math.min(maxLinkDistanceBoost, (label.width * 0.85 + obstacleOverlap * 2.4) * strength));
+
+        pushLinkCenter(impulses, label, oux * obstacleAmount, ouy * obstacleAmount);
+        pushLinkLonger(impulses, label, obstacleAmount * 0.55);
+        if (obstacle.nodeId) addImpulse(impulses, obstacle.nodeId, -oux * obstacleAmount * 0.5, -ouy * obstacleAmount * 0.5);
+        addDistanceBoost(linkDistanceBoosts, label.linkId, obstacleDistanceBoost, maxLinkDistanceBoost);
       }
     }
 

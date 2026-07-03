@@ -210,10 +210,105 @@
     return force;
   }
 
+  function endpointId(endpoint) {
+    return endpoint && typeof endpoint === 'object' ? endpoint.id : endpoint;
+  }
+
+  function buildComponents(nodes, links) {
+    var nodeById = new Map();
+    var adjacency = new Map();
+    (nodes || []).forEach(function(node) {
+      if (!node || !node.id) return;
+      nodeById.set(node.id, node);
+      adjacency.set(node.id, []);
+    });
+    (links || []).forEach(function(link) {
+      var sourceId = endpointId(link && link.source);
+      var targetId = endpointId(link && link.target);
+      if (!adjacency.has(sourceId) || !adjacency.has(targetId)) return;
+      adjacency.get(sourceId).push(targetId);
+      adjacency.get(targetId).push(sourceId);
+    });
+
+    var seen = new Set();
+    var components = [];
+    nodeById.forEach(function(node, id) {
+      if (seen.has(id)) return;
+      var stack = [id];
+      var members = [];
+      seen.add(id);
+      while (stack.length) {
+        var currentId = stack.pop();
+        var currentNode = nodeById.get(currentId);
+        if (currentNode) members.push(currentNode);
+        (adjacency.get(currentId) || []).forEach(function(nextId) {
+          if (seen.has(nextId)) return;
+          seen.add(nextId);
+          stack.push(nextId);
+        });
+      }
+      components.push(members);
+    });
+    return components;
+  }
+
+  function componentCentroid(component) {
+    var count = Math.max(1, component.length);
+    var sumX = 0;
+    var sumY = 0;
+    component.forEach(function(node) {
+      sumX += Number(node.x) || 0;
+      sumY += Number(node.y) || 0;
+    });
+    return { x: sumX / count, y: sumY / count };
+  }
+
+  function createComponentTetherForce(linksProvider, options) {
+    var nodes = [];
+    var opts = options || {};
+    var maxDistance = Math.max(1, Number(opts.maxDistance) || 900);
+    var strength = Math.max(0, Number(opts.strength) || 0.015);
+
+    function force(alpha) {
+      if (!nodes.length || strength <= 0) return;
+      var links = typeof linksProvider === 'function' ? linksProvider() : linksProvider;
+      var components = buildComponents(nodes, links);
+      if (components.length <= 1) return;
+
+      components.sort(function(a, b) { return b.length - a.length; });
+      var main = components[0];
+      var mainCenter = componentCentroid(main);
+
+      for (var i = 1; i < components.length; i += 1) {
+        var component = components[i];
+        var center = componentCentroid(component);
+        var dx = mainCenter.x - center.x;
+        var dy = mainCenter.y - center.y;
+        var distance = Math.sqrt(dx * dx + dy * dy);
+        if (!Number.isFinite(distance) || distance <= maxDistance) continue;
+        var excess = distance - maxDistance;
+        var ux = dx / distance;
+        var uy = dy / distance;
+        var pull = excess * strength * alpha;
+        component.forEach(function(node) {
+          node.vx += ux * pull;
+          node.vy += uy * pull;
+        });
+      }
+    }
+
+    force.initialize = function(nextNodes) {
+      nodes = nextNodes || [];
+    };
+
+    return force;
+  }
+
   return {
     buildClusterTargets: buildClusterTargets,
     createBoundaryForce: createBoundaryForce,
     createClusterForce: createClusterForce,
+    createComponentTetherForce: createComponentTetherForce,
     distributeClusterCenters: distributeClusterCenters,
     pullNodesInsideBounds: pullNodesInsideBounds,
     spreadNodesInsideBounds: spreadNodesInsideBounds,

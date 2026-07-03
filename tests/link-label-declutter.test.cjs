@@ -96,3 +96,34 @@ test('does not plan node movement when link labels do not overlap', () => {
   assert.equal(plan.impulses.size, 0);
   assert.equal(plan.linkDistanceBoosts.size, 0);
 });
+
+test('plans node forces when a link label overlaps a node or node name obstacle', () => {
+  const plan = calculateLabelForcePlan([
+    {
+      linkId: 'L1',
+      sourceId: 'A',
+      targetId: 'B',
+      x: 100,
+      y: 100,
+      sourceX: 60,
+      sourceY: 100,
+      targetX: 140,
+      targetY: 100,
+      width: 90,
+      height: 18,
+    },
+  ], {
+    padding: 8,
+    strength: 1,
+    obstacles: [
+      { id: 'node-C-circle', nodeId: 'C', x: 108, y: 104, width: 62, height: 62 },
+      { id: 'node-C-name', nodeId: 'C', x: 112, y: 126, width: 88, height: 18 },
+    ],
+  });
+
+  assert.equal(plan.overlapCount, 2);
+  assert.ok(plan.linkDistanceBoosts.get('L1') >= 90);
+  assert.ok(plan.impulses.has('A'));
+  assert.ok(plan.impulses.has('B'));
+  assert.ok(plan.impulses.has('C'));
+});

@@ -704,6 +704,27 @@
     justify-content: center;
     border-radius: 3px;
   }
+  .search-fuzzy {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .search-fuzzy.active {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    color: var(--accent-bright);
+  }
+  .search-fuzzy:hover { background: var(--bg-hover); color: var(--accent); }
   .search-clear.visible { display: flex; }
   .search-clear:hover { background: var(--bg-hover); color: var(--accent); }
   .link-group.search-dimmed .link,
@@ -1681,8 +1702,9 @@
   <div class="toolbar">
     <div class="toolbar-search" title="搜索人物 (/)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-      <input id="node-search-input" type="search" placeholder="搜索人物 / 标签">
+      <input id="node-search-input" type="search" placeholder="搜索人物名">
       <span class="search-count" id="node-search-count"></span>
+      <button class="search-fuzzy" id="node-search-fuzzy" title="扩展搜索备注和标签" aria-pressed="false">≈</button>
       <button class="search-clear" id="node-search-clear" title="清除搜索">×</button>
     </div>
     <button class="tool-btn" id="btn-zoom-in" title="放大">
@@ -1961,7 +1983,7 @@
       </div>
       <div class="help-section">
         <div class="help-section-title">显示工具</div>
-        <div class="help-row"><span>搜索</span><span>输入人物名、备注或标签名，高亮匹配节点并淡化其他节点</span></div>
+        <div class="help-row"><span>搜索</span><span>默认只按人物名高亮；打开 ≈ 后扩展到备注和标签</span></div>
         <div class="help-row"><span>网络清理</span><span>按连线数批量隐藏/显示弱连接节点，或把散落节点收回当前视野</span></div>
         <div class="help-row"><span>标签分群</span><span>按某一类标签生成分群，群距滑杆可拉开不同群体中心</span></div>
         <div class="help-row"><span>拓扑大小</span><span>按度数或连通性放大主要节点，弱连接节点保持较小</span></div>
@@ -2018,6 +2040,7 @@ let activeClusterCategoryId = null;
 let clusterSpacingTimer = null;
 let nodeSearchQuery = '';
 let nodeSearchMatchIds = new Set();
+let nodeSearchFuzzy = false;
 let nodeRadiusCache = new Map();
 let collisionPaddingBoost = 0;
 let labelDeclutterDistanceBoosts = new Map();
@@ -2301,6 +2324,10 @@ const simulation = d3.forceSimulation()
   .force('link', d3.forceLink().id(d => d.id).distance(linkForceDistance).strength(fc.linkStrength))
   .force('charge', d3.forceManyBody().strength(fc.chargeStrength))
   .force('center', d3.forceCenter(size.width / 2, size.height / 2).strength(fc.centerStrength))
+  .force('componentTether', window.DramatisLayoutForces ? DramatisLayoutForces.createComponentTetherForce(
+    () => state.links.filter(isLinkVisible),
+    { maxDistance: 920, strength: 0.018 }
+  ) : null)
   .force('collide', d3.forceCollide().radius(nodeCollisionRadius).strength(0.9))
   .alphaDecay(0.05)
   .on('tick', tick);
@@ -2709,7 +2736,8 @@ function render(restartSimulation) {
       } else {
         state.selectedNodes.clear();
         state.selectedNodes.add(d.id);
-        highlightNode(d);
+        stabilizeSimulationForInspection();
+        highlightNode(d, { temporary: false });
         updateMultiSelectUI();
         renderCharacterList();
       }
@@ -2974,10 +3002,16 @@ function updateSearchUI() {
   const input = document.getElementById('node-search-input');
   const count = document.getElementById('node-search-count');
   const clear = document.getElementById('node-search-clear');
+  const fuzzy = document.getElementById('node-search-fuzzy');
   const hasQuery = !!nodeSearchQuery;
   if (input && document.activeElement !== input) input.value = nodeSearchQuery;
   if (count) count.textContent = hasQuery ? String(nodeSearchMatchIds.size) : '';
   if (clear) clear.classList.toggle('visible', hasQuery);
+  if (fuzzy) {
+    fuzzy.classList.toggle('active', nodeSearchFuzzy);
+    fuzzy.setAttribute('aria-pressed', nodeSearchFuzzy ? 'true' : 'false');
+    fuzzy.title = nodeSearchFuzzy ? '模糊搜索已启用：姓名、备注、标签' : '启用模糊搜索备注和标签';
+  }
 }
 
 function updateSearchMatchesFromInput(value) {
@@ -2988,7 +3022,8 @@ function updateSearchMatchesFromInput(value) {
     nodeSearchMatchIds = new Set(DramatisSearchHighlight.findMatchingNodeIds(
       state.nodes.filter(isNodeVisible),
       nodeSearchQuery,
-      state.tagCategories
+      state.tagCategories,
+      { fuzzy: nodeSearchFuzzy }
     ));
   } else {
     nodeSearchMatchIds = new Set();
@@ -3350,10 +3385,18 @@ function dragging(event, d) {
 }
 function dragEnd(event) { if (!event.active) simulation.alphaTarget(0); }
 
+function stabilizeSimulationForInspection() {
+  if (!simulation || state.freePlacement) return;
+  simulation.alphaTarget(0);
+  simulation.alpha(0);
+  simulation.stop();
+}
+
 // ============================================================
 // 高亮
 // ============================================================
-function highlightNode(node) {
+function highlightNode(node, options) {
+  const opts = options || {};
   const connectedIds = new Set([node.id]);
   const connectedLinks = new Set();
   state.links.forEach(l => {
@@ -3379,7 +3422,9 @@ function highlightNode(node) {
   });
 
   clearTimeout(window._hlTimer);
-  window._hlTimer = setTimeout(clearHighlights, 3500);
+  if (opts.temporary !== false) {
+    window._hlTimer = setTimeout(clearHighlights, 3500);
+  }
 }
 
 function highlightLink(link, on) {
@@ -3474,6 +3519,42 @@ function readVisibleLinkLabelBoxes() {
   return boxes;
 }
 
+function readVisibleNodeObstacleBoxes() {
+  const boxes = [];
+  nodesLayer.selectAll('g.node').each(function(d) {
+    if (!d || !isNodeVisible(d) || !Number.isFinite(d.x) || !Number.isFinite(d.y)) return;
+    const radius = nodeOuterRadius(d) + 8;
+    boxes.push({
+      id: d.id + ':circle',
+      nodeId: d.id,
+      x: d.x,
+      y: d.y,
+      width: radius * 2,
+      height: radius * 2,
+    });
+
+    const label = d3.select(this).select('text.node-label');
+    const labelNode = label.node();
+    if (!labelNode || label.style('display') === 'none') return;
+    try {
+      const box = labelNode.getBBox();
+      if (box.width > 2 && box.height > 2) {
+        boxes.push({
+          id: d.id + ':name',
+          nodeId: d.id,
+          x: d.x + box.x + box.width / 2,
+          y: d.y + box.y + box.height / 2,
+          width: box.width + 12,
+          height: box.height + 8,
+        });
+      }
+    } catch (err) {
+      // SVG text measurement can fail in a detached browser context; the circle still protects the node.
+    }
+  });
+  return boxes;
+}
+
 function temporarilyStrengthenLabelForces(durationMs) {
   const token = labelDeclutterRuntimeToken + 1;
   labelDeclutterRuntimeToken = token;
@@ -3507,12 +3588,14 @@ function declutterLinkLabels() {
   render(false);
   tick();
   const boxes = readVisibleLinkLabelBoxes();
+  const obstacles = readVisibleNodeObstacleBoxes();
   const plan = DramatisLinkLabelDeclutter.calculateLabelForcePlan(boxes, {
     padding: 10,
     strength: 1.35,
     maxPairs: 5200,
     maxNodeImpulse: 230,
     maxLinkDistanceBoost: 520,
+    obstacles,
   });
   setLabelDeclutterDistanceBoosts(plan.linkDistanceBoosts);
   if (!plan.overlapCount) return;
@@ -4331,7 +4414,8 @@ function renderCharacterList() {
         toggleNodeSelection(n);
       } else {
         centerOnNode(n);
-        highlightNode(n);
+        stabilizeSimulationForInspection();
+        highlightNode(n, { temporary: false });
       }
     });
     list.appendChild(item);
@@ -4883,6 +4967,11 @@ document.getElementById('node-search-input').addEventListener('input', (event) =
 });
 document.getElementById('node-search-clear').addEventListener('click', () => {
   clearNodeSearch();
+  document.getElementById('node-search-input').focus();
+});
+document.getElementById('node-search-fuzzy').addEventListener('click', () => {
+  nodeSearchFuzzy = !nodeSearchFuzzy;
+  updateSearchMatchesFromInput(nodeSearchQuery);
   document.getElementById('node-search-input').focus();
 });
 document.getElementById('node-search-input').addEventListener('keydown', (event) => {

@@ -28,6 +28,10 @@
     return names;
   }
 
+  function nodeNameSearchText(node) {
+    return String((node && node.name) || '').toLowerCase();
+  }
+
   function nodeSearchText(node, tagCategories) {
     if (!node) return '';
     return [
@@ -38,12 +42,16 @@
     ].join(' ').toLowerCase();
   }
 
-  function findMatchingNodeIds(nodes, query, tagCategories) {
+  function findMatchingNodeIds(nodes, query, tagCategories, options) {
     var q = normalizeSearchQuery(query);
+    var opts = options || {};
+    var fuzzy = opts.fuzzy === true;
     if (!q) return [];
     return (nodes || [])
       .filter(function(node) {
-        return node && !node.hidden && nodeSearchText(node, tagCategories).indexOf(q) !== -1;
+        if (!node || node.hidden) return false;
+        var text = fuzzy ? nodeSearchText(node, tagCategories) : nodeNameSearchText(node);
+        return text.indexOf(q) !== -1;
       })
       .map(function(node) { return node.id; })
       .filter(Boolean);
@@ -69,6 +77,7 @@
     isHelpShortcut: isHelpShortcut,
     isSearchFocusShortcut: isSearchFocusShortcut,
     normalizeSearchQuery: normalizeSearchQuery,
+    nodeNameSearchText: nodeNameSearchText,
     nodeSearchText: nodeSearchText,
   };
 });

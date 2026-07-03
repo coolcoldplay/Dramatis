@@ -5,6 +5,7 @@ const {
   buildClusterTargets,
   createBoundaryForce,
   createClusterForce,
+  createComponentTetherForce,
   distributeClusterCenters,
   pullNodesInsideBounds,
   spreadNodesInsideBounds,
@@ -180,4 +181,48 @@ test('cluster force pulls node velocity toward assigned center', () => {
 
   assert.ok(nodes[0].vx > 0);
   assert.ok(nodes[0].vy > 0);
+});
+
+test('component tether force pulls small disconnected groups toward the main group', () => {
+  const nodes = [
+    { id: 'A', x: 0, y: 0, vx: 0, vy: 0 },
+    { id: 'B', x: 80, y: 0, vx: 0, vy: 0 },
+    { id: 'C', x: 20, y: 70, vx: 0, vy: 0 },
+    { id: 'D', x: 1000, y: 0, vx: 0, vy: 0 },
+    { id: 'E', x: 1060, y: 0, vx: 0, vy: 0 },
+  ];
+  const links = [
+    { source: 'A', target: 'B' },
+    { source: 'B', target: 'C' },
+    { source: 'D', target: 'E' },
+  ];
+  const force = createComponentTetherForce(() => links, {
+    maxDistance: 320,
+    strength: 0.2,
+  });
+
+  force.initialize(nodes);
+  force(1);
+
+  assert.ok(nodes[3].vx < 0);
+  assert.ok(nodes[4].vx < 0);
+  assert.equal(nodes[0].vx, 0);
+});
+
+test('component tether force leaves nearby small groups alone', () => {
+  const nodes = [
+    { id: 'A', x: 0, y: 0, vx: 0, vy: 0 },
+    { id: 'B', x: 60, y: 0, vx: 0, vy: 0 },
+    { id: 'C', x: 260, y: 0, vx: 0, vy: 0 },
+  ];
+  const force = createComponentTetherForce(() => [{ source: 'A', target: 'B' }], {
+    maxDistance: 320,
+    strength: 0.2,
+  });
+
+  force.initialize(nodes);
+  force(1);
+
+  assert.equal(nodes[2].vx, 0);
+  assert.equal(nodes[2].vy, 0);
 });

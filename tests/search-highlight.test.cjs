@@ -11,10 +11,10 @@ const {
 const tagCategories = [
   {
     id: 'C1',
-    name: '身份',
+    name: 'Role',
     tags: [
-      { id: 'T1', name: '侦探' },
-      { id: 'T2', name: '旅馆' },
+      { id: 'T1', name: 'Detective' },
+      { id: 'T2', name: 'Hotel' },
     ],
   },
 ];
@@ -30,15 +30,20 @@ test('normalizes search query for case-insensitive matching', () => {
   assert.equal(normalizeSearchQuery(null), '');
 });
 
-test('finds matching node ids from name notes and visible tag labels', () => {
+test('finds matching node ids from names by default', () => {
   assert.deepEqual(findMatchingNodeIds(nodes, 'cooper', tagCategories), ['N1']);
-  assert.deepEqual(findMatchingNodeIds(nodes, 'mystery', tagCategories), ['N2']);
-  assert.deepEqual(findMatchingNodeIds(nodes, '侦探', tagCategories), ['N1']);
+  assert.deepEqual(findMatchingNodeIds(nodes, 'mystery', tagCategories), []);
+  assert.deepEqual(findMatchingNodeIds(nodes, 'detective', tagCategories), []);
+});
+
+test('expands matching to notes and visible tag labels when fuzzy search is enabled', () => {
+  assert.deepEqual(findMatchingNodeIds(nodes, 'mystery', tagCategories, { fuzzy: true }), ['N2']);
+  assert.deepEqual(findMatchingNodeIds(nodes, 'detective', tagCategories, { fuzzy: true }), ['N1']);
 });
 
 test('ignores hidden nodes and empty queries when searching', () => {
   assert.deepEqual(findMatchingNodeIds(nodes, '', tagCategories), []);
-  assert.deepEqual(findMatchingNodeIds(nodes, '旅馆', tagCategories), []);
+  assert.deepEqual(findMatchingNodeIds(nodes, 'hotel', tagCategories, { fuzzy: true }), []);
 });
 
 test('recognizes search and help shortcuts outside editable controls', () => {
