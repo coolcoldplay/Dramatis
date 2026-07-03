@@ -32,6 +32,7 @@ test('normalizes imported graph data and resolves link endpoints', () => {
   const result = normalizeImportedGraph({
     nextId: 3,
     clusterSpacing: 1.75,
+    topologySizing: { mode: 'degree', strength: 0.8 },
     graphStyle: { nodeLabelPlacement: 'inside' },
     graphBackground: { value: '#101010' },
     linkTypes: {
@@ -68,6 +69,7 @@ test('normalizes imported graph data and resolves link endpoints', () => {
   assert.equal(result.graphStyle.nodeLabelPlacement, 'inside');
   assert.equal(result.graphBackgroundColor, '#101010');
   assert.equal(result.clusterSpacing, 1.75);
+  assert.deepEqual(result.topologySizing, { mode: 'degree', strength: 0.8 });
   assert.equal(result.nextId, 10);
   assert.equal(result.droppedLinks.length, 1);
 });
@@ -80,4 +82,5 @@ test('normalizes missing cluster spacing to the default', () => {
   });
 
   assert.equal(result.clusterSpacing, 1);
+  assert.deepEqual(result.topologySizing, { mode: 'none', strength: 0.65 });
 });

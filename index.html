@@ -12,6 +12,9 @@
 <script src="viewport-tools.js"></script>
 <script src="toolbar-visibility.js"></script>
 <script src="node-label-layout.js"></script>
+<script src="search-highlight.js"></script>
+<script src="topology-sizing.js"></script>
+<script src="link-label-declutter.js"></script>
 <script src="src/app-state.js"></script>
 <script src="src/episode-timeline.js"></script>
 <script src="src/import-export.js"></script>
@@ -595,7 +598,14 @@
     stroke-width: 2.5;
   }
 
+  .node.search-match .node-circle-bg {
+    stroke: var(--accent-bright);
+    stroke-width: 4;
+    filter: drop-shadow(0 0 8px rgba(232, 188, 138, 0.65));
+  }
+
   .node.dimmed { opacity: 0.35; }
+  .node.search-dimmed { opacity: 0.18; }
   
   .node.hidden { display: none; }
 
@@ -650,6 +660,54 @@
   .tool-btn svg { width: 16px; height: 16px; }
   .tool-btn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
   .tool-divider { width: 1px; background: var(--border); margin: 4px 2px; }
+  .toolbar-search {
+    width: clamp(150px, 18vw, 220px);
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+  }
+  .toolbar-search svg { width: 14px; height: 14px; flex: 0 0 auto; }
+  .toolbar-search input {
+    min-width: 0;
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text-primary);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12px;
+  }
+  .toolbar-search input::placeholder { color: var(--text-muted); }
+  .search-count {
+    min-width: 18px;
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+  }
+  .search-clear {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+  }
+  .search-clear.visible { display: flex; }
+  .search-clear:hover { background: var(--bg-hover); color: var(--accent); }
+  .link-group.search-dimmed .link,
+  .link-group.search-dimmed .link-label { opacity: 0.16; }
   .toolbar.toolbar-hidden { display: none; }
   .toolbar-restore {
     position: absolute;
@@ -1033,6 +1091,36 @@
   .modal-actions { display: flex; gap: 8px; margin-top: 20px; align-items: center; }
   .modal-actions .btn { flex: 1; }
   .modal-actions .btn-danger { flex: 0 0 auto; }
+  .help-section { margin-top: 16px; }
+  .help-section-title {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .help-row {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .shortcut-key {
+    display: inline-flex;
+    min-width: 28px;
+    justify-content: center;
+    padding: 2px 7px;
+    border: 1px solid var(--border-bright);
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
 
   .node-tooltip {
     position: fixed;
@@ -1378,6 +1466,19 @@
 				<input type="range" id="style-node-scale" value="1" min="0.5" max="2" step="0.05" style="flex:1;accent-color:var(--accent);height:24px">
 				<span id="style-node-scale-val" style="flex:0 0 32px;font-size:11px;color:var(--text-muted);text-align:right">1.0</span>
 			</div>
+			<div class="field-row" style="gap:6px;align-items:center">
+				<span style="font-size:11px;color:var(--text-muted);white-space:nowrap;flex:0 0 24px">拓</span>
+				<select id="topology-size-mode" style="flex:1;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);padding:6px 6px;border-radius:4px;font-size:12px;outline:none">
+					<option value="none">固定大小</option>
+					<option value="degree">按度数</option>
+					<option value="connectivity">按连通性</option>
+				</select>
+			</div>
+			<div class="field-row" style="gap:6px">
+				<span style="font-size:11px;color:var(--text-muted);white-space:nowrap;flex:0 0 24px">幅</span>
+				<input type="range" id="topology-size-strength" value="0.65" min="0" max="1" step="0.05" style="flex:1;accent-color:var(--accent);height:24px">
+				<span id="topology-size-strength-val" style="flex:0 0 32px;font-size:11px;color:var(--text-muted);text-align:right">0.65</span>
+			</div>
 			<div class="field-row" style="gap:6px">
 				<span style="font-size:11px;color:var(--text-muted);white-space:nowrap;flex:0 0 24px">透</span>
 				<input type="range" id="style-node-opacity" value="1" min="0" max="1" step="0.05" style="flex:1;accent-color:var(--accent);height:24px">
@@ -1578,6 +1679,12 @@
   </svg>
 
   <div class="toolbar">
+    <div class="toolbar-search" title="搜索人物 (/)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input id="node-search-input" type="search" placeholder="搜索人物 / 标签">
+      <span class="search-count" id="node-search-count"></span>
+      <button class="search-clear" id="node-search-clear" title="清除搜索">×</button>
+    </div>
     <button class="tool-btn" id="btn-zoom-in" title="放大">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
     </button>
@@ -1605,6 +1712,9 @@
     <button class="tool-btn" id="btn-clamp-toolbar" title="收回当前视野">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/><path d="M9 4L4 9"/><path d="M15 4l5 5"/><path d="M9 20l-5-5"/><path d="M15 20l5-5"/></svg>
     </button>
+    <button class="tool-btn" id="btn-declutter-labels" title="整理连线注释">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h10"/><path d="M4 12h16"/><path d="M4 17h8"/><path d="M18 5l3 3-3 3"/><path d="M6 19l-3-3 3-3"/></svg>
+    </button>
     <button class="tool-btn" id="btn-toolbar-toggle" title="隐藏工具栏 (T)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
     </button>
@@ -1621,6 +1731,9 @@
     </button>
     <div class="tool-divider"></div>
     <button class="tool-btn btn-mode-toggle" id="btn-mode-toggle" title="切换到回顾模式"></button>
+    <button class="tool-btn" id="btn-help" title="快捷键与功能说明 (?)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 0c0 2-2.5 2-2.5 4"/><circle cx="12" cy="17" r=".8" fill="currentColor" stroke="none"/></svg>
+    </button>
     <span class="episode-status-badge" id="episode-status-badge" style="display:none" title="当前剧集标记：新增人物和关系将自动关联此剧集">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/></svg>
       <span id="episode-status-label">S1E1</span>
@@ -1825,6 +1938,37 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="help-modal">
+    <div class="modal">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div>
+          <div class="modal-title">快捷键与功能说明</div>
+          <div class="modal-subtitle">搜索、梳理、显示和导出的常用入口</div>
+        </div>
+        <button class="icon-btn" id="help-modal-close" title="关闭" style="font-size:18px;padding:4px 8px">✕</button>
+      </div>
+      <div class="help-section">
+        <div class="help-section-title">快捷键</div>
+        <div class="help-row"><span><span class="shortcut-key">/</span></span><span>聚焦人物搜索框</span></div>
+        <div class="help-row"><span><span class="shortcut-key">?</span></span><span>打开或关闭此说明面板</span></div>
+        <div class="help-row"><span><span class="shortcut-key">T</span></span><span>隐藏或显示右上角工具栏</span></div>
+        <div class="help-row"><span><span class="shortcut-key">N</span></span><span>新建人物；选中单个人物时会作为待连线起点</span></div>
+        <div class="help-row"><span><span class="shortcut-key">L</span></span><span>进入连线模式，或从当前选中人物开始连线</span></div>
+        <div class="help-row"><span><span class="shortcut-key">H</span></span><span>隐藏当前选中的人物节点</span></div>
+        <div class="help-row"><span><span class="shortcut-key">Del</span></span><span>删除当前选中的人物节点</span></div>
+        <div class="help-row"><span><span class="shortcut-key">Esc</span></span><span>退出当前模式、关闭面板或清除选择</span></div>
+        <div class="help-row"><span><span class="shortcut-key">Ctrl</span><span class="shortcut-key">Z</span></span><span>撤销；加 Shift 为重做</span></div>
+      </div>
+      <div class="help-section">
+        <div class="help-section-title">显示工具</div>
+        <div class="help-row"><span>搜索</span><span>输入人物名、备注或标签名，高亮匹配节点并淡化其他节点</span></div>
+        <div class="help-row"><span>网络清理</span><span>按连线数批量隐藏/显示弱连接节点，或把散落节点收回当前视野</span></div>
+        <div class="help-row"><span>标签分群</span><span>按某一类标签生成分群，群距滑杆可拉开不同群体中心</span></div>
+        <div class="help-row"><span>拓扑大小</span><span>按度数或连通性放大主要节点，弱连接节点保持较小</span></div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <div class="family-tree-overlay" id="family-tree-overlay" style="display:none">
@@ -1871,6 +2015,10 @@ let temporaryLinkStrengthToken = 0;
 const temporaryForceTokens = new Map();
 let activeClusterCategoryId = null;
 let clusterSpacingTimer = null;
+let nodeSearchQuery = '';
+let nodeSearchMatchIds = new Set();
+let nodeRadiusCache = new Map();
+let collisionPaddingBoost = 0;
 
 var EYE_OPEN_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 var EYE_CLOSED_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
@@ -1887,6 +2035,16 @@ function normalizeClusterSpacing(value) {
   const n = Number(value);
   if (!Number.isFinite(n)) return 1;
   return Math.min(2.4, Math.max(0.5, n));
+}
+
+function normalizeTopologySizing(value) {
+  if (window.DramatisTopologySizing && DramatisTopologySizing.normalizeTopologySizing) {
+    return DramatisTopologySizing.normalizeTopologySizing(value);
+  }
+  const input = value || {};
+  const mode = input.mode === 'degree' || input.mode === 'connectivity' ? input.mode : 'none';
+  const strength = Math.min(1, Math.max(0, Number(input.strength) || 0));
+  return { mode, strength };
 }
 
 function invalidateGraphIndex() {
@@ -1943,6 +2101,7 @@ function applySnapshot(snap) {
   state.graphBackgroundColor = snap.graphBackgroundColor;
   state.characterSort = snap.characterSort;
   state.clusterSpacing = normalizeClusterSpacing(snap.clusterSpacing);
+  state.topologySizing = normalizeTopologySizing(snap.topologySizing);
   state.forceConfig = snap.forceConfig || { centerStrength: 0.05, chargeStrength: -650, linkStrength: 0.5, linkDistance: 170 };
   rebuildGraphIndex();
 }
@@ -2108,7 +2267,7 @@ const simulation = d3.forceSimulation()
   .force('link', d3.forceLink().id(d => d.id).distance(fc.linkDistance).strength(fc.linkStrength))
   .force('charge', d3.forceManyBody().strength(fc.chargeStrength))
   .force('center', d3.forceCenter(size.width / 2, size.height / 2).strength(fc.centerStrength))
-  .force('collide', d3.forceCollide().radius(58).strength(0.9))
+  .force('collide', d3.forceCollide().radius(nodeCollisionRadius).strength(0.9))
   .alphaDecay(0.05)
   .on('tick', tick);
 
@@ -2160,7 +2319,43 @@ function updateNodeScale() {
   RING_R_OUTER = Math.round(BASE_RING_R_OUTER * s);
   RING_R_INNER = Math.round(BASE_RING_R_INNER * s);
   NODE_R = Math.round(BASE_NODE_R * s);
-  simulation.force('collide').radius(Math.round(58 * s));
+  refreshNodeRadiusCache(state.nodes.filter(isNodeVisible), state.links.filter(isLinkVisible));
+  simulation.force('collide').radius(nodeCollisionRadius);
+}
+
+function refreshNodeRadiusCache(visibleNodes, visibleLinks) {
+  nodeRadiusCache = new Map();
+  const nodes = visibleNodes || [];
+  const links = visibleLinks || [];
+  const sizing = normalizeTopologySizing(state.topologySizing);
+  state.topologySizing = sizing;
+  if (!window.DramatisTopologySizing || sizing.mode === 'none') {
+    nodes.forEach(node => { if (node && node.id) nodeRadiusCache.set(node.id, NODE_R); });
+    return;
+  }
+  const metrics = DramatisTopologySizing.buildTopologyMetrics(nodes, links);
+  nodeRadiusCache = DramatisTopologySizing.nodeRadiusMap(nodes, metrics, {
+    mode: sizing.mode,
+    strength: sizing.strength,
+    baseRadius: NODE_R,
+  });
+}
+
+function nodeVisualRadius(node) {
+  if (!node) return NODE_R;
+  return nodeRadiusCache.get(node.id) || NODE_R;
+}
+
+function nodeInnerRadius(node) {
+  return Math.max(6, Math.round(nodeVisualRadius(node) * BASE_RING_R_INNER / BASE_NODE_R));
+}
+
+function nodeOuterRadius(node) {
+  return Math.max(nodeInnerRadius(node) + 3, Math.round(nodeVisualRadius(node) * BASE_RING_R_OUTER / BASE_NODE_R));
+}
+
+function nodeCollisionRadius(node) {
+  return Math.max(24, nodeOuterRadius(node) + 24 + collisionPaddingBoost);
 }
 
 function estimateNodeLabelMaxChars(radius, fontSize) {
@@ -2239,7 +2434,7 @@ function renderNodeLabel(label, node) {
 
   if (placement !== 'inside') {
     label
-      .attr('dy', RING_R_OUTER + 18)
+      .attr('dy', nodeOuterRadius(node) + 18)
       .attr('y', null)
       .attr('font-size', null)
       .attr('dominant-baseline', null)
@@ -2249,7 +2444,7 @@ function renderNodeLabel(label, node) {
     return;
   }
 
-  const radius = Math.max(5, RING_R_INNER - 3);
+  const radius = Math.max(5, nodeInnerRadius(node) - 3);
   const maxLines = radius >= fontSize * 2.4 ? 3 : 2;
   let maxChars = estimateNodeLabelMaxChars(radius, fontSize) + (maxLines <= 2 ? 1 : 0);
   if (/[^\x00-\xff]/.test(String(node.name || ''))) {
@@ -2403,6 +2598,7 @@ function render(restartSimulation) {
 
   // 过滤可见的节点
   const visibleNodes = state.nodes.filter(isNodeVisible);
+  refreshNodeRadiusCache(visibleNodes, visibleLinks);
 
   // 节点
   const nodeGroups = nodesLayer.selectAll('g.node').data(visibleNodes, d => d.id);
@@ -2433,12 +2629,14 @@ function render(restartSimulation) {
   // 环段
   allNodes.each(function(d) {
     const segs = computeNodeRingSegments(d);
+    const innerRadius = nodeInnerRadius(d);
+    const outerRadius = nodeOuterRadius(d);
     const segG = d3.select(this).select('g.ring-segments');
     const sel = segG.selectAll('path.ring-seg').data(segs);
     sel.exit().remove();
     const enter = sel.enter().append('path').attr('class', 'ring-seg');
     enter.merge(sel)
-      .attr('d', s => ringSegmentPath(RING_R_INNER, RING_R_OUTER, s.startAngle, s.endAngle))
+      .attr('d', s => ringSegmentPath(innerRadius, outerRadius, s.startAngle, s.endAngle))
       .attr('fill', s => s.color)
       .attr('stroke', 'var(--bg-deep)')
       .attr('stroke-width', segs.length > 1 ? 1 : 0);
@@ -2452,14 +2650,15 @@ function render(restartSimulation) {
 
   allNodes.select('text.node-initial')
     .text(d => d.avatar ? '' : (d.name ? d.name[0] : '?'))
+    .attr('font-size', d => Math.max(16, Math.round(nodeInnerRadius(d) * 0.78)) + 'px')
     .style('display', d => (nodeLabelPlacement === 'inside' || d.avatar) ? 'none' : 'block');
 
   // 更新节点几何（支持缩放）
-  allNodes.select('clipPath circle').attr('r', RING_R_INNER);
-  allNodes.select('circle.node-circle-bg').attr('r', RING_R_INNER);
+  allNodes.select('clipPath circle').attr('r', d => nodeInnerRadius(d));
+  allNodes.select('circle.node-circle-bg').attr('r', d => nodeInnerRadius(d));
   allNodes.select('image.node-avatar')
-    .attr('x', -RING_R_INNER).attr('y', -RING_R_INNER)
-    .attr('width', RING_R_INNER * 2).attr('height', RING_R_INNER * 2);
+    .attr('x', d => -nodeInnerRadius(d)).attr('y', d => -nodeInnerRadius(d))
+    .attr('width', d => nodeInnerRadius(d) * 2).attr('height', d => nodeInnerRadius(d) * 2);
 
   allNodes.select('text.node-label')
     .each(function(d) {
@@ -2516,12 +2715,14 @@ function render(restartSimulation) {
 
   simulation.nodes(visibleNodes);
   simulation.force('link').links(visibleLinks);
+  simulation.force('collide').radius(nodeCollisionRadius);
   if (restartSimulation !== false) {
     simulation.alpha(0.3).restart();
   } else {
     simulation.alpha(0).restart();
   }
 
+  applySearchHighlight();
   renderUI();
 }
 
@@ -2669,6 +2870,8 @@ function renderUI() {
   renderTagCategoriesPanel();
   updateClusterCategoryOptions();
   updateClusterSpacingUI();
+  updateTopologySizingUI();
+  updateSearchUI();
   updateEpisodeSlider();
   updateMultiSelectUI();
   updateFreePlacementUI();
@@ -2721,6 +2924,49 @@ function updateClusterSpacingUI() {
   state.clusterSpacing = normalizeClusterSpacing(state.clusterSpacing);
   input.value = state.clusterSpacing;
   label.textContent = state.clusterSpacing.toFixed(2);
+}
+
+function updateTopologySizingUI() {
+  state.topologySizing = normalizeTopologySizing(state.topologySizing);
+  const mode = document.getElementById('topology-size-mode');
+  const strength = document.getElementById('topology-size-strength');
+  const label = document.getElementById('topology-size-strength-val');
+  if (mode) mode.value = state.topologySizing.mode;
+  if (strength) strength.value = state.topologySizing.strength;
+  if (label) label.textContent = state.topologySizing.strength.toFixed(2);
+}
+
+function updateSearchUI() {
+  const input = document.getElementById('node-search-input');
+  const count = document.getElementById('node-search-count');
+  const clear = document.getElementById('node-search-clear');
+  const hasQuery = !!nodeSearchQuery;
+  if (input && document.activeElement !== input) input.value = nodeSearchQuery;
+  if (count) count.textContent = hasQuery ? String(nodeSearchMatchIds.size) : '';
+  if (clear) clear.classList.toggle('visible', hasQuery);
+}
+
+function updateSearchMatchesFromInput(value) {
+  nodeSearchQuery = window.DramatisSearchHighlight
+    ? DramatisSearchHighlight.normalizeSearchQuery(value)
+    : String(value || '').trim().toLowerCase();
+  if (window.DramatisSearchHighlight) {
+    nodeSearchMatchIds = new Set(DramatisSearchHighlight.findMatchingNodeIds(
+      state.nodes.filter(isNodeVisible),
+      nodeSearchQuery,
+      state.tagCategories
+    ));
+  } else {
+    nodeSearchMatchIds = new Set();
+  }
+  applySearchHighlight();
+  updateSearchUI();
+}
+
+function clearNodeSearch() {
+  updateSearchMatchesFromInput('');
+  const input = document.getElementById('node-search-input');
+  if (input) input.value = '';
 }
 
 function degreeFilterControls() {
@@ -2997,12 +3243,14 @@ function tick() {
     const ux = dx / dist, uy = dy / dist;
     const pad = 6;
     const offset = d._curveOffset || 0;
+    const srcRadius = nodeVisualRadius(src);
+    const tgtRadius = nodeVisualRadius(tgt);
 
     let pathD, labelX, labelY;
 
     if (offset === 0) {
-      const sx = src.x + ux * NODE_R, sy = src.y + uy * NODE_R;
-      const tx = tgt.x - ux * (NODE_R + pad), ty = tgt.y - uy * (NODE_R + pad);
+      const sx = src.x + ux * srcRadius, sy = src.y + uy * srcRadius;
+      const tx = tgt.x - ux * (tgtRadius + pad), ty = tgt.y - uy * (tgtRadius + pad);
       pathD = `M ${sx} ${sy} L ${tx} ${ty}`;
       labelX = (sx + tx) / 2;
       labelY = (sy + ty) / 2;
@@ -3013,13 +3261,13 @@ function tick() {
 
       const sDx = cx - src.x, sDy = cy - src.y;
       const sLen = Math.sqrt(sDx * sDx + sDy * sDy) || 1;
-      const sx = src.x + (sDx / sLen) * NODE_R;
-      const sy = src.y + (sDy / sLen) * NODE_R;
+      const sx = src.x + (sDx / sLen) * srcRadius;
+      const sy = src.y + (sDy / sLen) * srcRadius;
 
       const tDx = cx - tgt.x, tDy = cy - tgt.y;
       const tLen = Math.sqrt(tDx * tDx + tDy * tDy) || 1;
-      const tx = tgt.x + (tDx / tLen) * (NODE_R + pad);
-      const ty = tgt.y + (tDy / tLen) * (NODE_R + pad);
+      const tx = tgt.x + (tDx / tLen) * (tgtRadius + pad);
+      const ty = tgt.y + (tDy / tLen) * (tgtRadius + pad);
 
       pathD = `M ${sx} ${sy} Q ${cx} ${cy} ${tx} ${ty}`;
       labelX = 0.25 * sx + 0.5 * cx + 0.25 * tx;
@@ -3027,23 +3275,33 @@ function tick() {
     }
 
     const lt = state.linkTypes[linkType(d)];
+    const labelOffset = lt.width / 2 + 3;
+    const baseLabelX = labelX;
+    const baseLabelY = labelY - labelOffset;
+    const shiftX = Number(d._labelShiftX) || 0;
+    const shiftY = Number(d._labelShiftY) || 0;
+    const displayLabelX = baseLabelX + shiftX;
+    const displayLabelY = baseLabelY + shiftY;
+    d._labelAnchorX = baseLabelX;
+    d._labelAnchorY = baseLabelY;
+    d._labelX = displayLabelX;
+    d._labelY = displayLabelY;
     g.select('path.link')
       .attr('stroke', lt.color)
       .attr('stroke-width', lt.width)
       .attr('stroke-dasharray', lt.dasharray || null)
       .attr('d', pathD);
     g.select('path.link-hit').attr('d', pathD);
-    const labelOffset = lt.width / 2 + 3;
     g.select('text.link-label')
       .attr('fill', lt.labelColor)
       .attr('font-size', lt.labelFontSize > 0 ? lt.labelFontSize + 'px' : '0px')
-      .attr('x', labelX).attr('y', labelY - labelOffset)
+      .attr('x', displayLabelX).attr('y', displayLabelY)
       .style('display', lt.labelFontSize <= 0 ? 'none' : null)
       .attr('transform', () => {
         if (lt.labelOrientation === 'parallel') {
           const angle = Math.atan2(dy, dx) * 180 / Math.PI;
           const finalAngle = (angle > 90 || angle < -90) ? angle + 180 : angle;
-          return 'rotate(' + finalAngle + ', ' + labelX + ', ' + (labelY - labelOffset) + ')';
+          return 'rotate(' + finalAngle + ', ' + displayLabelX + ', ' + displayLabelY + ')';
         }
         return null;
       });
@@ -3109,6 +3367,25 @@ function highlightLink(link, on) {
   });
 }
 
+function linkEndpointId(endpoint) {
+  return endpoint && typeof endpoint === 'object' ? endpoint.id : endpoint;
+}
+
+function applySearchHighlight() {
+  const hasQuery = !!nodeSearchQuery;
+  nodesLayer.selectAll('g.node')
+    .classed('search-match', d => hasQuery && nodeSearchMatchIds.has(d.id))
+    .classed('search-dimmed', d => hasQuery && !nodeSearchMatchIds.has(d.id));
+
+  linksLayer.selectAll('g.link-group')
+    .classed('search-dimmed', d => {
+      if (!hasQuery) return false;
+      const sourceId = linkEndpointId(d.source);
+      const targetId = linkEndpointId(d.target);
+      return !nodeSearchMatchIds.has(sourceId) && !nodeSearchMatchIds.has(targetId);
+    });
+}
+
 function clearHighlights() {
   nodesLayer.selectAll('g.node').classed('highlight', false).classed('dimmed', false);
   linksLayer.selectAll('g.link-group').each(function() {
@@ -3120,6 +3397,85 @@ function clearHighlights() {
       .attr('marker-end', lt.directed ? 'url(#arrow-' + linkType(d) + ')' : null);
     d3.select(this).select('text.link-label').classed('highlight', false);
   });
+}
+
+function openHelpModal() {
+  document.getElementById('help-modal').classList.add('visible');
+}
+
+function closeHelpModal() {
+  document.getElementById('help-modal').classList.remove('visible');
+}
+
+function toggleHelpModal() {
+  const modal = document.getElementById('help-modal');
+  modal.classList.toggle('visible');
+}
+
+function readVisibleLinkLabelBoxes() {
+  const boxes = [];
+  linksLayer.selectAll('g.link-group').each(function(d) {
+    if (!d || !d.label || !Number.isFinite(d._labelX) || !Number.isFinite(d._labelY)) return;
+    const lt = state.linkTypes[linkType(d)];
+    if (!lt || lt.labelFontSize <= 0) return;
+    const text = d3.select(this).select('text.link-label');
+    const node = text.node();
+    if (!node || text.style('display') === 'none') return;
+    let width = 0;
+    try {
+      width = node.getComputedTextLength();
+    } catch (err) {
+      width = String(d.label || '').length * lt.labelFontSize * 0.62;
+    }
+    if (!Number.isFinite(width) || width <= 0) width = String(d.label || '').length * lt.labelFontSize * 0.62;
+    boxes.push({
+      linkId: d.id,
+      sourceId: linkEndpointId(d.source),
+      targetId: linkEndpointId(d.target),
+      x: d._labelX,
+      y: d._labelY,
+      anchorX: Number.isFinite(d._labelAnchorX) ? d._labelAnchorX : d._labelX,
+      anchorY: Number.isFinite(d._labelAnchorY) ? d._labelAnchorY : d._labelY,
+      shiftX: Number(d._labelShiftX) || 0,
+      shiftY: Number(d._labelShiftY) || 0,
+      width: Math.max(24, width),
+      height: Math.max(14, lt.labelFontSize * 1.35),
+    });
+  });
+  return boxes;
+}
+
+function applyLinkLabelDeclutterOffsets() {
+  if (!window.DramatisLinkLabelDeclutter) return { labels: 0, moved: 0 };
+  tick();
+  const boxes = readVisibleLinkLabelBoxes();
+  const offsets = DramatisLinkLabelDeclutter.resolveLabelOffsets(boxes, {
+    padding: 10,
+    iterations: 160,
+    maxShift: 210,
+    anchorStrength: 0.003,
+  });
+  const linkById = new Map(state.links.map(link => [link.id, link]));
+  let moved = 0;
+  offsets.forEach((offset, linkId) => {
+    const link = linkById.get(linkId);
+    if (!link) return;
+    const previousX = Number(link._labelShiftX) || 0;
+    const previousY = Number(link._labelShiftY) || 0;
+    link._labelShiftX = offset.x;
+    link._labelShiftY = offset.y;
+    if (Math.abs(previousX - offset.x) > 0.5 || Math.abs(previousY - offset.y) > 0.5) moved += 1;
+  });
+  tick();
+  return { labels: boxes.length, moved };
+}
+
+function declutterLinkLabels() {
+  if (!window.DramatisLinkLabelDeclutter || state.links.length === 0) return;
+  render(false);
+  applyLinkLabelDeclutterOffsets();
+  simulation.alphaTarget(0);
+  if (!state.freePlacement) simulation.stop();
 }
 
 svg.on('click', () => {
@@ -4342,6 +4698,27 @@ document.getElementById('btn-node-label-placement').addEventListener('click', ()
   render(false);
 });
 
+document.getElementById('topology-size-mode').addEventListener('change', (e) => {
+  pushUndo();
+  state.topologySizing = normalizeTopologySizing({
+    mode: e.target.value,
+    strength: state.topologySizing && state.topologySizing.strength,
+  });
+  updateTopologySizingUI();
+  render(true);
+});
+
+document.getElementById('topology-size-strength').addEventListener('input', (e) => {
+  if (!_undoDirty) { pushUndo(); _undoDirty = true; }
+  state.topologySizing = normalizeTopologySizing({
+    mode: state.topologySizing && state.topologySizing.mode,
+    strength: parseFloat(e.target.value),
+  });
+  updateTopologySizingUI();
+  render(false);
+  simulation.alpha(0.18).restart();
+});
+
 // 关系/行动类型样式
 document.querySelectorAll('.style-link-type-color').forEach(el => {
   el.addEventListener('input', (e) => {
@@ -4436,8 +4813,28 @@ document.getElementById('cluster-spacing').addEventListener('change', () => {
   _undoDirty = false;
 });
 document.getElementById('btn-clamp-toolbar').addEventListener('click', clampAllNodesToCurrentViewport);
+document.getElementById('btn-declutter-labels').addEventListener('click', declutterLinkLabels);
 document.getElementById('btn-toolbar-toggle').addEventListener('click', () => setToolbarHidden(true));
 document.getElementById('btn-toolbar-restore').addEventListener('click', () => setToolbarHidden(false));
+document.getElementById('btn-help').addEventListener('click', toggleHelpModal);
+document.getElementById('help-modal-close').addEventListener('click', closeHelpModal);
+document.getElementById('help-modal').addEventListener('click', (event) => {
+  if (event.target.id === 'help-modal') closeHelpModal();
+});
+document.getElementById('node-search-input').addEventListener('input', (event) => {
+  updateSearchMatchesFromInput(event.target.value);
+});
+document.getElementById('node-search-clear').addEventListener('click', () => {
+  clearNodeSearch();
+  document.getElementById('node-search-input').focus();
+});
+document.getElementById('node-search-input').addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    clearNodeSearch();
+    event.currentTarget.blur();
+  }
+});
 
 ['style-node-color', 'bg-color-input'].forEach(id => {
   document.getElementById(id).addEventListener('change', () => { _undoDirty = false; });
@@ -4619,6 +5016,17 @@ function fitView() {
 // 键盘
 // ============================================================
 window.addEventListener('keydown', e => {
+  if (window.DramatisSearchHighlight && DramatisSearchHighlight.isSearchFocusShortcut(e)) {
+    e.preventDefault();
+    const input = document.getElementById('node-search-input');
+    if (input) input.focus();
+    return;
+  }
+  if (window.DramatisSearchHighlight && DramatisSearchHighlight.isHelpShortcut(e)) {
+    e.preventDefault();
+    toggleHelpModal();
+    return;
+  }
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
     e.preventDefault();
     if (e.shiftKey) { redo(); } else { undo(); }
@@ -4630,6 +5038,14 @@ window.addEventListener('keydown', e => {
     return;
   }
   if (e.key === 'Escape') {
+    if (document.getElementById('help-modal').classList.contains('visible')) {
+      closeHelpModal();
+      return;
+    }
+    if (nodeSearchQuery && document.activeElement === document.getElementById('node-search-input')) {
+      clearNodeSearch();
+      return;
+    }
     if (document.getElementById('family-tree-overlay').style.display === 'flex') {
       closeFamilyTree();
       return;
@@ -4751,6 +5167,7 @@ document.getElementById('btn-export').addEventListener('click', () => {
     tagCategories: state.tagCategories,
     nextId: state.nextId,
     clusterSpacing: normalizeClusterSpacing(state.clusterSpacing),
+    topologySizing: normalizeTopologySizing(state.topologySizing),
     graphStyle: normalizeGraphStyle(state.graphStyle),
     linkTypes: {
       relation: { ...state.linkTypes.relation },
@@ -4791,9 +5208,11 @@ document.getElementById('import-input').addEventListener('change', e => {
       state.linkTypes = imported.linkTypes;
       state.forceConfig = imported.forceConfig;
       state.clusterSpacing = normalizeClusterSpacing(imported.clusterSpacing);
+      state.topologySizing = normalizeTopologySizing(imported.topologySizing);
       rebuildGraphIndex();
 
       state.currentEpisode = null;
+      updateSearchMatchesFromInput(nodeSearchQuery);
 
       const hasPositions = state.nodes.some(n => n.fx != null || n.fy != null);
       updateNodeScale();

@@ -44,6 +44,17 @@
     return Math.min(2.4, Math.max(0.5, n));
   }
 
+  function normalizeTopologySizing(value) {
+    var input = value || {};
+    var mode = input.mode === 'degree' || input.mode === 'connectivity' ? input.mode : 'none';
+    var strength = Number(input.strength);
+    if (!Number.isFinite(strength)) strength = mode === 'none' ? 0.65 : 0.65;
+    return {
+      mode: mode,
+      strength: Math.min(1, Math.max(0, strength)),
+    };
+  }
+
   function normalizeImportedGraph(data, options) {
     var input = data || {};
     var opts = options || {};
@@ -92,6 +103,7 @@
       graphBackgroundColor: input.graphBackgroundColor || (input.graphBackground && input.graphBackground.value) || '#0d0e12',
       linkTypes: cloneLinkTypes(opts.defaultLinkTypes, input.linkTypes),
       clusterSpacing: normalizeClusterSpacing(input.clusterSpacing),
+      topologySizing: normalizeTopologySizing(input.topologySizing),
       forceConfig: input.forceConfig || {
         centerStrength: 0.05,
         chargeStrength: -650,

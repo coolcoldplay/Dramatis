@@ -55,6 +55,10 @@
         order: 'asc',
       },
       clusterSpacing: 1,
+      topologySizing: {
+        mode: 'none',
+        strength: 0.65,
+      },
       graphIndex: null,
       _pendingLinkFrom: null,
       forceConfig: {
