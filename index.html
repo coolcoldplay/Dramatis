@@ -6,6 +6,8 @@
 <title>剧集人物关系图</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="graph-index.js"></script>
+<script src="layout-forces.js"></script>
 <script src="degree-filter.js"></script>
 <script src="viewport-tools.js"></script>
 <script src="toolbar-visibility.js"></script>
@@ -1388,6 +1390,11 @@
 		<div id="degree-filter-summary" class="hint-text" style="margin-top:6px">匹配 0 个节点</div>
 		<button class="btn btn-secondary btn-small" id="btn-clamp-to-view" style="margin-top:8px">收回当前视野</button>
 		<div id="viewport-clamp-summary" class="hint-text" style="margin-top:6px"></div>
+		<div class="field-row" style="gap:6px;align-items:center;margin-top:8px">
+			<select id="cluster-category-select" style="flex:1;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);padding:6px 6px;border-radius:4px;font-size:12px;outline:none"></select>
+			<button class="btn btn-secondary btn-small" id="btn-cluster-by-tag" style="flex:0 0 auto">按标签分群</button>
+		</div>
+		<div id="cluster-layout-summary" class="hint-text" style="margin-top:6px"></div>
 	</div>
 
 	<div class="divider" style="margin:12px 0"></div>
@@ -1862,6 +1869,7 @@ const state = {
     by: 'creation',
     order: 'asc',
   },
+  graphIndex: null,
   _pendingLinkFrom: null,
   forceConfig: {
     centerStrength: 0.05,
@@ -1911,6 +1919,20 @@ function normalizeGraphStyle(style) {
   return gs;
 }
 
+function invalidateGraphIndex() {
+  state.graphIndex = null;
+}
+
+function rebuildGraphIndex() {
+  if (!window.DramatisGraphIndex) return null;
+  state.graphIndex = DramatisGraphIndex.buildGraphIndex(state.nodes, state.links);
+  return state.graphIndex;
+}
+
+function currentGraphIndex() {
+  return state.graphIndex || rebuildGraphIndex();
+}
+
 function setToolbarHidden(hidden) {
   toolbarHidden = !!hidden;
   const toolbar = document.querySelector('.toolbar');
@@ -1950,6 +1972,7 @@ function applySnapshot(snap) {
   state.graphBackgroundColor = snap.graphBackgroundColor;
   state.characterSort = snap.characterSort;
   state.forceConfig = snap.forceConfig || { centerStrength: 0.05, chargeStrength: -650, linkStrength: 0.5, linkDistance: 170 };
+  rebuildGraphIndex();
 }
 
 function pushUndo() {
@@ -2455,7 +2478,7 @@ function render(restartSimulation) {
       event.preventDefault(); event.stopPropagation();
       showContextMenu(event.pageX, event.pageY, [
         { label: '编辑关系', action: () => openRelationEditor(d) },
-        { label: d.hidden ? '显示连线' : '隐藏连线', action: () => { pushUndo(); d.hidden = !d.hidden; render(false); } },
+        { label: d.hidden ? '显示连线' : '隐藏连线', action: () => { pushUndo(); d.hidden = !d.hidden; invalidateGraphIndex(); render(false); } },
         { label: '删除连线', danger: true, action: () => deleteLink(d.id) },
       ]);
     })
@@ -2741,6 +2764,7 @@ function renderUI() {
   updateDegreeFilterSummary();
   renderCharacterList();
   renderTagCategoriesPanel();
+  updateClusterCategoryOptions();
   updateEpisodeSlider();
   updateMultiSelectUI();
   updateFreePlacementUI();
@@ -2766,6 +2790,26 @@ function updateFreePlacementUI() {
   }
 }
 
+function updateClusterCategoryOptions() {
+  const select = document.getElementById('cluster-category-select');
+  if (!select) return;
+  const current = select.value;
+  select.innerHTML = '';
+
+  state.tagCategories
+    .filter(category => category && category.tags && category.tags.length)
+    .forEach(category => {
+      const option = document.createElement('option');
+      option.value = category.id;
+      option.textContent = category.name || category.id;
+      select.appendChild(option);
+    });
+
+  if (current && Array.from(select.options).some(option => option.value === current)) {
+    select.value = current;
+  }
+}
+
 function degreeFilterControls() {
   const opEl = document.getElementById('degree-filter-op');
   const countEl = document.getElementById('degree-filter-count');
@@ -2778,6 +2822,14 @@ function degreeFilterControls() {
 function degreeFilterMatches() {
   if (!window.DramatisDegreeFilter) return [];
   const controls = degreeFilterControls();
+  const index = currentGraphIndex();
+  if (index && index.degrees && DramatisDegreeFilter.matchesOperator) {
+    return state.nodes.filter(node => {
+      if (!node || !node.id) return false;
+      const degree = index.degrees.get(node.id) || 0;
+      return DramatisDegreeFilter.matchesOperator(degree, controls.op, controls.count);
+    });
+  }
   return DramatisDegreeFilter.getNodesMatchingDegree(
     state.nodes,
     state.links,
@@ -2808,24 +2860,88 @@ function applyDegreeFilterVisibility(hidden) {
   updateDegreeFilterSummary();
 }
 
-function clampAllNodesToCurrentViewport() {
-  if (!window.DramatisViewportTools || state.nodes.length === 0) return;
-  const status = document.getElementById('viewport-clamp-summary');
-  const s = getSize();
+function graphViewportBounds(padding) {
   const t = currentTransform();
+  const s = getSize();
+  if (window.DramatisViewportTools) {
+    return DramatisViewportTools.viewportBounds(t, s, padding || 0);
+  }
+  return { minX: 0, maxX: s.width, minY: 0, maxY: s.height };
+}
+
+function scheduleTemporaryForce(name, force, durationMs) {
+  simulation.force(name, force);
+  simulation.alphaTarget(0.18).alpha(0.85).restart();
+  window.setTimeout(() => {
+    simulation.force(name, null);
+    simulation.alphaTarget(0);
+  }, durationMs || 1800);
+}
+
+function clampAllNodesToCurrentViewport() {
+  if (!window.DramatisLayoutForces || state.nodes.length === 0) return;
+  const status = document.getElementById('viewport-clamp-summary');
 
   pushUndo();
-  const changed = DramatisViewportTools.clampNodesToViewport(state.nodes, t, s, 64);
-  state.freePlacement = true;
-  simulation.stop();
-  updateFreePlacementUI();
+  const bounds = graphViewportBounds(64);
+  const changed = DramatisLayoutForces.pullNodesInsideBounds(state.nodes, bounds, 48);
+  const boundaryForce = DramatisLayoutForces.createBoundaryForce(
+    () => graphViewportBounds(0),
+    { margin: Math.max(90, NODE_R * 3), strength: 0.06 }
+  );
+  scheduleTemporaryForce('viewportBoundary', boundaryForce, 2200);
   render(false);
-  tick();
 
   if (status) {
     status.textContent = changed > 0
-      ? '已收回 ' + changed + ' 个跑出视野的节点，并固定当前位置'
-      : '所有节点已在当前视野内，并固定当前位置';
+      ? '已收回 ' + changed + ' 个节点，并重新松弛布局'
+      : '所有节点已在视野内，正在重新松弛布局';
+  }
+}
+
+function clusterBySelectedTagCategory() {
+  if (!window.DramatisLayoutForces || state.nodes.length === 0) return;
+  const select = document.getElementById('cluster-category-select');
+  const summary = document.getElementById('cluster-layout-summary');
+  const categoryId = select && select.value;
+  const category = state.tagCategories.find(c => c.id === categoryId);
+  if (!category) {
+    if (summary) summary.textContent = '请先选择一个标签分类';
+    return;
+  }
+
+  const visibleNodes = state.nodes.filter(isNodeVisible);
+  if (visibleNodes.length === 0) {
+    if (summary) summary.textContent = '当前没有可见节点可分群';
+    return;
+  }
+
+  pushUndo();
+  const targets = DramatisLayoutForces.buildClusterTargets(
+    visibleNodes,
+    category,
+    graphViewportBounds(96)
+  );
+  const clusterForce = DramatisLayoutForces.createClusterForce(
+    targets.nodeTargets,
+    { strength: 0.10 }
+  );
+  const boundaryForce = DramatisLayoutForces.createBoundaryForce(
+    () => graphViewportBounds(0),
+    { margin: Math.max(90, NODE_R * 3), strength: 0.04 }
+  );
+
+  visibleNodes.forEach(node => {
+    node.fx = null;
+    node.fy = null;
+  });
+
+  scheduleTemporaryForce('tagCluster', clusterForce, 2600);
+  scheduleTemporaryForce('clusterBoundary', boundaryForce, 2600);
+  render(false);
+
+  if (summary) {
+    summary.textContent = '按「' + (category.name || category.id) + '」生成 ' + targets.clusterCenters.size + ' 个分群';
   }
 }
 
@@ -3395,6 +3511,7 @@ document.getElementById('modal-confirm').addEventListener('click', () => {
     state.editing.link.familyRelation = familyRelation || undefined;
   }
   closeRelationModal();
+  invalidateGraphIndex();
   render(true);
 });
 
@@ -3569,6 +3686,7 @@ document.getElementById('char-modal-save').addEventListener('click', () => {
   }
 
   var wasNew = state.editing && state.editing.isNew;
+  if (wasNew) invalidateGraphIndex();
   closeCharModal();
   render(true);
   // N 键快捷流程：新建人物后自动跳转连线
@@ -3712,12 +3830,14 @@ function deleteNode(id) {
     return sid !== id && tid !== id;
   });
   state.selectedNodes.delete(id);
+  invalidateGraphIndex();
   render(true);
 }
 
 function deleteLink(id) {
   pushUndo();
   state.links = state.links.filter(l => l.id !== id);
+  invalidateGraphIndex();
   render(true);
 }
 
@@ -3725,6 +3845,10 @@ function deleteLink(id) {
 // 人物列表
 // ============================================================
 function countNodeLinks(nodeId) {
+  const index = currentGraphIndex();
+  if (index && index.degrees && index.degrees.has(nodeId)) {
+    return index.degrees.get(nodeId) || 0;
+  }
   let count = 0;
   for (let i = 0; i < state.links.length; i++) {
     var l = state.links[i];
@@ -4209,6 +4333,7 @@ document.querySelectorAll('.ft-link-toggle').forEach(function(btn) {
     state.links.forEach(function(l) { if (linkType(l) === type) l.hidden = anyVisible; });
     btn.innerHTML = anyVisible ? EYE_CLOSED_SVG : EYE_OPEN_SVG;
     btn.title = anyVisible ? '显示' + (type === 'relation' ? '关系' : '行动') + '连线' : '隐藏' + (type === 'relation' ? '关系' : '行动') + '连线';
+    invalidateGraphIndex();
     render(false);
   });
 });
@@ -4306,6 +4431,7 @@ document.getElementById('btn-degree-show').addEventListener('click', () => {
   applyDegreeFilterVisibility(false);
 });
 document.getElementById('btn-clamp-to-view').addEventListener('click', clampAllNodesToCurrentViewport);
+document.getElementById('btn-cluster-by-tag').addEventListener('click', clusterBySelectedTagCategory);
 document.getElementById('btn-clamp-toolbar').addEventListener('click', clampAllNodesToCurrentViewport);
 document.getElementById('btn-toolbar-toggle').addEventListener('click', () => setToolbarHidden(true));
 document.getElementById('btn-toolbar-restore').addEventListener('click', () => setToolbarHidden(false));
@@ -4457,6 +4583,7 @@ document.getElementById('btn-show-all').addEventListener('click', () => {
   state.currentEpisode = null;
   document.getElementById('episode-slider').value = document.getElementById('episode-slider').max;
   document.getElementById('episode-current').textContent = '全部显示';
+  invalidateGraphIndex();
   render(true);
 });
 
@@ -4679,11 +4806,17 @@ document.getElementById('import-input').addEventListener('change', e => {
       // 旧数据兼容: forceConfig
       state.forceConfig = data.forceConfig || { centerStrength: 0.05, chargeStrength: -650, linkStrength: 0.5, linkDistance: 170 };
 
-      state.links.forEach(l => {
-        if (typeof l.source === 'string') l.source = state.nodes.find(n => n.id === l.source);
-        if (typeof l.target === 'string') l.target = state.nodes.find(n => n.id === l.target);
-      });
-      state.links = state.links.filter(l => l.source && l.target);
+      if (window.DramatisGraphIndex) {
+        const resolved = DramatisGraphIndex.resolveLinkEndpoints(state.nodes, state.links);
+        state.links = resolved.links;
+      } else {
+        state.links.forEach(l => {
+          if (typeof l.source === 'string') l.source = state.nodes.find(n => n.id === l.source);
+          if (typeof l.target === 'string') l.target = state.nodes.find(n => n.id === l.target);
+        });
+        state.links = state.links.filter(l => l.source && l.target);
+      }
+      rebuildGraphIndex();
 
       const maxIdNum = (arr, prefix) => Math.max(0, ...arr
         .map(x => x.id)
@@ -4723,6 +4856,7 @@ document.getElementById('btn-clear').addEventListener('click', () => {
   state.nextId = 1;
   state.selectedNodes.clear();
   state.currentEpisode = null;
+  invalidateGraphIndex();
   render(true);
 });
 

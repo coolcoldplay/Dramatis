@@ -4,6 +4,7 @@ const test = require('node:test');
 const {
   calculateNodeDegrees,
   getNodesMatchingDegree,
+  matchesOperator,
 } = require('../degree-filter.js');
 
 test('calculates node degree from non-hidden links with object or string endpoints', () => {
@@ -41,4 +42,11 @@ test('matches nodes by degree operator', () => {
   assert.deepEqual(getNodesMatchingDegree(nodes, links, '<=', 1).map(n => n.id), ['N2', 'N4']);
   assert.deepEqual(getNodesMatchingDegree(nodes, links, '=', 2).map(n => n.id), ['N1', 'N3']);
   assert.deepEqual(getNodesMatchingDegree(nodes, links, '>=', 2).map(n => n.id), ['N1', 'N3']);
+});
+
+test('exposes degree operator matching for indexed UI filters', () => {
+  assert.equal(matchesOperator(1, '<=', 1), true);
+  assert.equal(matchesOperator(2, '<=', 1), false);
+  assert.equal(matchesOperator(2, '=', 2), true);
+  assert.equal(matchesOperator(3, '>=', 2), true);
 });

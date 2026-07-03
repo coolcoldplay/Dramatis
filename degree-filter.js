@@ -61,5 +61,6 @@
   return {
     calculateNodeDegrees: calculateNodeDegrees,
     getNodesMatchingDegree: getNodesMatchingDegree,
+    matchesOperator: matchesOperator,
   };
 });
