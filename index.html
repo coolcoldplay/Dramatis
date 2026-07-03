@@ -13,6 +13,7 @@
 <script src="toolbar-visibility.js"></script>
 <script src="node-label-layout.js"></script>
 <script src="src/app-state.js"></script>
+<script src="src/episode-timeline.js"></script>
 <style>
   :root {
     --bg-deep: #0d0e12;
@@ -1969,25 +1970,11 @@ function nextColor() {
 // 剧集解析工具
 // ============================================================
 function parseEpisodes(str) {
-  if (!str) return [];
-  const episodes = [];
-  const parts = str.toUpperCase().split(/[,\s]+/).filter(p => p);
-  parts.forEach(p => {
-    const match = p.match(/S(\d+)E(\d+)/i);
-    if (match) {
-      const season = parseInt(match[1], 10);
-      const episode = parseInt(match[2], 10);
-      episodes.push({ season, episode, raw: p });
-    }
-  });
-  return episodes.sort((a, b) => {
-    if (a.season !== b.season) return a.season - b.season;
-    return a.episode - b.episode;
-  });
+  return DramatisEpisodeTimeline.parseEpisodes(str);
 }
 
 function episodeToString(ep) {
-  return `S${ep.season}E${ep.episode}`;
+  return DramatisEpisodeTimeline.episodeToString(ep);
 }
 
 function getCurrentEpisodeContext() {
@@ -1996,78 +1983,23 @@ function getCurrentEpisodeContext() {
 }
 
 function compareEpisodes(a, b) {
-  if (a.season !== b.season) return a.season - b.season;
-  return a.episode - b.episode;
+  return DramatisEpisodeTimeline.compareEpisodes(a, b);
 }
 
 function resolveEpisode(ep) {
-  if (!ep || (ep.season === 0 && ep.episode === 0)) return ep;
-  var lastMatch = null;
-  for (var i = state.episodeList.length - 1; i >= 0; i--) {
-    var e = state.episodeList[i];
-    if (e.season === ep.season && e.episode === ep.episode) {
-      lastMatch = e;
-      break;
-    }
-  }
-  return lastMatch || ep;
+  return DramatisEpisodeTimeline.resolveEpisode(ep, state.episodeList);
 }
 
 function parseEpisodesPreserveSeq(str, existingEpisodes) {
-  var parsed = parseEpisodes(str);
-  if (!existingEpisodes || existingEpisodes.length === 0) return parsed;
-  return parsed.map(function(ep) {
-    for (var i = 0; i < existingEpisodes.length; i++) {
-      var old = existingEpisodes[i];
-      if (old.season === ep.season && old.episode === ep.episode) {
-        if (old.sequence !== undefined) ep.sequence = old.sequence;
-        break;
-      }
-    }
-    return ep;
-  });
+  return DramatisEpisodeTimeline.parseEpisodesPreserveSeq(str, existingEpisodes);
 }
 
 function episodeIndexInList(ep) {
-  for (let i = 0; i < state.episodeList.length; i++) {
-    const e = state.episodeList[i];
-    if (e.season === ep.season && e.episode === ep.episode && (e.sequence || 0) === (ep.sequence || 0)) {
-      return i;
-    }
-  }
-  return -1;
+  return DramatisEpisodeTimeline.episodeIndexInList(ep, state.episodeList);
 }
 
 function collectAllEpisodes() {
-  const episodeSet = new Map();
-
-  state.nodes.forEach(n => {
-    if (n.episodes) {
-      n.episodes.forEach(ep => {
-        const key = `${ep.season}-${ep.episode}-${ep.sequence || 0}`;
-        if (!episodeSet.has(key)) {
-          episodeSet.set(key, { ...ep });
-        }
-      });
-    }
-  });
-
-  state.links.forEach(l => {
-    if (l.episodes) {
-      l.episodes.forEach(ep => {
-        const key = `${ep.season}-${ep.episode}-${ep.sequence || 0}`;
-        if (!episodeSet.has(key)) {
-          episodeSet.set(key, { ...ep });
-        }
-      });
-    }
-  });
-
-  return Array.from(episodeSet.values()).sort((a, b) => {
-    if (a.season !== b.season) return a.season - b.season;
-    if (a.episode !== b.episode) return a.episode - b.episode;
-    return (a.sequence || 0) - (b.sequence || 0);
-  });
+  return DramatisEpisodeTimeline.collectAllEpisodes(state.nodes, state.links);
 }
 
 function updateEpisodeSlider() {
