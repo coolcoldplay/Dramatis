@@ -58,8 +58,43 @@
     return changed;
   }
 
+  function hasNodePosition(node) {
+    if (!node) return false;
+    return (Number.isFinite(node.x) && Number.isFinite(node.y))
+      || (Number.isFinite(node.fx) && Number.isFinite(node.fy));
+  }
+
+  function seedMissingNodePositions(nodes, transform, size, options) {
+    var list = (nodes || []).filter(function(node) {
+      return node && !hasNodePosition(node);
+    });
+    if (!list.length) return 0;
+
+    var opts = options || {};
+    var bounds = viewportBounds(transform, size, opts.padding == null ? 120 : opts.padding);
+    var width = Math.max(1, bounds.maxX - bounds.minX);
+    var height = Math.max(1, bounds.maxY - bounds.minY);
+    var centerX = (bounds.minX + bounds.maxX) / 2;
+    var centerY = (bounds.minY + bounds.maxY) / 2;
+    var maxRadius = Math.max(40, Math.min(width, height) * (opts.radiusRatio == null ? 0.42 : opts.radiusRatio));
+    var goldenAngle = Math.PI * (3 - Math.sqrt(5));
+
+    list.forEach(function(node, index) {
+      var progress = Math.sqrt((index + 0.5) / list.length);
+      var radius = maxRadius * progress;
+      var angle = index * goldenAngle;
+      node.x = clamp(centerX + Math.cos(angle) * radius, bounds.minX, bounds.maxX);
+      node.y = clamp(centerY + Math.sin(angle) * radius, bounds.minY, bounds.maxY);
+      node.vx = 0;
+      node.vy = 0;
+    });
+
+    return list.length;
+  }
+
   return {
     viewportBounds: viewportBounds,
     clampNodesToViewport: clampNodesToViewport,
+    seedMissingNodePositions: seedMissingNodePositions,
   };
 });

@@ -13,6 +13,8 @@
 <script src="toolbar-visibility.js"></script>
 <script src="node-label-layout.js"></script>
 <script src="graph-highlight.js"></script>
+<script src="render-mode.js"></script>
+<script src="render-scheduler.js"></script>
 <script src="search-highlight.js"></script>
 <script src="topology-sizing.js"></script>
 <script src="link-label-declutter.js"></script>
@@ -575,6 +577,35 @@
   }
 
   .link-label.highlight { fill: var(--accent-bright); font-weight: 500; }
+
+  .render-mode-medium .link-label,
+  .render-mode-large .link-label,
+  .render-mode-huge .link-label {
+    display: none;
+  }
+
+  .render-mode-medium .link-label.highlight,
+  .render-mode-large .link-label.highlight,
+  .render-mode-huge .link-label.highlight {
+    display: block !important;
+  }
+
+  .render-mode-large .node-avatar,
+  .render-mode-large .node-label,
+  .render-mode-huge .node-avatar,
+  .render-mode-huge .node-label {
+    display: none !important;
+  }
+
+  .render-mode-large .ring-seg,
+  .render-mode-huge .ring-seg {
+    display: none;
+  }
+
+  .render-mode-large .node-circle-bg,
+  .render-mode-huge .node-circle-bg {
+    stroke-width: 2;
+  }
 
   .link-hit {
     fill: none;
@@ -2046,6 +2077,10 @@ let nodeRadiusCache = new Map();
 let collisionPaddingBoost = 0;
 let labelDeclutterDistanceBoosts = new Map();
 let labelDeclutterRuntimeToken = 0;
+let currentRenderMode = window.DramatisRenderMode
+  ? DramatisRenderMode.resolveRenderMode({ nodeCount: 0, linkCount: 0 })
+  : { name: 'small', className: 'render-mode-small', showLinkLabels: true, simplifyNodes: false, simplifyCurves: false, showAvatars: true, linkTickModulo: 1 };
+let graphRenderFrame = 0;
 
 var EYE_OPEN_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 var EYE_CLOSED_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
@@ -2116,6 +2151,33 @@ function rebuildGraphIndex() {
 
 function currentGraphIndex() {
   return state.graphIndex || rebuildGraphIndex();
+}
+
+function resolveCurrentRenderMode(visibleNodes, visibleLinks) {
+  if (!window.DramatisRenderMode) return currentRenderMode;
+  currentRenderMode = DramatisRenderMode.resolveRenderMode({
+    nodeCount: visibleNodes ? visibleNodes.length : 0,
+    linkCount: visibleLinks ? visibleLinks.length : 0,
+  });
+  return currentRenderMode;
+}
+
+function applyRenderMode(mode) {
+  const nextMode = mode || currentRenderMode;
+  const classes = ['render-mode-small', 'render-mode-medium', 'render-mode-large', 'render-mode-huge'];
+  classes.forEach(cls => viewport.classed(cls, false));
+  viewport.classed((nextMode && nextMode.className) || 'render-mode-small', true);
+}
+
+function showAllLinkLabels() {
+  return !currentRenderMode || currentRenderMode.showLinkLabels !== false;
+}
+
+function shouldDisplayLinkLabel(link, labelSelection) {
+  const lt = state.linkTypes[linkType(link)];
+  if (!lt || lt.labelFontSize <= 0) return false;
+  if (showAllLinkLabels()) return true;
+  return !!(labelSelection && labelSelection.classed('highlight'));
 }
 
 function setToolbarHidden(hidden) {
@@ -2298,6 +2360,9 @@ const svg = d3.select('#graph-svg');
 const viewport = d3.select('#viewport');
 const linksLayer = d3.select('#links-layer');
 const nodesLayer = d3.select('#nodes-layer');
+const renderScheduler = window.DramatisRenderScheduler
+  ? DramatisRenderScheduler.createRenderScheduler()
+  : { requestLayout: (callback) => requestAnimationFrame(callback) };
 
 const zoom = d3.zoom()
   .scaleExtent([0.2, 3])
@@ -2331,7 +2396,7 @@ const simulation = d3.forceSimulation()
   ) : null)
   .force('collide', d3.forceCollide().radius(nodeCollisionRadius).strength(0.9))
   .alphaDecay(0.05)
-  .on('tick', tick);
+  .on('tick', scheduleTick);
 
 let resizeTimer;
 window.addEventListener('resize', () => {
@@ -2346,9 +2411,14 @@ window.addEventListener('resize', () => {
 // ============================================================
 // 多连线曲率
 // ============================================================
-function computeLinkCurvatures() {
+function computeLinkCurvatures(links, simplifyCurves) {
+  const sourceLinks = links || state.links;
+  if (simplifyCurves) {
+    sourceLinks.forEach(l => { l._curveOffset = 0; });
+    return;
+  }
   const pairMap = new Map();
-  state.links.forEach(l => {
+  sourceLinks.forEach(l => {
     const sid = typeof l.source === 'object' ? l.source.id : l.source;
     const tid = typeof l.target === 'object' ? l.target.id : l.target;
     const key = sid < tid ? `${sid}|${tid}` : `${tid}|${sid}`;
@@ -2613,10 +2683,13 @@ function isLinkVisible(link) {
 // 渲染
 // ============================================================
 function render(restartSimulation) {
-  computeLinkCurvatures();
+  const visibleNodes = state.nodes.filter(isNodeVisible);
 
   // 过滤可见的连线
   const visibleLinks = state.links.filter(isLinkVisible);
+  const mode = resolveCurrentRenderMode(visibleNodes, visibleLinks);
+  applyRenderMode(mode);
+  computeLinkCurvatures(visibleLinks, mode.simplifyCurves);
 
   // 连线
   const linkGroups = linksLayer.selectAll('g.link-group').data(visibleLinks, d => d.id);
@@ -2653,13 +2726,10 @@ function render(restartSimulation) {
 	      const lt = state.linkTypes[linkType(d)];
 	      return lt.labelFontSize > 0 ? lt.labelFontSize + 'px' : '0px';
 	    })
-	    .style('display', d => {
-	      const lt = state.linkTypes[linkType(d)];
-	      return lt.labelFontSize <= 0 ? 'none' : null;
+	    .style('display', function(d) {
+	      const label = d3.select(this);
+	      return shouldDisplayLinkLabel(d, label) ? null : 'none';
 	    });
-
-  // 过滤可见的节点
-  const visibleNodes = state.nodes.filter(isNodeVisible);
   refreshNodeRadiusCache(visibleNodes, visibleLinks);
 
   // 节点
@@ -2690,10 +2760,14 @@ function render(restartSimulation) {
 
   // 环段
   allNodes.each(function(d) {
+    const segG = d3.select(this).select('g.ring-segments');
+    if (mode.simplifyNodes) {
+      segG.selectAll('path.ring-seg').remove();
+      return;
+    }
     const segs = computeNodeRingSegments(d);
     const innerRadius = nodeInnerRadius(d);
     const outerRadius = nodeOuterRadius(d);
-    const segG = d3.select(this).select('g.ring-segments');
     const sel = segG.selectAll('path.ring-seg').data(segs);
     sel.exit().remove();
     const enter = sel.enter().append('path').attr('class', 'ring-seg');
@@ -2706,14 +2780,14 @@ function render(restartSimulation) {
 
   allNodes.select('image.node-avatar')
     .attr('href', d => d.avatar || null)
-    .style('display', d => d.avatar ? 'block' : 'none');
+    .style('display', d => (mode.showAvatars !== false && d.avatar) ? 'block' : 'none');
 
   const nodeLabelPlacement = normalizeNodeLabelPlacement(state.graphStyle.nodeLabelPlacement);
 
   allNodes.select('text.node-initial')
-    .text(d => d.avatar ? '' : (d.name ? d.name[0] : '?'))
+    .text(d => (mode.showAvatars !== false && d.avatar) ? '' : (d.name ? d.name[0] : '?'))
     .attr('font-size', d => Math.max(16, Math.round(nodeInnerRadius(d) * 0.78)) + 'px')
-    .style('display', d => (nodeLabelPlacement === 'inside' || d.avatar) ? 'none' : 'block');
+    .style('display', d => (nodeLabelPlacement === 'inside' || (mode.showAvatars !== false && d.avatar)) ? 'none' : 'block');
 
   // 更新节点几何（支持缩放）
   allNodes.select('clipPath circle').attr('r', d => nodeInnerRadius(d));
@@ -2724,7 +2798,13 @@ function render(restartSimulation) {
 
   allNodes.select('text.node-label')
     .each(function(d) {
-      renderNodeLabel(d3.select(this), d);
+      const label = d3.select(this);
+      if (mode.showNodeLabels === false) {
+        label.selectAll('tspan').remove();
+        label.text(null).style('display', 'none');
+        return;
+      }
+      renderNodeLabel(label, d);
     });
 
   allNodes
@@ -3302,73 +3382,86 @@ function alignSelectedNodes(mode) {
   render(true);
 }
 
+function scheduleTick() {
+  renderScheduler.requestLayout(() => tick());
+}
+
 function tick() {
-  linksLayer.selectAll('g.link-group').each(function(d) {
-    const g = d3.select(this);
-    const src = d.source, tgt = d.target;
-    if (!src || !tgt || typeof src.x !== 'number') return;
+  graphRenderFrame += 1;
+  const mode = currentRenderMode || {};
+  const linkTickModulo = Math.max(1, Number(mode.linkTickModulo) || 1);
+  const alpha = simulation && typeof simulation.alpha === 'function' ? simulation.alpha() : 0;
+  const shouldUpdateLinks = graphRenderFrame % linkTickModulo === 0 || alpha < 0.05;
 
-    const dx = tgt.x - src.x, dy = tgt.y - src.y;
-    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-    const ux = dx / dist, uy = dy / dist;
-    const pad = 6;
-    const offset = d._curveOffset || 0;
-    const srcRadius = nodeVisualRadius(src);
-    const tgtRadius = nodeVisualRadius(tgt);
+  if (shouldUpdateLinks) {
+    linksLayer.selectAll('g.link-group').each(function(d) {
+      const g = d3.select(this);
+      const src = d.source, tgt = d.target;
+      if (!src || !tgt || typeof src.x !== 'number') return;
 
-    let pathD, labelX, labelY;
+      const dx = tgt.x - src.x, dy = tgt.y - src.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const ux = dx / dist, uy = dy / dist;
+      const pad = 6;
+      const offset = mode.simplifyCurves ? 0 : (d._curveOffset || 0);
+      const srcRadius = nodeVisualRadius(src);
+      const tgtRadius = nodeVisualRadius(tgt);
 
-    if (offset === 0) {
-      const sx = src.x + ux * srcRadius, sy = src.y + uy * srcRadius;
-      const tx = tgt.x - ux * (tgtRadius + pad), ty = tgt.y - uy * (tgtRadius + pad);
-      pathD = `M ${sx} ${sy} L ${tx} ${ty}`;
-      labelX = (sx + tx) / 2;
-      labelY = (sy + ty) / 2;
-    } else {
-      const mx = (src.x + tgt.x) / 2, my = (src.y + tgt.y) / 2;
-      const nx = -uy, ny = ux;
-      const cx = mx + nx * offset, cy = my + ny * offset;
+      let pathD, labelX, labelY;
 
-      const sDx = cx - src.x, sDy = cy - src.y;
-      const sLen = Math.sqrt(sDx * sDx + sDy * sDy) || 1;
-      const sx = src.x + (sDx / sLen) * srcRadius;
-      const sy = src.y + (sDy / sLen) * srcRadius;
+      if (offset === 0) {
+        const sx = src.x + ux * srcRadius, sy = src.y + uy * srcRadius;
+        const tx = tgt.x - ux * (tgtRadius + pad), ty = tgt.y - uy * (tgtRadius + pad);
+        pathD = `M ${sx} ${sy} L ${tx} ${ty}`;
+        labelX = (sx + tx) / 2;
+        labelY = (sy + ty) / 2;
+      } else {
+        const mx = (src.x + tgt.x) / 2, my = (src.y + tgt.y) / 2;
+        const nx = -uy, ny = ux;
+        const cx = mx + nx * offset, cy = my + ny * offset;
 
-      const tDx = cx - tgt.x, tDy = cy - tgt.y;
-      const tLen = Math.sqrt(tDx * tDx + tDy * tDy) || 1;
-      const tx = tgt.x + (tDx / tLen) * (tgtRadius + pad);
-      const ty = tgt.y + (tDy / tLen) * (tgtRadius + pad);
+        const sDx = cx - src.x, sDy = cy - src.y;
+        const sLen = Math.sqrt(sDx * sDx + sDy * sDy) || 1;
+        const sx = src.x + (sDx / sLen) * srcRadius;
+        const sy = src.y + (sDy / sLen) * srcRadius;
 
-      pathD = `M ${sx} ${sy} Q ${cx} ${cy} ${tx} ${ty}`;
-      labelX = 0.25 * sx + 0.5 * cx + 0.25 * tx;
-      labelY = 0.25 * sy + 0.5 * cy + 0.25 * ty;
-    }
+        const tDx = cx - tgt.x, tDy = cy - tgt.y;
+        const tLen = Math.sqrt(tDx * tDx + tDy * tDy) || 1;
+        const tx = tgt.x + (tDx / tLen) * (tgtRadius + pad);
+        const ty = tgt.y + (tDy / tLen) * (tgtRadius + pad);
 
-    const lt = state.linkTypes[linkType(d)];
-    const labelOffset = lt.width / 2 + 3;
-    const displayLabelY = labelY - labelOffset;
-    d._labelX = labelX;
-    d._labelY = displayLabelY;
-    g.select('path.link')
-      .attr('stroke', lt.color)
-      .attr('stroke-width', lt.width)
-      .attr('stroke-dasharray', lt.dasharray || null)
-      .attr('d', pathD);
-    g.select('path.link-hit').attr('d', pathD);
-    g.select('text.link-label')
-      .attr('fill', lt.labelColor)
-      .attr('font-size', lt.labelFontSize > 0 ? lt.labelFontSize + 'px' : '0px')
-      .attr('x', labelX).attr('y', displayLabelY)
-      .style('display', lt.labelFontSize <= 0 ? 'none' : null)
-      .attr('transform', () => {
-        if (lt.labelOrientation === 'parallel') {
-          const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-          const finalAngle = (angle > 90 || angle < -90) ? angle + 180 : angle;
-          return 'rotate(' + finalAngle + ', ' + labelX + ', ' + displayLabelY + ')';
-        }
-        return null;
-      });
-  });
+        pathD = `M ${sx} ${sy} Q ${cx} ${cy} ${tx} ${ty}`;
+        labelX = 0.25 * sx + 0.5 * cx + 0.25 * tx;
+        labelY = 0.25 * sy + 0.5 * cy + 0.25 * ty;
+      }
+
+      const lt = state.linkTypes[linkType(d)];
+      const labelOffset = lt.width / 2 + 3;
+      const displayLabelY = labelY - labelOffset;
+      d._labelX = labelX;
+      d._labelY = displayLabelY;
+      g.select('path.link')
+        .attr('stroke', lt.color)
+        .attr('stroke-width', lt.width)
+        .attr('stroke-dasharray', lt.dasharray || null)
+        .attr('d', pathD);
+      g.select('path.link-hit').attr('d', pathD);
+      const label = g.select('text.link-label');
+      label
+        .attr('fill', lt.labelColor)
+        .attr('font-size', lt.labelFontSize > 0 ? lt.labelFontSize + 'px' : '0px')
+        .attr('x', labelX).attr('y', displayLabelY)
+        .style('display', shouldDisplayLinkLabel(d, label) ? null : 'none')
+        .attr('transform', () => {
+          if (lt.labelOrientation === 'parallel') {
+            const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+            const finalAngle = (angle > 90 || angle < -90) ? angle + 180 : angle;
+            return 'rotate(' + finalAngle + ', ' + labelX + ', ' + displayLabelY + ')';
+          }
+          return null;
+        });
+    });
+  }
 
   nodesLayer.selectAll('g.node').attr('transform', d => `translate(${d.x},${d.y})`);
 }
@@ -3399,23 +3492,30 @@ function stabilizeSimulationForInspection() {
 function highlightNode(node, options) {
   const opts = options || {};
   const helpers = window.DramatisGraphHighlight;
-  const connectedIds = helpers
-    ? helpers.connectedNodeIds(state.links, node.id)
-    : new Set([node.id]);
+  const indexedNeighborhood = helpers && helpers.neighborhoodFromIndex
+    ? helpers.neighborhoodFromIndex(currentGraphIndex(), node.id)
+    : null;
+  const connectedIds = indexedNeighborhood
+    ? indexedNeighborhood.nodeIds
+    : (helpers ? helpers.connectedNodeIds(state.links, node.id) : new Set([node.id]));
+  const connectedLinkIds = indexedNeighborhood ? indexedNeighborhood.linkIds : new Set();
 
   nodesLayer.selectAll('g.node')
     .classed('highlight', d => d.id === node.id)
     .classed('dimmed', d => !connectedIds.has(d.id));
 
   linksLayer.selectAll('g.link-group').each(function(d) {
-    const hit = helpers
+    const hit = connectedLinkIds.size
+      ? connectedLinkIds.has(d.id)
+      : (helpers
       ? helpers.linkTouchesNode(d, node.id)
-      : (linkEndpointId(d.source) === node.id || linkEndpointId(d.target) === node.id);
+      : (linkEndpointId(d.source) === node.id || linkEndpointId(d.target) === node.id));
     const lt = state.linkTypes[linkType(d)];
     d3.select(this).select('path.link')
       .classed('highlight', hit).classed('dimmed', !hit)
       .attr('marker-end', hit ? 'url(#arrow-highlight)' : (lt.directed ? 'url(#arrow-' + linkType(d) + ')' : null));
-    d3.select(this).select('text.link-label').classed('highlight', hit);
+    const label = d3.select(this).select('text.link-label').classed('highlight', hit);
+    label.style('display', (hit || shouldDisplayLinkLabel(d, label)) ? null : 'none');
   });
 
   clearTimeout(window._hlTimer);
@@ -3432,7 +3532,8 @@ function highlightLink(link, on) {
       .classed('highlight', on)
       .attr('stroke', on ? null : lt.color)
       .attr('marker-end', on ? 'url(#arrow-highlight)' : (lt.directed ? 'url(#arrow-' + linkType(link) + ')' : null));
-    d3.select(this).select('text.link-label').classed('highlight', on);
+    const label = d3.select(this).select('text.link-label').classed('highlight', on);
+    label.style('display', (on || shouldDisplayLinkLabel(link, label)) ? null : 'none');
   });
 }
 
@@ -3464,7 +3565,8 @@ function clearHighlights() {
       .classed('highlight', false).classed('dimmed', false)
       .attr('stroke', lt.color)
       .attr('marker-end', lt.directed ? 'url(#arrow-' + linkType(d) + ')' : null);
-    d3.select(this).select('text.link-label').classed('highlight', false);
+    const label = d3.select(this).select('text.link-label').classed('highlight', false);
+    label.style('display', shouldDisplayLinkLabel(d, label) ? null : 'none');
   });
 }
 
@@ -5359,10 +5461,16 @@ document.getElementById('import-input').addEventListener('change', e => {
       state.currentEpisode = null;
       updateSearchMatchesFromInput(nodeSearchQuery);
 
-      const hasPositions = state.nodes.some(n => n.fx != null || n.fy != null);
+      const hasPositions = state.nodes.some(n =>
+        (Number.isFinite(n.x) && Number.isFinite(n.y)) ||
+        (Number.isFinite(n.fx) && Number.isFinite(n.fy))
+      );
+      const seededPositions = window.DramatisViewportTools
+        ? DramatisViewportTools.seedMissingNodePositions(state.nodes, currentTransform(), getSize(), { padding: 140 })
+        : 0;
       updateNodeScale();
       applyForceConfig();
-      render(!hasPositions);
+      render(!hasPositions || seededPositions > 0);
       setTimeout(fitView, 500);
     } catch (err) {
       alert('JSON 解析失败: ' + err.message);
