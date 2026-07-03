@@ -32,6 +32,57 @@
     return changed;
   }
 
+  function isInsideInterior(node, bounds, padding) {
+    if (!node) return false;
+    var x = Number.isFinite(node.x) ? node.x : NaN;
+    var y = Number.isFinite(node.y) ? node.y : NaN;
+    if (!Number.isFinite(x) || !Number.isFinite(y)) return false;
+    return x >= bounds.minX + padding &&
+      x <= bounds.maxX - padding &&
+      y >= bounds.minY + padding &&
+      y <= bounds.maxY - padding;
+  }
+
+  function spreadNodesInsideBounds(nodes, bounds, options) {
+    var opts = options || {};
+    var pad = Math.max(0, Number(opts.padding) || 0);
+    var includeInside = opts.includeInside === true;
+    var width = Math.max(1, bounds.maxX - bounds.minX - pad * 2);
+    var height = Math.max(1, bounds.maxY - bounds.minY - pad * 2);
+    var targets = (nodes || []).filter(function(node) {
+      return includeInside || !isInsideInterior(node, bounds, pad);
+    });
+    var count = targets.length;
+    if (!count) return 0;
+
+    var aspect = Math.max(0.1, width / Math.max(1, height));
+    var cols = Math.max(1, Math.ceil(Math.sqrt(count * aspect)));
+    var rows = Math.max(1, Math.ceil(count / cols));
+    var cellW = width / cols;
+    var cellH = height / rows;
+    var changed = 0;
+
+    targets.forEach(function(node, index) {
+      var row = Math.floor(index / cols);
+      var col = index % cols;
+      var offset = rows > 1 && row % 2 === 1 ? 0.5 : 0;
+      var x = bounds.minX + pad + cellW * (col + 0.5 + offset / Math.max(1, cols));
+      var y = bounds.minY + pad + cellH * (row + 0.5);
+      x = clamp(x, bounds.minX + pad, bounds.maxX - pad);
+      y = clamp(y, bounds.minY + pad, bounds.maxY - pad);
+
+      if (node.x !== x || node.y !== y) changed += 1;
+      node.x = x;
+      node.y = y;
+      node.vx = 0;
+      node.vy = 0;
+      node.fx = null;
+      node.fy = null;
+    });
+
+    return changed;
+  }
+
   function createBoundaryForce(boundsProvider, options) {
     var nodes = [];
     var opts = options || {};
@@ -165,5 +216,6 @@
     createClusterForce: createClusterForce,
     distributeClusterCenters: distributeClusterCenters,
     pullNodesInsideBounds: pullNodesInsideBounds,
+    spreadNodesInsideBounds: spreadNodesInsideBounds,
   };
 });

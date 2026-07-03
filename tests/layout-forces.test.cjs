@@ -7,6 +7,7 @@ const {
   createClusterForce,
   distributeClusterCenters,
   pullNodesInsideBounds,
+  spreadNodesInsideBounds,
 } = require('../layout-forces.js');
 
 test('pulls nodes into viewport interior and clears fixed positions', () => {
@@ -49,6 +50,39 @@ test('pulling nodes inside bounds cancels carried velocity on moved nodes', () =
   assert.equal(nodes[0].vy, 0);
   assert.equal(nodes[1].vx, 4);
   assert.equal(nodes[1].vy, -2);
+});
+
+test('spreads escaped nodes across the viewport interior instead of stacking on an edge', () => {
+  const nodes = Array.from({ length: 12 }, (_, index) => ({
+    id: 'N' + index,
+    x: -1200,
+    y: 100 + index,
+    vx: -20,
+    vy: 10,
+    fx: -1200,
+    fy: 100 + index,
+  }));
+
+  const changed = spreadNodesInsideBounds(nodes, {
+    minX: 0,
+    maxX: 600,
+    minY: 0,
+    maxY: 420,
+  }, { padding: 60 });
+
+  assert.equal(changed, 12);
+  assert.ok(new Set(nodes.map(node => Math.round(node.x / 10))).size >= 3);
+  assert.ok(new Set(nodes.map(node => Math.round(node.y / 10))).size >= 3);
+  nodes.forEach(node => {
+    assert.ok(node.x > 60);
+    assert.ok(node.x < 540);
+    assert.ok(node.y > 60);
+    assert.ok(node.y < 360);
+    assert.equal(node.vx, 0);
+    assert.equal(node.vy, 0);
+    assert.equal(node.fx, null);
+    assert.equal(node.fy, null);
+  });
 });
 
 test('boundary force pushes nodes away from viewport edges', () => {

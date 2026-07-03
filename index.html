@@ -231,6 +231,15 @@
 
   .btn-small { padding: 6px 10px; font-size: 11px; }
   .btn-tiny { padding: 3px 8px; font-size: 11px; width: auto; }
+  .cluster-layout-row { flex-wrap: wrap; }
+  .cluster-layout-row select { min-width: 0; }
+  .cluster-layout-row #btn-cluster-by-tag {
+    width: auto;
+    min-width: 104px;
+    white-space: nowrap;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 
   .avatar-upload {
     display: flex;
@@ -1393,9 +1402,9 @@
 		<div id="degree-filter-summary" class="hint-text" style="margin-top:6px">匹配 0 个节点</div>
 		<button class="btn btn-secondary btn-small" id="btn-clamp-to-view" style="margin-top:8px">收回当前视野</button>
 		<div id="viewport-clamp-summary" class="hint-text" style="margin-top:6px"></div>
-		<div class="field-row" style="gap:6px;align-items:center;margin-top:8px">
-			<select id="cluster-category-select" style="flex:1;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);padding:6px 6px;border-radius:4px;font-size:12px;outline:none"></select>
-			<button class="btn btn-secondary btn-small" id="btn-cluster-by-tag" style="flex:0 0 auto">按标签分群</button>
+		<div class="field-row cluster-layout-row" style="gap:6px;align-items:center;margin-top:8px">
+			<select id="cluster-category-select" style="flex:1 1 142px;min-width:0;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);padding:6px 6px;border-radius:4px;font-size:12px;outline:none"></select>
+			<button class="btn btn-secondary btn-small" id="btn-cluster-by-tag" style="flex:1 1 112px;min-width:104px;width:auto">按标签分群</button>
 		</div>
 		<div class="field-row" style="gap:6px;align-items:center;margin-top:6px">
 			<span style="font-size:11px;color:var(--text-muted);white-space:nowrap;flex:0 0 42px">群距</span>
@@ -1860,6 +1869,8 @@ let toolbarHidden = false;
 let temporaryLinkStrengthTimer = null;
 let temporaryLinkStrengthToken = 0;
 const temporaryForceTokens = new Map();
+let activeClusterCategoryId = null;
+let clusterSpacingTimer = null;
 
 var EYE_OPEN_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 var EYE_CLOSED_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
@@ -2823,14 +2834,18 @@ function clampAllNodesToCurrentViewport() {
   const status = document.getElementById('viewport-clamp-summary');
 
   pushUndo();
-  const changed = DramatisLayoutForces.pullNodesInsideBounds(state.nodes, graphViewportBounds(88), 60);
+  const nodesToReclaim = state.nodes.filter(isNodeVisible);
+  const reclaimPadding = Math.max(96, NODE_R * 4);
+  const changed = DramatisLayoutForces.spreadNodesInsideBounds
+    ? DramatisLayoutForces.spreadNodesInsideBounds(nodesToReclaim, graphViewportBounds(96), { padding: reclaimPadding })
+    : DramatisLayoutForces.pullNodesInsideBounds(nodesToReclaim, graphViewportBounds(88), 60);
   const boundaryForce = DramatisLayoutForces.createBoundaryForce(
     () => graphViewportBounds(0),
-    { margin: Math.max(120, NODE_R * 4), strength: 0.12 }
+    { margin: Math.max(140, NODE_R * 4.5), strength: 0.14 }
   );
   render(false);
   scheduleTemporaryForce('viewportBoundary', boundaryForce, 3600, () => {
-    const finalChanged = finishViewportRelaxation(state.nodes, 88, 60);
+    const finalChanged = finishViewportRelaxation(nodesToReclaim, 88, Math.max(72, NODE_R * 2.5));
     if (status) {
       const totalChanged = Math.max(changed, finalChanged);
       status.textContent = totalChanged > 0
@@ -2846,24 +2861,29 @@ function clampAllNodesToCurrentViewport() {
   }
 }
 
-function clusterBySelectedTagCategory() {
-  if (!window.DramatisLayoutForces || state.nodes.length === 0) return;
+function selectedClusterCategory() {
   const select = document.getElementById('cluster-category-select');
-  const summary = document.getElementById('cluster-layout-summary');
   const categoryId = select && select.value;
-  const category = state.tagCategories.find(c => c.id === categoryId);
+  return state.tagCategories.find(c => c.id === categoryId) || null;
+}
+
+function applyTagClusterLayout(category, options) {
+  if (!window.DramatisLayoutForces || state.nodes.length === 0) return false;
+  const opts = options || {};
+  const summary = document.getElementById('cluster-layout-summary');
   if (!category) {
     if (summary) summary.textContent = '请先选择一个标签分类';
-    return;
+    return false;
   }
 
   const visibleNodes = state.nodes.filter(isNodeVisible);
   if (visibleNodes.length === 0) {
     if (summary) summary.textContent = '当前没有可见节点可分群';
-    return;
+    return false;
   }
 
-  pushUndo();
+  if (opts.recordUndo !== false) pushUndo();
+  activeClusterCategoryId = category.id;
   const spacing = normalizeClusterSpacing(state.clusterSpacing);
   const targets = DramatisLayoutForces.buildClusterTargets(
     visibleNodes,
@@ -2886,7 +2906,7 @@ function clusterBySelectedTagCategory() {
   });
 
   render(false);
-  const duration = 3800;
+  const duration = opts.durationMs || 3800;
   const restoreLinkStrength = temporarilyScaleLinkStrength(0.25, duration + 200);
   scheduleTemporaryForce('tagCluster', clusterForce, duration);
   scheduleTemporaryForce('clusterBoundary', boundaryForce, duration, () => {
@@ -2897,6 +2917,22 @@ function clusterBySelectedTagCategory() {
   if (summary) {
     summary.textContent = '按「' + (category.name || category.id) + '」生成 ' + targets.clusterCenters.size + ' 个分群，群距 ' + spacing.toFixed(2);
   }
+  return true;
+}
+
+function clusterBySelectedTagCategory() {
+  applyTagClusterLayout(selectedClusterCategory(), { recordUndo: true, durationMs: 3800 });
+}
+
+function scheduleClusterSpacingRelayout() {
+  clearTimeout(clusterSpacingTimer);
+  const select = document.getElementById('cluster-category-select');
+  const categoryId = activeClusterCategoryId || (select && select.value);
+  const category = state.tagCategories.find(c => c.id === categoryId);
+  if (!category || state.nodes.length === 0) return;
+  clusterSpacingTimer = window.setTimeout(() => {
+    applyTagClusterLayout(category, { recordUndo: false, durationMs: 2200 });
+  }, 90);
 }
 
 function toggleFreePlacement() {
@@ -4386,11 +4422,19 @@ document.getElementById('btn-degree-show').addEventListener('click', () => {
 });
 document.getElementById('btn-clamp-to-view').addEventListener('click', clampAllNodesToCurrentViewport);
 document.getElementById('btn-cluster-by-tag').addEventListener('click', clusterBySelectedTagCategory);
+document.getElementById('cluster-category-select').addEventListener('change', (event) => {
+  activeClusterCategoryId = event.target.value || null;
+});
 document.getElementById('cluster-spacing').addEventListener('input', (event) => {
   state.clusterSpacing = normalizeClusterSpacing(event.target.value);
   document.getElementById('cluster-spacing-val').textContent = state.clusterSpacing.toFixed(2);
+  scheduleClusterSpacingRelayout();
 });
-document.getElementById('cluster-spacing').addEventListener('change', () => { _undoDirty = false; });
+document.getElementById('cluster-spacing').addEventListener('change', () => {
+  clearTimeout(clusterSpacingTimer);
+  scheduleClusterSpacingRelayout();
+  _undoDirty = false;
+});
 document.getElementById('btn-clamp-toolbar').addEventListener('click', clampAllNodesToCurrentViewport);
 document.getElementById('btn-toolbar-toggle').addEventListener('click', () => setToolbarHidden(true));
 document.getElementById('btn-toolbar-restore').addEventListener('click', () => setToolbarHidden(false));
