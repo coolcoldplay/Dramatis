@@ -12,6 +12,7 @@
 <script src="viewport-tools.js"></script>
 <script src="toolbar-visibility.js"></script>
 <script src="node-label-layout.js"></script>
+<script src="src/app-state.js"></script>
 <style>
   :root {
     --bg-deep: #0d0e12;
@@ -1828,56 +1829,7 @@
 // ============================================================
 // 状态
 // ============================================================
-const state = {
-  nodes: [],
-  links: [],
-  tagCategories: [],
-  linkMode: false,
-  linkFrom: null,
-  nextId: 1,
-  editing: null,
-  selectedNodes: new Set(),
-  currentEpisode: null, // null 表示显示全部
-  episodeList: [], // 解析出的所有剧集列表
-  // currentEpisodeContext 已废弃，改用 getCurrentEpisodeContext()
-  episodeSequence: 0, // 集内顺序计数器
-  mode: 'organize', // 'organize' | 'review'
-  freePlacement: false,
-  graphBackgroundColor: '#0d0e12',
-  graphStyle: {
-    nodeLabelColor: '#e8e4d6',
-    nodeLabelFontSize: 13,
-    nodeScale: 1.0,
-    nodeLabelOpacity: 1.0,
-    nodeLabelPlacement: 'outside',
-  },
-  linkTypes: {
-    relation: {
-      label: '关系', color: '#4a5068', width: 1.5,
-      dasharray: '', labelColor: '#8a8e9f', directed: false,
-      labelFontSize: 11,
-      labelOrientation: 'horizontal',
-    },
-    action: {
-      label: '行动', color: '#4a5068', width: 1.5,
-      dasharray: '', labelColor: '#8a8e9f', directed: true,
-      labelFontSize: 11,
-      labelOrientation: 'horizontal',
-    },
-  },
-  characterSort: {
-    by: 'creation',
-    order: 'asc',
-  },
-  graphIndex: null,
-  _pendingLinkFrom: null,
-  forceConfig: {
-    centerStrength: 0.05,
-    chargeStrength: -650,
-    linkStrength: 0.5,
-    linkDistance: 170,
-  },
-};
+const state = DramatisAppState.createInitialState();
 
 // ============================================================
 // 家系关系类型
@@ -1903,20 +1855,11 @@ var EYE_OPEN_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" 
 var EYE_CLOSED_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
 
 function normalizeNodeLabelPlacement(value) {
-  if (window.DramatisNodeLabelLayout && window.DramatisNodeLabelLayout.normalizeNodeLabelPlacement) {
-    return window.DramatisNodeLabelLayout.normalizeNodeLabelPlacement(value);
-  }
-  return value === 'inside' ? 'inside' : 'outside';
+  return DramatisAppState.normalizeNodeLabelPlacement(value);
 }
 
 function normalizeGraphStyle(style) {
-  const gs = { ...(style || {}) };
-  if (!gs.nodeLabelColor) gs.nodeLabelColor = '#e8e4d6';
-  if (gs.nodeLabelFontSize == null) gs.nodeLabelFontSize = 13;
-  if (gs.nodeScale == null) gs.nodeScale = 1.0;
-  if (gs.nodeLabelOpacity == null) gs.nodeLabelOpacity = 1.0;
-  gs.nodeLabelPlacement = normalizeNodeLabelPlacement(gs.nodeLabelPlacement);
-  return gs;
+  return DramatisAppState.normalizeGraphStyle(style);
 }
 
 function invalidateGraphIndex() {
@@ -1943,6 +1886,7 @@ function setToolbarHidden(hidden) {
 
 function snapshotState() {
   const clone = structuredClone(state);
+  delete clone.graphIndex;
   // 排除 D3 瞬态属性，保留节点位置 x/y/fx/fy
   clone.nodes.forEach(n => {
     delete n.vx; delete n.vy; delete n.index;
