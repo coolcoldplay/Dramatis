@@ -1,0 +1,9 @@
+{
+  "nodes": [{ "id": "P" }, { "id": "A" }, { "id": "B" }, { "id": "C1" }, { "id": "C2" }],
+  "familyRelations": [
+    { "id": "U1", "kind": "union", "participants": [{ "nodeId": "P", "role": "partner" }, { "nodeId": "A", "role": "partner" }] },
+    { "id": "U2", "kind": "union", "participants": [{ "nodeId": "P", "role": "partner" }, { "nodeId": "B", "role": "partner" }] },
+    { "id": "F1", "kind": "parentage", "contextId": "U1", "participants": [{ "nodeId": "P", "role": "parent" }, { "nodeId": "A", "role": "parent" }, { "nodeId": "C1", "role": "child" }] },
+    { "id": "F2", "kind": "parentage", "contextId": "U2", "participants": [{ "nodeId": "P", "role": "parent" }, { "nodeId": "B", "role": "parent" }, { "nodeId": "C2", "role": "child" }] }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "nodes": [{ "id": "A" }, { "id": "B" }, { "id": "C" }, { "id": "D" }],
+  "familyRelations": [
+    { "id": "U1", "kind": "union", "participants": [{ "nodeId": "A", "role": "partner" }, { "nodeId": "B", "role": "partner" }] },
+    { "id": "U2", "kind": "union", "participants": [{ "nodeId": "C", "role": "partner" }, { "nodeId": "D", "role": "partner" }] }
+  ]
+}
