@@ -142,9 +142,12 @@
       }
     });
 
+    var houseCategoryId = view && view.houseTagCategoryId;
     var personNodes = nodeList.filter(function(node) {
       return node && node.id != null && activePersonIds.has(String(node.id));
     }).map(function(node, order) {
+      var houseId = houseCategoryId && node.tags ? node.tags[houseCategoryId] : null;
+      if (Array.isArray(houseId)) houseId = houseId[0];
       return {
         id: String(node.id),
         node: node,
@@ -152,6 +155,7 @@
         width: PERSON_WIDTH,
         height: PERSON_HEIGHT,
         order: order,
+        houseId: houseId == null || houseId === '' ? '__untagged__' : String(houseId),
       };
     });
 
@@ -328,17 +332,30 @@
         rankIds.sort(function(a, b) {
           var aNode = definitions.get(a);
           var bNode = definitions.get(b);
+          if (view.layoutMode === 'house' && aNode.houseId !== bNode.houseId) {
+            if (aNode.houseId === '__untagged__') return 1;
+            if (bNode.houseId === '__untagged__') return -1;
+            return aNode.houseId.localeCompare(bNode.houseId);
+          }
           return aNode.order - bNode.order || a.localeCompare(b);
         });
-        rankIds.forEach(function(id, order) {
+        var rankCursorX = 0;
+        var previousHouseId = null;
+        rankIds.forEach(function(id) {
+          var definition = definitions.get(id);
+          if (view.layoutMode === 'house' && previousHouseId != null && previousHouseId !== definition.houseId) {
+            rankCursorX += branchGap * 1.5;
+          }
           positions[id] = {
             id: id,
-            x: order * (PERSON_WIDTH + branchGap),
+            x: rankCursorX,
             y: rank * generationGap,
             width: PERSON_WIDTH,
             height: PERSON_HEIGHT,
             type: 'person',
           };
+          rankCursorX += PERSON_WIDTH + branchGap;
+          previousHouseId = definition.houseId;
         });
       });
       ids.filter(function(id) { return id.indexOf('hub:') === 0; }).forEach(function(id, hubOrder) {
@@ -426,7 +443,7 @@
   function createLayoutCacheKey(model, viewOptions) {
     var view = viewOptions || {};
     var structural = {
-      nodes: model.personNodes.concat(model.hubs).map(function(node) { return node.id; }).sort(),
+      nodes: model.personNodes.concat(model.hubs).map(function(node) { return [node.id, node.houseId || null]; }).sort(),
       edges: model.edges.map(function(edge) { return [edge.id, edge.sourceId, edge.targetId, edge.feedback]; }).sort(),
       mode: view.layoutMode || 'lineage',
       house: view.houseTagCategoryId || null,
@@ -449,8 +466,11 @@
     if (!elk && root && typeof root.ELK === 'function') {
       try {
         var protocol = root.location && root.location.protocol;
-        if (protocol === 'http:' || protocol === 'https:') {
-          elk = new root.ELK({ workerUrl: opts.workerUrl || 'src/family/family-layout-worker.js' });
+        if ((protocol === 'http:' || protocol === 'https:') && typeof root.Worker === 'function') {
+          var workerUrl = opts.workerUrl || 'src/family/family-layout-worker.js';
+          elk = new root.ELK({
+            workerFactory: function() { return new root.Worker(workerUrl); },
+          });
           mode = 'worker';
         } else {
           elk = new root.ELK();
@@ -468,7 +488,9 @@
       if (cache.has(key)) return cache.get(key);
       var token = ++requestToken;
       var result = null;
-      if (elk && typeof elk.layout === 'function') {
+      if (viewOptions && viewOptions.layoutMode === 'house') {
+        result = computeFallbackLayout(model, viewOptions);
+      } else if (elk && typeof elk.layout === 'function') {
         try {
           var raw = await elk.layout(buildElkGraph(model, viewOptions));
           if (token !== requestToken || disposed) {

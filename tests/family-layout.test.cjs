@@ -93,3 +93,23 @@ test('falls back when an async ELK result is invalid and caches a valid layout',
   assert.equal(calls, 1);
   engine.dispose();
 });
+
+test('groups same-rank people into separated house lanes', () => {
+  const nodes = [
+    { id: 'A1', name: 'A1', tags: { C3: 'HOUSE_A' } },
+    { id: 'B1', name: 'B1', tags: { C3: 'HOUSE_B' } },
+    { id: 'A2', name: 'A2', tags: { C3: 'HOUSE_A' } },
+    { id: 'B2', name: 'B2', tags: { C3: 'HOUSE_B' } },
+  ];
+  const relations = [
+    { id: 'K1', kind: 'kinship', participants: [{ nodeId: 'A1', role: 'member' }, { nodeId: 'B1', role: 'member' }, { nodeId: 'A2', role: 'member' }, { nodeId: 'B2', role: 'member' }] },
+  ];
+  const view = { layoutMode: 'house', houseTagCategoryId: 'C3', branchGap: 40 };
+  const model = makeGraph(nodes, relations, view);
+  const layout = Layout.computeFallbackLayout(model, view);
+  const ordered = ['A1', 'A2', 'B1', 'B2'].map((id) => layout.nodes[id].x);
+
+  assert.deepEqual(model.personNodes.map((node) => node.houseId), ['HOUSE_A', 'HOUSE_B', 'HOUSE_A', 'HOUSE_B']);
+  assert.equal(ordered[0] < ordered[1] && ordered[1] < ordered[2] && ordered[2] < ordered[3], true);
+  assert.ok(ordered[2] - ordered[1] > ordered[1] - ordered[0]);
+});

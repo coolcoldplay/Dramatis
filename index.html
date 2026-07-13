@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>剧集人物关系图</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="styles/family-tree.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="vendor/elk/elk.bundled.js"></script>
 <script src="graph-index.js"></script>
@@ -23,6 +24,8 @@
 <script src="src/family/family-index.js"></script>
 <script src="src/family/family-validator.js"></script>
 <script src="src/family/family-layout.js"></script>
+<script src="src/family/family-renderer.js"></script>
+<script src="src/family/family-view.js"></script>
 <script src="src/app-state.js"></script>
 <script src="src/episode-timeline.js"></script>
 <script src="src/import-export.js"></script>
@@ -2031,18 +2034,89 @@
 
 </main>
 
-<div class="family-tree-overlay" id="family-tree-overlay" style="display:none">
-  <div class="family-tree-toolbar">
-    <span class="family-tree-title">家系图</span>
-    <div style="display:flex;gap:4px;align-items:center">
-      <button class="tool-btn" id="btn-family-fit" title="适应视图" style="width:30px;height:30px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V5a1 1 0 011-1h4M20 9V5a1 1 0 00-1-1h-4M4 15v4a1 1 0 001 1h4M20 15v4a1 1 0 01-1 1h-4"/></svg></button>
-      <button class="tool-btn" id="btn-family-zoom-in" title="放大" style="width:30px;height:30px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></button>
-      <button class="tool-btn" id="btn-family-zoom-out" title="缩小" style="width:30px;height:30px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="8" y1="11" x2="14" y2="11"/></svg></button>
-	      <button class="tool-btn" id="btn-family-export" title="导出PNG" style="width:30px;height:30px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
-      <button class="tool-btn" id="btn-family-close" title="关闭" style="width:30px;height:30px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+<div class="family-workspace" id="family-tree-overlay" role="dialog" aria-modal="true" aria-labelledby="family-workspace-title" hidden>
+  <header class="family-toolbar">
+    <div class="family-title-block">
+      <h1 class="family-workspace-title" id="family-workspace-title" tabindex="-1">谱系图</h1>
+      <div class="family-summary" id="family-summary">0 人物 · 0 关系</div>
     </div>
+    <div class="family-segmented" role="group" aria-label="布局模式">
+      <button type="button" id="family-mode-lineage" aria-pressed="true">谱系</button>
+      <button type="button" id="family-mode-house" aria-pressed="false">家族分区</button>
+    </div>
+    <div class="family-search" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input id="family-search-input" type="search" autocomplete="off" placeholder="搜索人物姓名或别名" aria-label="搜索家系人物">
+      <label class="family-fuzzy-toggle" title="扩展到备注、称号和标签"><input id="family-search-fuzzy" type="checkbox">模糊</label>
+    </div>
+    <div class="family-toolbar-actions">
+      <button class="family-icon-btn family-mobile-only" id="btn-family-filters" type="button" title="筛选" aria-label="打开筛选"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg></button>
+      <button class="family-icon-btn" id="btn-family-focus" type="button" title="聚焦所选人物" aria-label="聚焦所选人物"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"/></svg></button>
+      <button class="family-icon-btn" id="btn-family-fit" type="button" title="适应视图" aria-label="适应视图"><svg viewBox="0 0 24 24"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"/></svg></button>
+      <button class="family-icon-btn" id="btn-family-relayout" type="button" title="重新布局" aria-label="重新布局"><svg viewBox="0 0 24 24"><path d="M20 6v5h-5M4 18v-5h5"/><path d="M18 9a7 7 0 0 0-12-2M6 15a7 7 0 0 0 12 2"/></svg></button>
+      <button class="family-icon-btn" id="btn-family-zoom-in" type="button" title="放大" aria-label="放大"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5M10 7v6M7 10h6"/></svg></button>
+      <button class="family-icon-btn" id="btn-family-zoom-out" type="button" title="缩小" aria-label="缩小"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5M7 10h6"/></svg></button>
+      <button class="family-icon-btn" id="btn-family-diagnostics" type="button" title="数据诊断" aria-label="打开数据诊断"><svg viewBox="0 0 24 24"><path d="M12 3 2.7 19h18.6L12 3Z"/><path d="M12 9v4M12 17h.01"/></svg><span class="family-badge" id="family-diagnostic-count" hidden>0</span></button>
+      <button class="family-icon-btn" id="btn-family-export-svg" type="button" title="导出 SVG" aria-label="导出 SVG"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></button>
+      <button class="family-icon-btn" id="btn-family-export-png" type="button" title="导出 PNG" aria-label="导出 PNG"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m5 18 5-5 3 3 2-2 4 4"/></svg></button>
+      <button class="family-icon-btn" id="btn-family-help" type="button" title="快捷键与功能说明" aria-label="打开快捷键与功能说明"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.3 2.3 0 1 1 3.3 2.1c-.8.4-1.1.9-1.1 1.9M12 17h.01"/></svg></button>
+      <button class="family-icon-btn" id="btn-family-close" type="button" title="关闭" aria-label="关闭谱系图"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </div>
+  </header>
+  <div class="family-workspace-body">
+    <aside class="family-filters" id="family-filters" aria-label="谱系筛选">
+      <div class="family-panel-heading"><h2>结构筛选</h2><button class="family-icon-btn family-mobile-only" id="btn-family-filters-close" type="button" aria-label="关闭筛选"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <section class="family-filter-group">
+        <span class="family-filter-title">关系层</span>
+        <div class="family-check-grid">
+          <label class="family-check"><input type="checkbox" data-family-kind="parentage" checked>亲子</label>
+          <label class="family-check"><input type="checkbox" data-family-kind="union" checked>伴侣</label>
+          <label class="family-check"><input type="checkbox" data-family-kind="kinship" checked>手足</label>
+          <label class="family-check"><input type="checkbox" data-family-kind="succession" checked>继承</label>
+        </div>
+      </section>
+      <section class="family-filter-group">
+        <span class="family-filter-title">可信度</span>
+        <div class="family-check-grid">
+          <label class="family-check"><input type="checkbox" data-family-certainty="confirmed" checked>确认</label>
+          <label class="family-check"><input type="checkbox" data-family-certainty="probable" checked>可能</label>
+          <label class="family-check"><input type="checkbox" data-family-certainty="rumored" checked>传闻</label>
+          <label class="family-check"><input type="checkbox" data-family-certainty="disputed" checked>争议</label>
+          <label class="family-check"><input type="checkbox" data-family-certainty="unknown" checked>未知</label>
+        </div>
+      </section>
+      <section class="family-filter-group">
+        <span class="family-filter-title">显示范围</span>
+        <label class="family-toggle-row"><input id="family-show-hidden" type="checkbox">包含已隐藏人物与关系</label>
+        <label class="family-toggle-row"><input id="family-follow-episode" type="checkbox" checked>遵循当前剧集进度</label>
+      </section>
+      <section class="family-filter-group">
+        <span class="family-filter-title">分区与间距</span>
+        <label class="family-field"><span class="family-field-row"><span>家族标签分类</span></span><select id="family-house-category"><option value="">未选择</option></select></label>
+        <label class="family-field"><span class="family-field-row"><span>世代间距</span><output id="family-generation-gap-output">150</output></span><input id="family-generation-gap" type="range" min="90" max="260" step="5" value="150"></label>
+        <label class="family-field"><span class="family-field-row"><span>支系间距</span><output id="family-branch-gap-output">48</output></span><input id="family-branch-gap" type="range" min="24" max="120" step="4" value="48"></label>
+        <label class="family-field"><span class="family-field-row"><span>组件间距</span><output id="family-component-gap-output">120</output></span><input id="family-component-gap" type="range" min="60" max="260" step="10" value="120"></label>
+      </section>
+      <button class="family-primary-btn" id="btn-family-add-relation" type="button">新增家系关系</button>
+    </aside>
+    <main class="family-canvas-wrap">
+      <svg id="family-tree-svg" aria-label="谱系关系图"></svg>
+      <div class="family-loading" id="family-loading" hidden><span class="family-loading-spinner"></span><span id="family-loading-label">正在计算谱系布局…</span></div>
+      <div class="family-empty" id="family-empty" hidden><strong>没有可显示的家系关系</strong><span>可新增关系，或调整左侧筛选条件。</span></div>
+    </main>
+    <aside class="family-inspector" id="family-inspector" aria-label="关系检查器" hidden>
+      <div class="family-panel-heading"><h2 id="family-inspector-title">详情</h2><button class="family-icon-btn" id="btn-family-inspector-close" type="button" aria-label="关闭详情"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <div class="family-inspector-content" id="family-inspector-content"></div>
+    </aside>
+    <section class="family-diagnostics" id="family-diagnostics" aria-labelledby="family-diagnostics-title" hidden>
+      <div class="family-panel-heading"><h2 id="family-diagnostics-title">数据诊断</h2><button class="family-icon-btn" id="btn-family-diagnostics-close" type="button" aria-label="关闭诊断"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <div class="family-diagnostic-list" id="family-diagnostic-list"></div>
+    </section>
+    <section class="family-help-panel" id="family-help-panel" aria-labelledby="family-help-title" hidden>
+      <div class="family-panel-heading"><h2 id="family-help-title">快捷键与功能</h2><button class="family-icon-btn" id="btn-family-help-close" type="button" aria-label="关闭说明"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <div class="family-help-grid"><kbd>/</kbd><span>定位到人物搜索</span><kbd>F</kbd><span>聚焦当前人物及指定深度的家系邻域</span><kbd>0</kbd><span>适应全部可见谱系</span><kbd>Esc</kbd><span>依次关闭面板、清除选择或退出谱系图</span><kbd>双击</kbd><span>聚焦人物；单击只高亮直接关系，不改变布局</span></div>
+    </section>
   </div>
-  <svg id="family-tree-svg"></svg>
 </div>
 
 <script>
@@ -5438,6 +5512,45 @@ document.getElementById('btn-import').addEventListener('click', () => {
   document.getElementById('import-input').click();
 });
 
+function applyImportedGraphData(data, options) {
+  const imported = DramatisImportExport.normalizeImportedGraph(data, {
+    defaultLinkTypes: state.linkTypes,
+    graphIndex: window.DramatisGraphIndex,
+    normalizeGraphStyle,
+    familySchema: window.DramatisFamilySchema,
+  });
+  state.nodes = imported.nodes;
+  state.links = imported.links;
+  state.tagCategories = imported.tagCategories;
+  state.nextId = imported.nextId;
+  state.graphStyle = imported.graphStyle;
+  state.graphBackgroundColor = imported.graphBackgroundColor;
+  state.linkTypes = imported.linkTypes;
+  state.forceConfig = imported.forceConfig;
+  state.clusterSpacing = normalizeClusterSpacing(imported.clusterSpacing);
+  state.topologySizing = normalizeTopologySizing(imported.topologySizing);
+  state.familyRelations = imported.familyRelations;
+  state.familyView = imported.familyView;
+  state.familyDiagnostics = [];
+  setLabelDeclutterDistanceBoosts(new Map());
+  rebuildGraphIndex();
+  state.currentEpisode = null;
+  updateSearchMatchesFromInput(nodeSearchQuery);
+
+  const hasPositions = state.nodes.some(n =>
+    (Number.isFinite(n.x) && Number.isFinite(n.y)) ||
+    (Number.isFinite(n.fx) && Number.isFinite(n.fy))
+  );
+  const seededPositions = window.DramatisViewportTools
+    ? DramatisViewportTools.seedMissingNodePositions(state.nodes, currentTransform(), getSize(), { padding: 140 })
+    : 0;
+  updateNodeScale();
+  applyForceConfig();
+  render(!hasPositions || seededPositions > 0);
+  if (!options || options.fit !== false) setTimeout(fitView, 500);
+  return imported;
+}
+
 document.getElementById('import-input').addEventListener('change', e => {
   const file = e.target.files[0];
   if (!file) return;
@@ -5445,42 +5558,7 @@ document.getElementById('import-input').addEventListener('change', e => {
   reader.onload = ev => {
     try {
       const data = JSON.parse(ev.target.result);
-      const imported = DramatisImportExport.normalizeImportedGraph(data, {
-        defaultLinkTypes: state.linkTypes,
-        graphIndex: window.DramatisGraphIndex,
-        normalizeGraphStyle,
-        familySchema: window.DramatisFamilySchema,
-      });
-      state.nodes = imported.nodes;
-      state.links = imported.links;
-      state.tagCategories = imported.tagCategories;
-      state.nextId = imported.nextId;
-      state.graphStyle = imported.graphStyle;
-      state.graphBackgroundColor = imported.graphBackgroundColor;
-      state.linkTypes = imported.linkTypes;
-      state.forceConfig = imported.forceConfig;
-      state.clusterSpacing = normalizeClusterSpacing(imported.clusterSpacing);
-      state.topologySizing = normalizeTopologySizing(imported.topologySizing);
-      state.familyRelations = imported.familyRelations;
-      state.familyView = imported.familyView;
-      state.familyDiagnostics = [];
-      setLabelDeclutterDistanceBoosts(new Map());
-      rebuildGraphIndex();
-
-      state.currentEpisode = null;
-      updateSearchMatchesFromInput(nodeSearchQuery);
-
-      const hasPositions = state.nodes.some(n =>
-        (Number.isFinite(n.x) && Number.isFinite(n.y)) ||
-        (Number.isFinite(n.fx) && Number.isFinite(n.fy))
-      );
-      const seededPositions = window.DramatisViewportTools
-        ? DramatisViewportTools.seedMissingNodePositions(state.nodes, currentTransform(), getSize(), { padding: 140 })
-        : 0;
-      updateNodeScale();
-      applyForceConfig();
-      render(!hasPositions || seededPositions > 0);
-      setTimeout(fitView, 500);
+      applyImportedGraphData(data);
     } catch (err) {
       alert('JSON 解析失败: ' + err.message);
     }
@@ -5967,6 +6045,7 @@ const FT_V_GAP = 130;      // 世代垂直间距
 const FT_H_GAP = 110;      // 水平间距
 const FT_SPOUSE_GAP = 70;  // 配偶间距
 
+if (false) {
 var ftSvg = null, ftG = null, ftZoom = null;
 
 function initFamilyTree() {
@@ -6533,6 +6612,41 @@ function exportFamilyTreePNG() {
   };
   img.src = url;
 }
+}
+
+const familyView = DramatisFamilyView.createFamilyView({
+  state: state,
+  d3: d3,
+  document: document,
+  schema: DramatisFamilySchema,
+  indexModule: DramatisFamilyIndex,
+  validator: DramatisFamilyValidator,
+  layoutModule: DramatisFamilyLayout,
+  rendererModule: DramatisFamilyRenderer,
+  episodeTimeline: DramatisEpisodeTimeline,
+  isNodeVisible: isNodeVisible,
+});
+
+document.getElementById('btn-family-tree').addEventListener('click', function() {
+  familyView.open();
+});
+
+async function loadLocalBrowserFixture() {
+  const params = new URLSearchParams(window.location.search);
+  const fixturePath = params.get('fixture');
+  const isLocal = ['127.0.0.1', 'localhost', '::1'].includes(window.location.hostname);
+  if (!fixturePath || !isLocal) return;
+  const fixtureUrl = new URL(fixturePath, window.location.href);
+  if (fixtureUrl.origin !== window.location.origin) return;
+  const response = await fetch(fixtureUrl);
+  if (!response.ok) throw new Error('测试样例加载失败：' + response.status);
+  applyImportedGraphData(await response.json(), { fit: false });
+  if (params.get('family') === '1') await familyView.open();
+}
+
+loadLocalBrowserFixture().catch(function(error) {
+  console.error(error);
+});
 
 // ============================================================
 // 辅助
