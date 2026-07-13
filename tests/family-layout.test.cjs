@@ -113,3 +113,21 @@ test('groups same-rank people into separated house lanes', () => {
   assert.equal(ordered[0] < ordered[1] && ordered[1] < ordered[2] && ordered[2] < ordered[3], true);
   assert.ok(ordered[2] - ordered[1] > ordered[1] - ordered[0]);
 });
+
+test('bypasses ELK for large render graphs to avoid multi-second layout stalls', async () => {
+  const personNodes = Array.from({ length: 401 }, (_, index) => ({
+    id: `N${index + 1}`, name: `N${index + 1}`, width: 132, height: 60, order: index,
+  }));
+  const model = { personNodes, hubs: [], edges: [], generationEdges: [] };
+  let elkCalls = 0;
+  const engine = Layout.createLayoutEngine({
+    elk: { layout: async () => { elkCalls += 1; return null; } },
+  });
+
+  const result = await engine.layout(model, {});
+
+  assert.equal(elkCalls, 0);
+  assert.equal(result.mode, 'fallback');
+  assert.equal(Layout.isFiniteLayout(result), true);
+  engine.dispose();
+});

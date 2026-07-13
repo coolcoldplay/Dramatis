@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
 
-const { normalizeImportedGraph } = require('../src/import-export.js');
+const { normalizeImportedGraph, buildExportGraph, buildLegacyExportGraph } = require('../src/import-export.js');
 const graphIndex = require('../graph-index.js');
 const { normalizeGraphStyle } = require('../src/app-state.js');
 const familySchema = require('../src/family/family-schema.js');
@@ -106,4 +106,68 @@ test('imports v5 family relations and migrates v4 links', () => {
   }, { defaultLinkTypes, graphIndex, normalizeGraphStyle, familySchema });
   assert.equal(v4.familyRelations[0].kind, 'kinship');
   assert.equal(v4.migratedLegacyFamily, true);
+});
+
+test('exports a complete v5 graph without d3 runtime fields', () => {
+  const state = {
+    nodes: [{
+      id: 'N1', name: 'A', aliases: ['The First'], titles: ['Queen'],
+      birth: { year: 1900 }, generationLabel: '第一代', x: 10, y: 20, vx: 3, vy: -2, index: 0,
+    }, { id: 'N2', name: 'B' }],
+    links: [{ id: 'L1', source: { id: 'N1' }, target: { id: 'N2' }, label: 'knows', type: 'relation', index: 0 }],
+    tagCategories: [],
+    nextId: 4,
+    graphStyle: { nodeLabelPlacement: 'inside' },
+    graphBackgroundColor: '#101114',
+    linkTypes: defaultLinkTypes,
+    clusterSpacing: 1.4,
+    topologySizing: { mode: 'degree', strength: 0.9 },
+    forceConfig: { centerStrength: 0.05, chargeStrength: -500, linkStrength: 0.6, linkDistance: 180 },
+    familyRelations: [{
+      id: 'F1', kind: 'union', subtype: 'political_union',
+      participants: [{ nodeId: 'N1', role: 'partner' }, { nodeId: 'N2', role: 'partner' }],
+      certainty: 'confirmed',
+    }],
+    familyView: { layoutMode: 'house', generationGap: 210 },
+  };
+
+  const result = buildExportGraph(state, { normalizeGraphStyle, familySchema });
+
+  assert.equal(result.version, 5);
+  assert.deepEqual(result.nodes[0].aliases, ['The First']);
+  assert.deepEqual(result.nodes[0].titles, ['Queen']);
+  assert.equal(result.nodes[0].generationLabel, '第一代');
+  assert.equal('vx' in result.nodes[0], false);
+  assert.equal('index' in result.links[0], false);
+  assert.equal(result.links[0].source, 'N1');
+  assert.equal(result.links[0].target, 'N2');
+  assert.equal(result.familyRelations[0].subtype, 'political_union');
+  assert.equal(result.familyView.layoutMode, 'house');
+  assert.equal(result.graphBackgroundColor, '#101114');
+});
+
+test('builds an explicit v4 compatibility export and reports losses', () => {
+  const state = {
+    nodes: [{ id: 'N1', name: 'A' }, { id: 'N2', name: 'B' }, { id: 'N3', name: 'C' }],
+    links: [
+      { id: 'L1', source: { id: 'N1' }, target: { id: 'N3' }, label: 'ordinary', type: 'relation' },
+      { id: 'LOLD', source: { id: 'N1' }, target: { id: 'N2' }, familyRelation: 'spouse' },
+    ],
+    familyRelations: [{
+      id: 'F1', kind: 'union', subtype: 'partnership', certainty: 'disputed',
+      participants: [
+        { nodeId: 'N1', role: 'partner' }, { nodeId: 'N2', role: 'partner' }, { nodeId: 'N3', role: 'partner' },
+      ],
+    }],
+  };
+
+  const result = buildLegacyExportGraph(state, { normalizeGraphStyle, familySchema });
+
+  assert.equal(result.data.version, 4);
+  assert.equal('familyRelations' in result.data, false);
+  assert.equal('familyView' in result.data, false);
+  assert.equal(result.data.links.some((link) => link.id === 'L1'), true);
+  assert.equal(result.data.links.some((link) => link.id === 'LOLD'), false);
+  assert.equal(result.losses.some((loss) => loss.code === 'MULTI_PARTICIPANT_UNION'), true);
+  assert.equal(result.losses.some((loss) => loss.code === 'RELATION_METADATA'), true);
 });

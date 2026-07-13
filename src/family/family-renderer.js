@@ -139,7 +139,7 @@
       if (callbacks.onLodChange) callbacks.onLodChange(next);
     }
 
-    var zoom = d3.zoom().scaleExtent([0.18, 4]).on('zoom.family', function(event) {
+    var zoom = d3.zoom().scaleExtent([0.02, 4]).on('zoom.family', function(event) {
       rootLayer.attr('transform', event.transform);
       updateLod(event.transform.k);
       if (callbacks.onZoom) callbacks.onZoom(event.transform);
@@ -317,7 +317,7 @@
       var width = rect.width || svgElement.clientWidth || 1;
       var height = rect.height || svgElement.clientHeight || 1;
       var padding = Number(settings.padding) || 48;
-      var scale = Math.min(2, Math.max(0.18, Math.min((width - padding * 2) / bounds.width, (height - padding * 2) / bounds.height)));
+      var scale = Math.min(2, Math.max(0.02, Math.min((width - padding * 2) / bounds.width, (height - padding * 2) / bounds.height)));
       var translateX = width / 2 - scale * (bounds.x + bounds.width / 2);
       var translateY = height / 2 - scale * (bounds.y + bounds.height / 2);
       var transform = d3.zoomIdentity.translate(translateX, translateY).scale(scale);
@@ -329,12 +329,30 @@
       svg.transition().duration(180).call(zoom.scaleBy, Number(factor) || 1);
     }
 
+    function centerOnNode(nodeId, options) {
+      var point = currentLayout && currentLayout.nodes && currentLayout.nodes[String(nodeId)];
+      if (!point) return false;
+      var settings = options || {};
+      var rect = svgElement.getBoundingClientRect();
+      var width = rect.width || svgElement.clientWidth || 1;
+      var height = rect.height || svgElement.clientHeight || 1;
+      var current = d3.zoomTransform(svgElement);
+      var scale = Math.min(4, Math.max(current.k, Number(settings.scale) || 0.9));
+      var centerX = point.x + point.width / 2;
+      var centerY = point.y + point.height / 2;
+      var transform = d3.zoomIdentity.translate(width / 2 - centerX * scale, height / 2 - centerY * scale).scale(scale);
+      var target = settings.animate === false ? svg : svg.transition().duration(240);
+      target.call(zoom.transform, transform);
+      return true;
+    }
+
     return {
       render: render,
       updateHighlight: updateHighlight,
       updateLod: updateLod,
       fitView: fitView,
       zoomBy: zoomBy,
+      centerOnNode: centerOnNode,
       getTransform: function() { return d3.zoomTransform(svgElement); },
       destroy: function() {
         destroyed = true;

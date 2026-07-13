@@ -455,6 +455,17 @@
     return JSON.stringify(structural);
   }
 
+  function shouldUseFallbackLayout(model, viewOptions, limits) {
+    var view = viewOptions || {};
+    var settings = limits || {};
+    if (view.layoutMode === 'house') return true;
+    var nodeLimit = Number(settings.maxElkNodes) || 400;
+    var edgeLimit = Number(settings.maxElkEdges) || 700;
+    var nodeCount = (model.personNodes || []).length + (model.hubs || []).length;
+    var edgeCount = (model.edges || []).length;
+    return nodeCount > nodeLimit || edgeCount > edgeLimit;
+  }
+
   function createLayoutEngine(options) {
     var opts = options || {};
     var elk = opts.elk || null;
@@ -488,7 +499,7 @@
       if (cache.has(key)) return cache.get(key);
       var token = ++requestToken;
       var result = null;
-      if (viewOptions && viewOptions.layoutMode === 'house') {
+      if (shouldUseFallbackLayout(model, viewOptions, opts)) {
         result = computeFallbackLayout(model, viewOptions);
       } else if (elk && typeof elk.layout === 'function') {
         try {
@@ -531,6 +542,7 @@
     normalizeElkResult: normalizeElkResult,
     computeFallbackLayout: computeFallbackLayout,
     createLayoutCacheKey: createLayoutCacheKey,
+    shouldUseFallbackLayout: shouldUseFallbackLayout,
     isFiniteLayout: isFiniteLayout,
     createLayoutEngine: createLayoutEngine,
     boxesOverlap: boxesOverlap,

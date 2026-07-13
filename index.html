@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>剧集人物关系图</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link href="styles/family-tree.css" rel="stylesheet">
+<link href="styles/family-tree.css?v=20260714c" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="vendor/elk/elk.bundled.js"></script>
 <script src="graph-index.js"></script>
@@ -20,15 +20,17 @@
 <script src="search-highlight.js"></script>
 <script src="topology-sizing.js"></script>
 <script src="link-label-declutter.js"></script>
-<script src="src/family/family-schema.js"></script>
-<script src="src/family/family-index.js"></script>
-<script src="src/family/family-validator.js"></script>
-<script src="src/family/family-layout.js"></script>
-<script src="src/family/family-renderer.js"></script>
-<script src="src/family/family-view.js"></script>
-<script src="src/app-state.js"></script>
+<script src="src/family/family-schema.js?v=20260714"></script>
+<script src="src/family/family-index.js?v=20260714"></script>
+<script src="src/family/family-validator.js?v=20260714"></script>
+<script src="src/family/family-layout.js?v=20260714"></script>
+<script src="src/family/family-renderer.js?v=20260714"></script>
+<script src="src/family/family-export.js?v=20260714"></script>
+<script src="src/family/family-view.js?v=20260714c"></script>
+<script src="src/family/family-editor.js?v=20260714"></script>
+<script src="src/app-state.js?v=20260714"></script>
 <script src="src/episode-timeline.js"></script>
-<script src="src/import-export.js"></script>
+<script src="src/import-export.js?v=20260714"></script>
 <style>
   :root {
     --bg-deep: #0d0e12;
@@ -781,23 +783,6 @@
     box-shadow: var(--shadow);
   }
   .toolbar-restore.visible { display: flex; }
-
-  /* 家系图 overlay */
-  .family-tree-overlay {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: var(--bg-deep); z-index: 1000;
-    display: flex; flex-direction: column;
-  }
-  .family-tree-toolbar {
-    background: var(--bg-surface); border-bottom: 1px solid var(--border);
-    padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;
-    flex-shrink: 0; z-index: 1;
-  }
-  .family-tree-title {
-    font-family: 'Cormorant Garamond', serif; font-size: 24px;
-  }
-  #family-tree-svg { flex: 1; width: 100%; cursor: grab; }
-  #family-tree-svg:active { cursor: grabbing; }
 
   /* 剧集进度条 - 工具栏面板 */
   .episode-slider-container {
@@ -1657,6 +1642,12 @@
         <button class="btn btn-secondary btn-small" id="btn-export">导出 JSON</button>
         <button class="btn btn-secondary btn-small" id="btn-import">导入 JSON</button>
       </div>
+      <div class="field-row" style="margin-top:6px">
+        <button class="btn btn-secondary btn-small" id="btn-export-v4" title="将可表达的家系关系降级为旧版二元连线">兼容导出 JSON v4</button>
+      </div>
+      <div class="field-row" style="margin-top:6px">
+        <button class="btn btn-secondary btn-small" id="btn-family-tree-panel">打开谱系图</button>
+      </div>
       <input type="file" id="import-input" accept=".json" style="display:none">
       <div class="hint-text">
         存档含所有人物、关系、Tag 分类与位置信息
@@ -2114,7 +2105,51 @@
     </section>
     <section class="family-help-panel" id="family-help-panel" aria-labelledby="family-help-title" hidden>
       <div class="family-panel-heading"><h2 id="family-help-title">快捷键与功能</h2><button class="family-icon-btn" id="btn-family-help-close" type="button" aria-label="关闭说明"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
-      <div class="family-help-grid"><kbd>/</kbd><span>定位到人物搜索</span><kbd>F</kbd><span>聚焦当前人物及指定深度的家系邻域</span><kbd>0</kbd><span>适应全部可见谱系</span><kbd>Esc</kbd><span>依次关闭面板、清除选择或退出谱系图</span><kbd>双击</kbd><span>聚焦人物；单击只高亮直接关系，不改变布局</span></div>
+      <div class="family-help-grid"><kbd>/</kbd><span>定位到人物搜索</span><kbd>Enter</kbd><span>逐个定位搜索结果，只移动视口</span><kbd>F</kbd><span>聚焦当前人物及指定深度的家系邻域</span><kbd>0</kbd><span>适应全部可见谱系</span><kbd>Esc</kbd><span>依次关闭面板、清除选择或退出谱系图</span><kbd>双击</kbd><span>聚焦人物；单击只高亮直接关系，不改变布局</span></div>
+    </section>
+    <section class="family-editor" id="family-editor" aria-labelledby="family-editor-title" hidden>
+      <form class="family-editor-panel" id="family-editor-form">
+        <header class="family-editor-header">
+          <div><span class="family-editor-kicker">RELATION EDITOR</span><h2 id="family-editor-title">编辑家系关系</h2></div>
+          <button class="family-icon-btn" id="btn-family-editor-close" type="button" aria-label="关闭关系编辑器"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        </header>
+        <div class="family-editor-scroll">
+          <div class="family-editor-errors" id="family-editor-errors" role="alert" hidden></div>
+          <section class="family-editor-section">
+            <h3>关系定义</h3>
+            <div class="family-editor-grid">
+              <label class="family-field"><span>关系 ID</span><input id="family-editor-id" required autocomplete="off"></label>
+              <label class="family-field"><span>关系类型</span><select id="family-editor-kind"><option value="union">伴侣 / 联姻</option><option value="parentage">亲子 / 监护</option><option value="kinship">手足 / 同辈</option><option value="succession">继承 / 权位</option><option value="other">其他关系</option></select></label>
+              <label class="family-field"><span>细分类型</span><select id="family-editor-subtype"></select></label>
+              <label class="family-field"><span>状态</span><select id="family-editor-status"></select></label>
+              <label class="family-field"><span>可信度</span><select id="family-editor-certainty"><option value="confirmed">已确认</option><option value="probable">较可信</option><option value="rumored">传闻</option><option value="disputed">有争议</option><option value="unknown">未知</option></select></label>
+              <label class="family-field"><span>所属伴侣关系</span><select id="family-editor-context"></select></label>
+            </div>
+            <label class="family-field"><span>显示名称</span><input id="family-editor-label" autocomplete="off" placeholder="例如：第二次婚姻、非婚生亲子"></label>
+          </section>
+          <section class="family-editor-section">
+            <div class="family-editor-section-title"><h3>参与人物</h3><button class="family-secondary-btn" id="btn-family-participant-add" type="button">添加人物</button></div>
+            <div class="family-participants" id="family-editor-participants"></div>
+          </section>
+          <section class="family-editor-section">
+            <h3>时间与出处</h3>
+            <div class="family-editor-grid">
+              <label class="family-field"><span>开始年份 / 描述</span><input id="family-editor-start" autocomplete="off" placeholder="1968 或 剧情开始前"></label>
+              <label class="family-field"><span>结束年份 / 描述</span><input id="family-editor-end" autocomplete="off" placeholder="留空表示未知或持续中"></label>
+            </div>
+            <label class="family-field"><span>涉及剧集</span><input id="family-editor-episodes" autocomplete="off" placeholder="S1E2 S1E4"></label>
+            <label class="family-field"><span>证据来源（每行一条）</span><textarea id="family-editor-evidence" rows="3" placeholder="章节、台词、档案或推断依据"></textarea></label>
+            <label class="family-field"><span>备注</span><textarea id="family-editor-notes" rows="3"></textarea></label>
+            <label class="family-toggle-row"><input id="family-editor-hidden" type="checkbox">在默认家系视图中隐藏</label>
+          </section>
+        </div>
+        <footer class="family-editor-actions">
+          <button class="family-danger-btn" id="btn-family-editor-delete" type="button">删除关系</button>
+          <span class="family-editor-action-spacer"></span>
+          <button class="family-secondary-btn" id="btn-family-editor-cancel" type="button">取消</button>
+          <button class="family-primary-btn" type="submit">保存关系</button>
+        </footer>
+      </form>
     </section>
   </div>
 </div>
@@ -5371,10 +5406,6 @@ window.addEventListener('keydown', e => {
       clearNodeSearch();
       return;
     }
-    if (document.getElementById('family-tree-overlay').style.display === 'flex') {
-      closeFamilyTree();
-      return;
-    }
     if (document.getElementById('relation-modal').classList.contains('visible')) {
       document.getElementById('modal-confirm').click();
     } else if (document.getElementById('char-modal').classList.contains('visible')) {
@@ -5466,46 +5497,37 @@ document.querySelectorAll(".sort-btn").forEach(function(btn) {
 // ============================================================
 // 导入/导出/清空
 // ============================================================
-document.getElementById('btn-export').addEventListener('click', () => {
-  const data = {
-    version: 4,
-    nodes: state.nodes.map(n => ({
-      id: n.id, name: n.name, avatar: n.avatar, notes: n.notes || '',
-      tags: n.tags || {},
-      episodes: n.episodes || [],
-      hidden: n.hidden || false,
-      gender: n.gender,
-      x: n.x, y: n.y, fx: n.fx, fy: n.fy
-    })),
-    links: state.links.map(l => ({
-      id: l.id,
-      source: l.source.id || l.source,
-      target: l.target.id || l.target,
-      label: l.label,
-      type: l.type || (l.directed === false ? 'relation' : 'action'),
-      directed: state.linkTypes[linkType(l)].directed,
-      episodes: l.episodes || [],
-      notes: l.notes || '',
-      hidden: l.hidden || false,
-      familyRelation: l.familyRelation,
-    })),
-    tagCategories: state.tagCategories,
-    nextId: state.nextId,
-    clusterSpacing: normalizeClusterSpacing(state.clusterSpacing),
-    topologySizing: normalizeTopologySizing(state.topologySizing),
-    graphStyle: normalizeGraphStyle(state.graphStyle),
-    linkTypes: {
-      relation: { ...state.linkTypes.relation },
-      action: { ...state.linkTypes.action },
-    },
-  };
+function downloadJsonData(data, filename) {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `relations-${Date.now()}.json`;
+  a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+document.getElementById('btn-export').addEventListener('click', () => {
+  const data = DramatisImportExport.buildExportGraph(state, {
+    normalizeGraphStyle: normalizeGraphStyle,
+    familySchema: DramatisFamilySchema,
+  });
+  downloadJsonData(data, `relations-v5-${Date.now()}.json`);
+});
+
+document.getElementById('btn-export-v4').addEventListener('click', () => {
+  const result = DramatisImportExport.buildLegacyExportGraph(state, {
+    normalizeGraphStyle: normalizeGraphStyle,
+    familySchema: DramatisFamilySchema,
+  });
+  if (result.losses.length) {
+    const affected = new Set(result.losses.map(item => item.relationId).filter(Boolean));
+    const proceed = window.confirm(
+      `兼容 v4 无法完整表达 ${affected.size || result.losses.length} 条家系关系，将丢失多方参与、状态、时间或证据。\n\n仍要导出吗？`
+    );
+    if (!proceed) return;
+  }
+  downloadJsonData(result.data, `relations-v4-compatible-${Date.now()}.json`);
 });
 
 document.getElementById('btn-import').addEventListener('click', () => {
@@ -5863,15 +5885,11 @@ document.getElementById("btn-export-pdf").addEventListener("click", function() {
 document.getElementById("btn-export-html").addEventListener("click", exportToHTML);
 function exportToHTML() {
   // 1. 序列化数据
-  var exportData = {
-    nodes: state.nodes.map(function(n) { return { id:n.id, name:n.name, gender:n.gender, avatar:null, notes:n.notes, tags:n.tags, episodes:n.episodes, hidden:n.hidden, x:n.x, y:n.y, fx:n.fx, fy:n.fy }; }),
-    links: state.links.map(function(l) { var sid = l.source.id || l.source; var tid = l.target.id || l.target; return { id:l.id, source:sid, target:tid, label:l.label, type:l.type||(l.directed!==false?'action':'relation'), episodes:l.episodes, notes:l.notes, hidden:l.hidden, familyRelation:l.familyRelation||'' }; }),
-    tagCategories: state.tagCategories,
-    graphStyle: normalizeGraphStyle(state.graphStyle),
-    graphBackgroundColor: state.graphBackgroundColor,
-    linkTypes: state.linkTypes,
-    forceConfig: state.forceConfig || {}
-  };
+  var exportData = DramatisImportExport.buildExportGraph(state, {
+    normalizeGraphStyle: normalizeGraphStyle,
+    familySchema: DramatisFamilySchema,
+  });
+  exportData.nodes.forEach(function(node) { node.avatar = null; });
   var DATA = JSON.stringify(exportData).replace(/<\//g, '<\\/');
   var bgColor = state.graphBackgroundColor;
 
@@ -6038,582 +6056,7 @@ function exportToHTML() {
   URL.revokeObjectURL(url);
 }
 
-// 家系图 overlay
-// ============================================================
-const FT_NODE_R = 28;      // 节点半径
-const FT_V_GAP = 130;      // 世代垂直间距
-const FT_H_GAP = 110;      // 水平间距
-const FT_SPOUSE_GAP = 70;  // 配偶间距
-
-if (false) {
-var ftSvg = null, ftG = null, ftZoom = null;
-
-function initFamilyTree() {
-  ftSvg = d3.select('#family-tree-svg');
-  ftZoom = d3.zoom().scaleExtent([0.15, 3]).on('zoom', function(e) {
-    ftG.attr('transform', e.transform);
-  });
-  ftSvg.call(ftZoom);
-  ftG = ftSvg.append('g');
-}
-
-// 构建家系数据结构
-function buildFamilyData() {
-  var flinks = state.links.filter(function(l) { return l.familyRelation; });
-  if (flinks.length === 0) return null;
-  var fmap = {};
-  function ensure(id) {
-    if (!fmap[id]) {
-      var n = state.nodes.find(function(x) { return x.id === id; });
-      fmap[id] = { adj: { parents: new Set(), children: new Set(), spouses: new Set(), siblings: new Set() }, node: n || { id: id, name: '?', isPlaceholder: true, gender: '' } };
-    }
-    return fmap[id];
-  }
-  flinks.forEach(function(l) {
-    var sid = l.source.id || l.source;
-    var tid = l.target.id || l.target;
-    var s = ensure(sid), t = ensure(tid);
-    switch (l.familyRelation) {
-      case 'parent': s.adj.children.add(tid); t.adj.parents.add(sid); break;
-      case 'child': s.adj.parents.add(tid); t.adj.children.add(sid); break;
-      case 'spouse': s.adj.spouses.add(tid); t.adj.spouses.add(sid); break;
-      case 'sibling': s.adj.siblings.add(tid); t.adj.siblings.add(sid); break;
-    }
-  });
-  autoFillMissing(fmap);
-  return { fmap: fmap, flinks: flinks };
-}
-
-function autoFillMissing(fmap) {
-  var siblingGroups = {};
-  Object.keys(fmap).forEach(function(id) {
-    fmap[id].adj.siblings.forEach(function(sibId) {
-      var key = [id, sibId].sort().join('|');
-      if (!siblingGroups[key]) siblingGroups[key] = new Set();
-      siblingGroups[key].add(id); siblingGroups[key].add(sibId);
-    });
-  });
-  Object.values(siblingGroups).forEach(function(group) {
-    var ids = Array.from(group);
-    var hasParent = ids.some(function(id) { return fmap[id].adj.parents.size > 0; });
-    if (!hasParent && ids.length >= 2) {
-      var sorted = ids.sort();
-      var fatherId = '_ph_f_' + sorted.join('_');
-      var motherId = '_ph_m_' + sorted.join('_');
-      [fatherId, motherId].forEach(function(phId) {
-        if (!fmap[phId]) {
-          fmap[phId] = { adj: { parents: new Set(), children: new Set(ids), spouses: new Set(), siblings: new Set() }, node: { id: phId, name: phId.indexOf('_ph_f_') === 0 ? '父?' : '母?', isPlaceholder: true, gender: phId.indexOf('_ph_f_') === 0 ? 'male' : 'female' } };
-          ids.forEach(function(id) { fmap[id].adj.parents.add(phId); });
-        }
-      });
-      if (!fmap[fatherId].adj.spouses.has(motherId)) {
-        fmap[fatherId].adj.spouses.add(motherId);
-        fmap[motherId].adj.spouses.add(fatherId);
-      }
-    }
-  });
-}
-
-function layoutFamilyTree(fmap) {
-  var NODE_W = 60, NODE_H = 60, COUPLE_GAP = 20, UNIT_GAP = 40, SIBLING_GAP = 24, V_GAP = 100;
-  var ids = Object.keys(fmap);
-
-  /* ---- STEP 1: 世代分配（三轮迭代） ---- */
-  var gen = {};
-  ids.forEach(function(id) { gen[id] = 0; });
-
-  // 上行
-  var changed = true, guard = 0;
-  while (changed && guard++ < 200) {
-    changed = false;
-    ids.forEach(function(id) {
-      var want = gen[id];
-      fmap[id].adj.parents.forEach(function(p) { var g = gen[p] + 1; if (g > want) want = g; });
-      fmap[id].adj.spouses.forEach(function(s) { var g = gen[s]; if (g > want) want = g; });
-      if (want !== gen[id]) { gen[id] = want; changed = true; }
-    });
-  }
-  // 下行：无父辈节点拉近到子代上方
-  changed = true; guard = 0;
-  while (changed && guard++ < 200) {
-    changed = false;
-    ids.forEach(function(id) {
-      if (fmap[id].adj.parents.size > 0) return;
-      var target = Infinity;
-      fmap[id].adj.children.forEach(function(c) { target = Math.min(target, gen[c] - 1); });
-      fmap[id].adj.spouses.forEach(function(s) {
-        if (fmap[s] && fmap[s].adj.parents.size > 0) target = gen[s];
-      });
-      if (target !== Infinity && gen[id] < target) { gen[id] = target; changed = true; }
-    });
-    // 配偶传播
-    ids.forEach(function(id) {
-      fmap[id].adj.spouses.forEach(function(s) {
-        if (gen[s] !== gen[id]) {
-          var cap = Infinity;
-          fmap[id].adj.children.forEach(function(c) { cap = Math.min(cap, gen[c] - 1); });
-          fmap[s].adj.children.forEach(function(c) { cap = Math.min(cap, gen[c] - 1); });
-          var want = Math.min(Math.max(gen[id], gen[s]), cap);
-          [id, s].forEach(function(x) {
-            var lower = -Infinity;
-            fmap[x].adj.parents.forEach(function(p) { lower = Math.max(lower, gen[p] + 1); });
-            if (want >= lower && gen[x] < want) { gen[x] = want; changed = true; }
-          });
-        }
-      });
-    });
-  }
-  // 最终上行校验
-  changed = true; guard = 0;
-  while (changed && guard++ < 200) {
-    changed = false;
-    ids.forEach(function(id) {
-      var want = gen[id];
-      fmap[id].adj.parents.forEach(function(p) { var g = gen[p] + 1; if (g > want) want = g; });
-      fmap[id].adj.spouses.forEach(function(s) { var g = gen[s]; if (g > want) want = g; });
-      if (want !== gen[id]) { gen[id] = want; changed = true; }
-    });
-  }
-  var minG = Math.min.apply(null, Object.values(gen));
-  ids.forEach(function(id) { gen[id] -= minG; });
-
-  /* ---- STEP 2: 配偶配对 ---- */
-  var coupleOf = {};
-  ids.forEach(function(id) {
-    if (coupleOf[id]) return;
-    var spouseList = Array.from(fmap[id].adj.spouses).filter(function(sid) { return gen[sid] === gen[id] && !coupleOf[sid]; });
-    if (spouseList.length) {
-      coupleOf[id] = spouseList[0];
-      coupleOf[spouseList[0]] = id;
-    }
-  });
-
-  /* ---- STEP 3: 构建 unit 树 ---- */
-  var unitOf = {};
-  var allUnits = [];
-  ids.forEach(function(id) {
-    if (unitOf[id]) return;
-    var partner = coupleOf[id];
-    var u;
-    if (partner && !unitOf[partner]) {
-      var a = fmap[id].node, b = fmap[partner].node;
-      var leftId, rightId;
-      if (a.gender === 'male' && b.gender === 'female') { leftId = a.id; rightId = b.id; }
-      else if (a.gender === 'female' && b.gender === 'male') { leftId = b.id; rightId = a.id; }
-      else { leftId = a.id; rightId = b.id; }
-      u = { ids: [leftId, rightId], gen: gen[id] };
-      unitOf[leftId] = u; unitOf[rightId] = u;
-    } else {
-      u = { ids: [id], gen: gen[id] };
-      unitOf[id] = u;
-    }
-    allUnits.push(u);
-  });
-
-  allUnits.forEach(function(u) { u.childUnits = []; u.parentUnit = null; });
-  allUnits.forEach(function(u) {
-    var candidates = u.ids.length === 1 ? [u.ids[0]] : [u.ids[0], u.ids[1]];
-    var best = null, bestCount = 0;
-    for (var ci = 0; ci < candidates.length; ci++) {
-      var cid = candidates[ci];
-      var parents = Array.from(fmap[cid].adj.parents);
-      if (parents.length === 0) continue;
-      var counts = {};
-      parents.forEach(function(p) {
-        var pu = unitOf[p];
-        if (pu === u) return;
-        var k = pu.ids.join(',');
-        counts[k] = (counts[k] || 0) + 1;
-        if (counts[k] > bestCount) { best = pu; bestCount = counts[k]; }
-      });
-      if (best) break;
-    }
-    if (best) { u.parentUnit = best; best.childUnits.push(u); }
-  });
-
-  var rootUnits = allUnits.filter(function(u) { return !u.parentUnit; });
-  rootUnits.sort(function(a, b) { return a.gen - b.gen; });
-
-  /* ---- STEP 4: subtreeWidth ---- */
-  function unitWidth(u) { return u.ids.length === 1 ? NODE_W : (2 * NODE_W + COUPLE_GAP); }
-  function computeSubtreeWidth(u) {
-    var ownW = unitWidth(u);
-    if (u.childUnits.length === 0) { u.subtreeWidth = ownW; return ownW; }
-    var cw = 0;
-    for (var i = 0; i < u.childUnits.length; i++) cw += computeSubtreeWidth(u.childUnits[i]);
-    cw += (u.childUnits.length - 1) * SIBLING_GAP;
-    u.subtreeWidth = Math.max(ownW, cw);
-    return u.subtreeWidth;
-  }
-  rootUnits.forEach(computeSubtreeWidth);
-
-  /* ---- STEP 5: bloodOffset ---- */
-  function getParents(id) { return Array.from(fmap[id].adj.parents); }
-  function bloodOffset(u) {
-    if (u.ids.length === 1 || !u.parentUnit) return 0;
-    for (var i = 0; i < u.ids.length; i++) {
-      var parents = getParents(u.ids[i]);
-      if (parents.some(function(p) { return u.parentUnit.ids.indexOf(p) >= 0; })) {
-        var half = (NODE_W + COUPLE_GAP) / 2;
-        return i === 0 ? -half : half;
-      }
-    }
-    return 0;
-  }
-
-  /* ---- STEP 6: 分配 X ---- */
-  function assignX(u, leftEdge) {
-    if (u.childUnits.length === 0) { u.centerX = leftEdge + unitWidth(u) / 2; return; }
-    var cw = 0;
-    for (var i = 0; i < u.childUnits.length; i++) cw += u.childUnits[i].subtreeWidth;
-    cw += (u.childUnits.length - 1) * SIBLING_GAP;
-    var cursor = leftEdge + (u.subtreeWidth - cw) / 2;
-    for (var i = 0; i < u.childUnits.length; i++) {
-      assignX(u.childUnits[i], cursor);
-      cursor += u.childUnits[i].subtreeWidth + SIBLING_GAP;
-    }
-    var attachXs = u.childUnits.map(function(c) { return c.centerX + bloodOffset(c); });
-    u.centerX = (Math.min.apply(null, attachXs) + Math.max.apply(null, attachXs)) / 2;
-  }
-  var rootCursor = 0;
-  rootUnits.forEach(function(r) { assignX(r, rootCursor); rootCursor += r.subtreeWidth + UNIT_GAP; });
-
-  /* ---- STEP 7: 同代防重叠 ---- */
-  var unitsByGen = {};
-  allUnits.forEach(function(u) {
-    if (!unitsByGen[u.gen]) unitsByGen[u.gen] = [];
-    unitsByGen[u.gen].push(u);
-  });
-  for (var pass = 0; pass < 10; pass++) {
-    var didShift = false;
-    Object.keys(unitsByGen).forEach(function(g) {
-      var gUnits = unitsByGen[g];
-      gUnits.sort(function(a, b) { return a.centerX - b.centerX; });
-      for (var i = 1; i < gUnits.length; i++) {
-        var prev = gUnits[i - 1], cur = gUnits[i];
-        var minGap = (unitWidth(prev) + unitWidth(cur)) / 2 + UNIT_GAP;
-        var dx = cur.centerX - prev.centerX;
-        if (dx < minGap) {
-          var need = minGap - dx;
-          (function shiftAll(u) { u.centerX += need; u.childUnits.forEach(shiftAll); })(cur);
-          didShift = true;
-        }
-      }
-    });
-    if (!didShift) break;
-  }
-
-  /* ---- STEP 8: 计算 X, Y ---- */
-  var X = {}, Y = {};
-  allUnits.forEach(function(u) {
-    if (u.ids.length === 1) {
-      X[u.ids[0]] = u.centerX;
-    } else {
-      X[u.ids[0]] = u.centerX - (NODE_W + COUPLE_GAP) / 2;
-      X[u.ids[1]] = u.centerX + (NODE_W + COUPLE_GAP) / 2;
-    }
-    u.ids.forEach(function(id) { Y[id] = u.gen * (NODE_H + V_GAP) + NODE_H / 2; });
-  });
-  var minX = Math.min.apply(null, Object.values(X));
-  var offset = -minX + 60;
-  Object.keys(X).forEach(function(k) { X[k] += offset; });
-  allUnits.forEach(function(u) { u.centerX += offset; });
-
-  return { X: X, Y: Y, gen: gen, coupleOf: coupleOf, NODE_W: NODE_W, NODE_H: NODE_H, allUnits: allUnits, unitOf: unitOf, fmap: fmap };
-}
-
-function renderFamilyTree() {
-  var data = buildFamilyData();
-  if (!data) { alert('没有家系关系数据。\n请先在连线编辑中设置「家系关系类型」。'); return; }
-  var fmap = data.fmap;
-  var lay = layoutFamilyTree(fmap);
-  var X = lay.X, Y = lay.Y, NODE_W = lay.NODE_W, NODE_H = lay.NODE_H;
-
-  ftG.selectAll('*').remove();
-
-  var xs = Object.values(X), ys = Object.values(Y);
-  var minX = Math.min.apply(null, xs) - NODE_W / 2 - 40;
-  var maxX = Math.max.apply(null, xs) + NODE_W / 2 + 40;
-  var minY = Math.min.apply(null, ys) - NODE_H / 2 - 60;
-  var maxY = Math.max.apply(null, ys) + NODE_H / 2 + 60;
-  ftSvg.attr('viewBox', minX + ' ' + minY + ' ' + (maxX - minX) + ' ' + (maxY - minY));
-
-  var linkLayer = ftG.append('g').attr('class', 'ft-links');
-
-  /* ---- 婚姻线 ---- */
-  lay.allUnits.forEach(function(u) {
-    if (u.ids.length !== 2) return;
-    var aId = u.ids[0], bId = u.ids[1];
-    var ax = X[aId], bx = X[bId];
-    var lx = Math.min(ax, bx) + NODE_W / 2;
-    var rx = Math.max(ax, bx) - NODE_W / 2;
-    var my = Y[aId];
-    var lt = state.linkTypes.relation;
-    linkLayer.append('line')
-      .attr('x1', lx).attr('y1', my).attr('x2', rx).attr('y2', my)
-      .attr('stroke', lt.color).attr('stroke-width', lt.width);
-  });
-
-  /* ---- 父-子直角连线 ---- */
-  function childAttachX(parentUnit, childUnit) {
-    if (childUnit.ids.length === 1) return X[childUnit.ids[0]];
-    for (var i = 0; i < childUnit.ids.length; i++) {
-      var cid = childUnit.ids[i];
-      var cParents = Array.from(fmap[cid].adj.parents);
-      if (cParents.some(function(p) { return parentUnit.ids.indexOf(p) >= 0; })) return X[cid];
-    }
-    return childUnit.centerX;
-  }
-
-  lay.allUnits.forEach(function(u) {
-    if (u.childUnits.length === 0) return;
-    var parentBottomX = u.centerX;
-    var parentBottomY = u.ids.length === 2 ? Y[u.ids[0]] : (Y[u.ids[0]] + NODE_H / 2);
-    var childTopY = Y[u.childUnits[0].ids[0]] - NODE_H / 2;
-    var busY = parentBottomY + (childTopY - parentBottomY) * 0.5;
-    var allInf = u.ids.every(function(id) { return fmap[id].node.isPlaceholder; });
-
-    var attaches = u.childUnits.map(function(cu) {
-      var ax = childAttachX(u, cu);
-      var cInf = cu.ids.every(function(id) { return fmap[id].node.isPlaceholder; });
-      return { ax: ax, cInf: cInf };
-    });
-
-    var lt = state.linkTypes.relation;
-    // 竖线：parentBottom -> busY
-    linkLayer.append('line')
-      .attr('x1', parentBottomX).attr('y1', parentBottomY)
-      .attr('x2', parentBottomX).attr('y2', busY)
-      .attr('stroke', lt.color).attr('stroke-width', lt.width);
-
-    // 横杆
-    if (attaches.length === 1) {
-      if (Math.abs(attaches[0].ax - parentBottomX) > 0.5) {
-        linkLayer.append('line')
-          .attr('x1', Math.min(attaches[0].ax, parentBottomX)).attr('y1', busY)
-          .attr('x2', Math.max(attaches[0].ax, parentBottomX)).attr('y2', busY)
-          .attr('stroke', lt.color).attr('stroke-width', lt.width);
-      }
-    } else if (attaches.length > 1) {
-      var allXs = [parentBottomX].concat(attaches.map(function(c) { return c.ax; }));
-      linkLayer.append('line')
-        .attr('x1', Math.min.apply(null, allXs)).attr('y1', busY)
-        .attr('x2', Math.max.apply(null, allXs)).attr('y2', busY)
-        .attr('stroke', lt.color).attr('stroke-width', lt.width);
-    }
-
-    // 每个子的下落竖线
-    attaches.forEach(function(c) {
-      linkLayer.append('line')
-        .attr('x1', c.ax).attr('y1', busY)
-        .attr('x2', c.ax).attr('y2', childTopY)
-        .attr('stroke', lt.color).attr('stroke-width', lt.width);
-    });
-  });
-
-  /* ---- 兄弟连线（同级虚线） ---- */
-  var siblingDrawn = {};
-  Object.keys(fmap).forEach(function(id) {
-    fmap[id].adj.siblings.forEach(function(sibId) {
-      var key = [id, sibId].sort().join('|');
-      if (siblingDrawn[key] || !X[id] || !X[sibId]) return;
-      siblingDrawn[key] = true;
-      var x1, x2;
-      if (X[id] < X[sibId]) { x1 = X[id] + NODE_W / 2; x2 = X[sibId] - NODE_W / 2; }
-      else { x1 = X[sibId] + NODE_W / 2; x2 = X[id] - NODE_W / 2; }
-      var lt = state.linkTypes.relation;
-      linkLayer.append('line')
-        .attr('x1', x1).attr('y1', Y[id])
-        .attr('x2', x2).attr('y2', Y[sibId])
-        .attr('stroke', lt.color).attr('stroke-width', lt.width);
-    });
-  });
-
-  /* ---- 绘制节点 ---- */
-  var nodeData = Object.keys(X).map(function(id) {
-    return { id: id, x: X[id], y: Y[id], node: fmap[id].node };
-  });
-  var nodes = ftG.selectAll('g.ft-node').data(nodeData, function(d) { return d.id; });
-  var nodeEnter = nodes.enter().append('g').attr('class', 'ft-node')
-    .attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; });
-
-  nodeEnter.each(function(d) {
-    var g = d3.select(this);
-    var n = d.node;
-    var isPh = n.isPlaceholder;
-    var gender = n.gender || '';
-    var hasAvatar = !!(n.avatar);
-    var NR = NODE_W / 2; // 节点半径
-
-    var fillBg = isPh ? '#1a1c24' : (gender === 'male' ? '#16253a' : (gender === 'female' ? '#2a162a' : '#1f2230'));
-    var strokeClr = isPh ? '#404560' : (gender === 'male' ? '#4a90b8' : (gender === 'female' ? '#c48fb8' : '#5a5e6f'));
-
-    // 形状
-    if (gender === 'female') {
-      g.append('circle').attr('r', NR)
-        .attr('fill', fillBg).attr('stroke', strokeClr).attr('stroke-width', 2);
-    } else if (gender === 'male') {
-      g.append('rect').attr('x', -NR).attr('y', -NR).attr('width', NODE_W).attr('height', NODE_H).attr('rx', 4)
-        .attr('fill', fillBg).attr('stroke', strokeClr).attr('stroke-width', 2);
-    } else {
-      g.append('polygon')
-        .attr('points', '0,' + (-NR) + ' ' + NR + ',0 0,' + NR + ' ' + (-NR) + ',0')
-        .attr('fill', fillBg).attr('stroke', strokeClr).attr('stroke-width', 2);
-    }
-
-    // 头像（最大化填充）
-    if (hasAvatar) {
-      var clipId = 'ft-clip-' + (n.id || d.id).replace(/[^a-zA-Z0-9]/g, '_');
-      if (gender === 'male') {
-        g.append('clipPath').attr('id', clipId)
-          .append('rect').attr('x', -NR + 3).attr('y', -NR + 3).attr('width', NODE_W - 6).attr('height', NODE_H - 6).attr('rx', 2);
-      } else {
-        g.append('clipPath').attr('id', clipId)
-          .append('circle').attr('r', NR - 3);
-      }
-      g.append('image')
-        .attr('xlink:href', n.avatar)
-        .attr('x', -NR + 3).attr('y', -NR + 3)
-        .attr('width', NODE_W - 6).attr('height', NODE_H - 6)
-        .attr('clip-path', 'url(#' + clipId + ')')
-        .attr('preserveAspectRatio', 'xMidYMid slice');
-    }
-
-    // 标签小圆点（右上角）
-    var nodeX = NR, nodeY = -NR;
-    var visibleCats = state.tagCategories.filter(function(c) { return c.visible; });
-    if (n.tags && visibleCats.length > 0 && !isPh) {
-      visibleCats.forEach(function(cat, i) {
-        var tagId = n.tags[cat.id];
-        if (!tagId) return;
-        var tag = cat.tags.find(function(t) { return t.id === tagId; });
-        if (!tag) return;
-        var dotR = 4;
-        var dotX = NR - 6;
-        var dotY = -NR + 6 + i * (dotR * 2 + 3);
-        g.append('circle')
-          .attr('cx', dotX).attr('cy', dotY).attr('r', dotR)
-          .attr('fill', tag.color).attr('stroke', 'rgba(0,0,0,0.3)').attr('stroke-width', 0.5);
-      });
-    }
-
-    // 名称（完整显示）
-    var rawLabel = n.name || n.id || '';
-    var label = rawLabel.replace(/^_ph_[fm]_/, '').replace(/_/g, '');
-    if (!label || label === '?') label = '?';
-    var fontSize = label.length > 4 ? '9px' : '11px';
-    g.append('text').attr('y', NODE_H / 2 + 15).attr('text-anchor', 'middle')
-      .attr('fill', isPh ? '#5a5e6f' : '#e8e4d6').attr('font-size', fontSize)
-      .attr('font-family', "'Noto Serif SC', serif").text(label);
-  });
-
-  nodes.exit().remove();
-
-  // 悬停 tooltip
-  ftG.selectAll('g.ft-node')
-    .on('mouseenter', function(event, d) {
-      if (d.node.isPlaceholder) return;
-      var realNode = state.nodes.find(function(n) { return n.id === d.id; });
-      if (realNode) showTooltip(realNode, event);
-    })
-    .on('mousemove', function(event, d) {
-      if (d.node.isPlaceholder) return;
-      positionTooltip(event);
-    })
-    .on('mouseleave', function() { hideTooltip(); });
-}
-
-
-function openFamilyTree() {
-  var overlay = document.getElementById('family-tree-overlay');
-  if (!ftSvg) initFamilyTree();
-  overlay.style.display = 'flex';
-  renderFamilyTree();
-  // 适应视图：用 viewBox 适配，重置 zoom 为 identity
-  setTimeout(function() {
-    var bbox = ftG.node().getBBox();
-    if (bbox.width === 0) return;
-    var pad = 40;
-    ftSvg.attr('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + (bbox.width + pad*2) + ' ' + (bbox.height + pad*2));
-    ftSvg.call(ftZoom.transform, d3.zoomIdentity);
-  }, 100);
-}
-
-function closeFamilyTree() {
-  document.getElementById('family-tree-overlay').style.display = 'none';
-}
-
-// 按钮事件
-document.getElementById('btn-family-tree').addEventListener('click', function() {
-  openFamilyTree();
-});
-document.getElementById('btn-family-close').addEventListener('click', closeFamilyTree);
-document.getElementById('btn-family-export').addEventListener('click', exportFamilyTreePNG);
-document.getElementById('btn-family-fit').addEventListener('click', function() {
-  var bbox = ftG.node().getBBox();
-  if (bbox.width === 0) return;
-  var svgEl = document.getElementById('family-tree-svg');
-  var W = svgEl.clientWidth, H = svgEl.clientHeight;
-  var pad = 40;
-  ftSvg.attr('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + (bbox.width + pad*2) + ' ' + (bbox.height + pad*2));
-  ftSvg.transition().duration(400).call(ftZoom.transform, d3.zoomIdentity);
-});
-document.getElementById('btn-family-zoom-in').addEventListener('click', function() {
-  ftSvg.transition().duration(200).call(ftZoom.scaleBy, 1.3);
-});
-document.getElementById('btn-family-zoom-out').addEventListener('click', function() {
-  ftSvg.transition().duration(200).call(ftZoom.scaleBy, 1 / 1.3);
-});
-
-// ============================================================
-// 导出家系图 PNG
-// ============================================================
-function exportFamilyTreePNG() {
-  var svgEl = document.getElementById('family-tree-svg');
-  var bbox = ftG.node().getBBox();
-  if (bbox.width === 0) return;
-  var pad = 20;
-  var W = bbox.width + pad * 2, H = bbox.height + pad * 2;
-
-  var clone = svgEl.cloneNode(true);
-  clone.setAttribute('width', W);
-  clone.setAttribute('height', H);
-  clone.setAttribute('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + W + ' ' + H);
-  clone.querySelector('g').removeAttribute('transform');
-
-  // 嵌入样式
-  var styleEl = document.createElementNS('http://www.w3.org/2000/svg', 'style');
-  var cssText = [];
-  document.querySelectorAll('style').forEach(function(t) { cssText.push(t.textContent); });
-  styleEl.textContent = ':root{--node-label-color:#e8e4d6;--node-label-font-size:13px;}\n' + cssText.join('\n');
-  clone.insertBefore(styleEl, clone.firstChild);
-
-  var svgData = new XMLSerializer().serializeToString(clone);
-  var svgBlob = new Blob([svgData], {type:'image/svg+xml;charset=utf-8'});
-  var url = URL.createObjectURL(svgBlob);
-
-  var img = new Image();
-  img.onload = function() {
-    var canvas = document.createElement('canvas');
-    var scale = 2;
-    canvas.width = W * scale;
-    canvas.height = H * scale;
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#0d0e12';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.scale(scale, scale);
-    ctx.drawImage(img, 0, 0);
-    canvas.toBlob(function(blob) {
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'family-tree-' + Date.now() + '.png';
-      a.click();
-    }, 'image/png');
-  };
-  img.src = url;
-}
-}
-
+let familyEditor = null;
 const familyView = DramatisFamilyView.createFamilyView({
   state: state,
   d3: d3,
@@ -6625,10 +6068,31 @@ const familyView = DramatisFamilyView.createFamilyView({
   rendererModule: DramatisFamilyRenderer,
   episodeTimeline: DramatisEpisodeTimeline,
   isNodeVisible: isNodeVisible,
+  onEditRelation: function(relationId) {
+    if (familyEditor) familyEditor.open(relationId);
+  },
+  onExportSvg: function(layout, model) {
+    DramatisFamilyExport.downloadFamilySvg({ layout: layout, model: model, document: document });
+  },
+  onExportPng: function(layout, model) {
+    DramatisFamilyExport.downloadFamilyPng({ layout: layout, model: model, document: document }).catch(function(error) {
+      console.error(error);
+      alert('家系图 PNG 导出失败，请重试');
+    });
+  },
 });
 
-document.getElementById('btn-family-tree').addEventListener('click', function() {
-  familyView.open();
+familyEditor = DramatisFamilyEditor.bindFamilyEditor({
+  state: state,
+  document: document,
+  onSave: function() { familyView.refresh(); },
+  onDelete: function() { familyView.refresh(); },
+});
+
+['btn-family-tree', 'btn-family-tree-panel'].forEach(function(id) {
+  document.getElementById(id).addEventListener('click', function() {
+    familyView.open();
+  });
 });
 
 async function loadLocalBrowserFixture() {
@@ -6638,7 +6102,7 @@ async function loadLocalBrowserFixture() {
   if (!fixturePath || !isLocal) return;
   const fixtureUrl = new URL(fixturePath, window.location.href);
   if (fixtureUrl.origin !== window.location.origin) return;
-  const response = await fetch(fixtureUrl);
+  const response = await fetch(fixtureUrl, { cache: 'no-store' });
   if (!response.ok) throw new Error('测试样例加载失败：' + response.status);
   applyImportedGraphData(await response.json(), { fit: false });
   if (params.get('family') === '1') await familyView.open();

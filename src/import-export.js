@@ -120,7 +120,77 @@
     };
   }
 
+  function jsonClone(value, fallback) {
+    if (value == null) return fallback;
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function endpointId(value) {
+    return value && typeof value === 'object' ? value.id : value;
+  }
+
+  function withoutRuntimeFields(value) {
+    var copy = Object.assign({}, value || {});
+    ['index', 'vx', 'vy'].forEach(function(key) { delete copy[key]; });
+    return copy;
+  }
+
+  function buildExportGraph(state, options) {
+    var source = state || {};
+    var opts = options || {};
+    var normalizeGraphStyle = opts.normalizeGraphStyle || function(style) { return style || {}; };
+    var familySchema = opts.familySchema;
+    var familyRelations = familySchema && familySchema.normalizeFamilyRelations
+      ? familySchema.normalizeFamilyRelations(source.familyRelations || [])
+      : jsonClone(source.familyRelations || [], []);
+    var familyView = familySchema && familySchema.normalizeFamilyView
+      ? familySchema.normalizeFamilyView(source.familyView)
+      : jsonClone(source.familyView || {}, {});
+
+    return {
+      version: 5,
+      nodes: (source.nodes || []).map(function(node) {
+        return withoutRuntimeFields(jsonClone(node, {}));
+      }),
+      links: (source.links || []).map(function(link) {
+        var copy = withoutRuntimeFields(link);
+        copy.source = endpointId(link.source);
+        copy.target = endpointId(link.target);
+        return jsonClone(copy, {});
+      }),
+      tagCategories: jsonClone(source.tagCategories || [], []),
+      nextId: Number(source.nextId) || 1,
+      clusterSpacing: normalizeClusterSpacing(source.clusterSpacing),
+      topologySizing: normalizeTopologySizing(source.topologySizing),
+      graphStyle: jsonClone(normalizeGraphStyle(source.graphStyle), {}),
+      graphBackgroundColor: source.graphBackgroundColor || '#0d0e12',
+      linkTypes: jsonClone(source.linkTypes || {}, {}),
+      forceConfig: jsonClone(source.forceConfig || {}, {}),
+      familyRelations: familyRelations,
+      familyView: familyView,
+    };
+  }
+
+  function buildLegacyExportGraph(state, options) {
+    var opts = options || {};
+    var familySchema = opts.familySchema;
+    var data = buildExportGraph(state, opts);
+    var conversion = familySchema && familySchema.exportLegacyFamilyRelations
+      ? familySchema.exportLegacyFamilyRelations(data.nodes, data.familyRelations)
+      : { links: [], losses: [{ code: 'FAMILY_SCHEMA_UNAVAILABLE' }] };
+    var ordinaryLinks = data.links.filter(function(link) { return !link.familyRelation; });
+    data.version = 4;
+    data.links = ordinaryLinks.concat(conversion.links.map(function(link) {
+      return Object.assign({ type: 'relation', directed: false }, link);
+    }));
+    delete data.familyRelations;
+    delete data.familyView;
+    return { data: data, losses: conversion.losses || [] };
+  }
+
   return {
+    buildExportGraph: buildExportGraph,
+    buildLegacyExportGraph: buildLegacyExportGraph,
     calculateNextId: calculateNextId,
     cloneLinkTypes: cloneLinkTypes,
     normalizeImportedGraph: normalizeImportedGraph,

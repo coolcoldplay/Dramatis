@@ -1,7 +1,15 @@
 {
-  "nodes": [{ "id": "A" }, { "id": "B" }],
+  "version": 5,
+  "nodes": [
+    { "id": "A", "name": "Ancestor A", "tags": {}, "episodes": [] },
+    { "id": "B", "name": "Ancestor B", "tags": {}, "episodes": [] }
+  ],
+  "links": [],
   "familyRelations": [
     { "id": "F1", "kind": "parentage", "participants": [{ "nodeId": "A", "role": "parent" }, { "nodeId": "B", "role": "child" }] },
     { "id": "F2", "kind": "parentage", "participants": [{ "nodeId": "B", "role": "parent" }, { "nodeId": "A", "role": "child" }] }
-  ]
+  ],
+  "familyView": { "layoutMode": "lineage" },
+  "tagCategories": [],
+  "nextId": 3
 }

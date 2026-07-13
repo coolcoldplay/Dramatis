@@ -159,6 +159,7 @@
     var isOpen = false;
     var firstLayout = true;
     var sliderTimer = null;
+    var searchResultCursor = -1;
     var listeners = [];
 
     function listen(target, type, handler, options) {
@@ -319,7 +320,7 @@
         });
         updateHighlight();
         elements.summary.textContent = model.personNodes.length + ' 人物 · ' + visibleRelations.length + ' 关系 · ' + (result.mode === 'elk' ? 'ELK' : '兼容布局');
-        if (firstLayout || reason === 'open' || reason === 'focus') {
+        if (firstLayout || ['open', 'focus', 'mode', 'filter', 'spacing', 'house', 'collapse', 'refresh'].indexOf(reason) !== -1) {
           renderer.fitView({ animate: !firstLayout, padding: 56 });
         }
         firstLayout = false;
@@ -617,8 +618,24 @@
 
     listen(doc.getElementById('family-mode-lineage'), 'click', function() { setMode('lineage'); });
     listen(doc.getElementById('family-mode-house'), 'click', function() { setMode('house'); });
-    listen(elements.search, 'input', function() { search(elements.search.value, elements.fuzzy.checked); });
-    listen(elements.fuzzy, 'change', function() { search(elements.search.value, elements.fuzzy.checked); });
+    listen(elements.search, 'input', function() {
+      searchResultCursor = -1;
+      search(elements.search.value, elements.fuzzy.checked);
+    });
+    listen(elements.search, 'keydown', function(event) {
+      if (event.key !== 'Enter' || !elements.search.value.trim()) return;
+      var matches = search(elements.search.value, elements.fuzzy.checked).filter(function(node) {
+        return visibleModelIds().has(String(node.id));
+      });
+      if (!matches.length) return;
+      event.preventDefault();
+      searchResultCursor = (searchResultCursor + 1) % matches.length;
+      renderer.centerOnNode(matches[searchResultCursor].id, { scale: 0.9 });
+    });
+    listen(elements.fuzzy, 'change', function() {
+      searchResultCursor = -1;
+      search(elements.search.value, elements.fuzzy.checked);
+    });
     listen(doc.getElementById('btn-family-close'), 'click', close);
     listen(doc.getElementById('btn-family-fit'), 'click', function() { renderer.fitView({ padding: 56 }); });
     listen(doc.getElementById('btn-family-relayout'), 'click', function() { relayout('manual'); });
@@ -663,12 +680,15 @@
     });
     listen(doc, 'keydown', function(event) {
       if (!isOpen) return;
+      var editor = doc.getElementById('family-editor');
+      if (editor && !editor.hidden) return;
       var editable = event.target && /INPUT|TEXTAREA|SELECT/.test(event.target.tagName);
       if (event.key === 'Escape') {
         event.preventDefault();
         event.stopImmediatePropagation();
         if (!elements.help.hidden) elements.help.hidden = true;
         else if (!elements.diagnostics.hidden) elements.diagnostics.hidden = true;
+        else if (elements.filters.classList.contains('is-open')) elements.filters.classList.remove('is-open');
         else if (!elements.inspector.hidden) clearSelection();
         else if (runtime.focusNodeId) clearFocus();
         else if (runtime.selectedNodeId || runtime.selectedRelationId) clearSelection();
