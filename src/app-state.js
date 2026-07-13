@@ -18,6 +18,13 @@
       currentEpisode: null,
       episodeList: [],
       episodeSequence: 0,
+      datasetMeta: {
+        title: '',
+        description: '',
+        sources: [],
+        coveragePolicy: null,
+        episodeGuide: [],
+      },
       mode: 'organize',
       freePlacement: false,
       graphBackgroundColor: '#0d0e12',

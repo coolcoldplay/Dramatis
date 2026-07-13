@@ -34,6 +34,11 @@ test('normalizes imported graph data and resolves link endpoints', () => {
     nextId: 3,
     clusterSpacing: 1.75,
     topologySizing: { mode: 'degree', strength: 0.8 },
+    title: 'Season graph',
+    description: 'Episode precise',
+    sources: [{ id: 'source', label: 'Guide', url: 'https://example.com', usage: 'Audit' }],
+    coveragePolicy: { included: 'Named characters' },
+    episodeGuide: [{ season: 2, episode: 1, title: 'Episode one', eventNodeIds: ['N1'] }],
     graphStyle: { nodeLabelPlacement: 'inside' },
     graphBackground: { value: '#101010' },
     linkTypes: {
@@ -72,6 +77,9 @@ test('normalizes imported graph data and resolves link endpoints', () => {
   assert.equal(result.graphBackgroundColor, '#101010');
   assert.equal(result.clusterSpacing, 1.75);
   assert.deepEqual(result.topologySizing, { mode: 'degree', strength: 0.8 });
+  assert.equal(result.datasetMeta.title, 'Season graph');
+  assert.equal(result.datasetMeta.episodeGuide[0].raw, 'S2E1');
+  assert.deepEqual(result.datasetMeta.episodeGuide[0].eventNodeIds, ['N1']);
   assert.equal(result.nextId, 10);
   assert.equal(result.droppedLinks.length, 1);
   assert.deepEqual(result.familyRelations, []);
@@ -122,6 +130,13 @@ test('exports a complete v5 graph without d3 runtime fields', () => {
     linkTypes: defaultLinkTypes,
     clusterSpacing: 1.4,
     topologySizing: { mode: 'degree', strength: 0.9 },
+    datasetMeta: {
+      title: 'Season graph',
+      description: 'Episode precise',
+      sources: [{ id: 'source', label: 'Guide', url: 'https://example.com', usage: 'Audit' }],
+      coveragePolicy: { included: 'Named characters' },
+      episodeGuide: [{ season: 2, episode: 1, title: 'Episode one', eventNodeIds: ['N1'] }],
+    },
     forceConfig: { centerStrength: 0.05, chargeStrength: -500, linkStrength: 0.6, linkDistance: 180 },
     familyRelations: [{
       id: 'F1', kind: 'union', subtype: 'political_union',
@@ -144,6 +159,11 @@ test('exports a complete v5 graph without d3 runtime fields', () => {
   assert.equal(result.familyRelations[0].subtype, 'political_union');
   assert.equal(result.familyView.layoutMode, 'house');
   assert.equal(result.graphBackgroundColor, '#101114');
+  assert.equal(result.title, 'Season graph');
+  assert.equal(result.description, 'Episode precise');
+  assert.equal(result.sources[0].id, 'source');
+  assert.equal(result.coveragePolicy.included, 'Named characters');
+  assert.equal(result.episodeGuide[0].title, 'Episode one');
 });
 
 test('builds an explicit v4 compatibility export and reports losses', () => {

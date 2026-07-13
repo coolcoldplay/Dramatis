@@ -20,9 +20,10 @@ const tagCategories = [
 ];
 
 const nodes = [
-  { id: 'N1', name: 'Dale Cooper', notes: 'FBI special agent', tags: { C1: 'T1' } },
+  { id: 'N1', name: '戴尔·库珀', aliases: ['Dale Cooper'], titles: ['Special Agent'], notes: 'FBI special agent', tags: { C1: 'T1' } },
   { id: 'N2', name: 'Laura Palmer', notes: 'Town mystery', tags: {} },
   { id: 'N3', name: 'Audrey Horne', notes: '', tags: { C1: 'T2' }, hidden: true },
+  { id: 'N4', name: '库珀的分身', aliases: ["Dale Cooper's doppelganger"], notes: 'Black Lodge entity', tags: {} },
 ];
 
 test('normalizes search query for case-insensitive matching', () => {
@@ -31,14 +32,18 @@ test('normalizes search query for case-insensitive matching', () => {
 });
 
 test('finds matching node ids from names by default', () => {
-  assert.deepEqual(findMatchingNodeIds(nodes, 'cooper', tagCategories), ['N1']);
+  assert.deepEqual(findMatchingNodeIds(nodes, 'cooper', tagCategories), ['N1', 'N4']);
+  assert.deepEqual(findMatchingNodeIds(nodes, '戴尔·库珀', tagCategories), ['N1']);
+  assert.deepEqual(findMatchingNodeIds(nodes, 'Dale Cooper', tagCategories), ['N1']);
   assert.deepEqual(findMatchingNodeIds(nodes, 'mystery', tagCategories), []);
   assert.deepEqual(findMatchingNodeIds(nodes, 'detective', tagCategories), []);
+  assert.deepEqual(findMatchingNodeIds(nodes, 'special agent', tagCategories), []);
 });
 
 test('expands matching to notes and visible tag labels when fuzzy search is enabled', () => {
   assert.deepEqual(findMatchingNodeIds(nodes, 'mystery', tagCategories, { fuzzy: true }), ['N2']);
   assert.deepEqual(findMatchingNodeIds(nodes, 'detective', tagCategories, { fuzzy: true }), ['N1']);
+  assert.deepEqual(findMatchingNodeIds(nodes, 'special agent', tagCategories, { fuzzy: true }), ['N1']);
 });
 
 test('ignores hidden nodes and empty queries when searching', () => {

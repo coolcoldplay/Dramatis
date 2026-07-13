@@ -198,8 +198,37 @@
 .family-help-panel {
   min-height: 0;
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #555c69 var(--family-panel);
   border-color: var(--family-border);
   background: var(--family-panel);
+}
+
+.family-filters::-webkit-scrollbar,
+.family-inspector::-webkit-scrollbar,
+.family-diagnostics::-webkit-scrollbar,
+.family-help-panel::-webkit-scrollbar,
+.family-editor-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.family-filters::-webkit-scrollbar-track,
+.family-inspector::-webkit-scrollbar-track,
+.family-diagnostics::-webkit-scrollbar-track,
+.family-help-panel::-webkit-scrollbar-track,
+.family-editor-scroll::-webkit-scrollbar-track {
+  background: var(--family-panel);
+}
+
+.family-filters::-webkit-scrollbar-thumb,
+.family-inspector::-webkit-scrollbar-thumb,
+.family-diagnostics::-webkit-scrollbar-thumb,
+.family-help-panel::-webkit-scrollbar-thumb,
+.family-editor-scroll::-webkit-scrollbar-thumb {
+  border: 2px solid var(--family-panel);
+  border-radius: 4px;
+  background: #555c69;
 }
 
 .family-editor {
@@ -236,7 +265,14 @@
 .family-editor-header { justify-content: space-between; }
 .family-editor-header h2 { margin: 2px 0 0; font: 600 18px "Noto Serif SC", serif; }
 .family-editor-kicker { color: var(--family-muted); font: 9px "JetBrains Mono", monospace; letter-spacing: 1.5px; }
-.family-editor-scroll { min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 2px 18px 24px; }
+.family-editor-scroll {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 2px 18px 24px;
+  scrollbar-width: thin;
+  scrollbar-color: #555c69 var(--family-panel);
+}
 .family-editor-section { padding: 18px 0; border-bottom: 1px solid var(--family-border); }
 .family-editor-section:last-child { border-bottom: 0; }
 .family-editor-section h3 { margin: 0 0 13px; color: var(--family-gold); font-size: 12px; font-weight: 600; }

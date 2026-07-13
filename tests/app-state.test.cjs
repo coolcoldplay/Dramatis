@@ -20,6 +20,13 @@ test('creates the default graph editing state', () => {
   assert.equal(state.forceConfig.linkDistance, 170);
   assert.equal(state.clusterSpacing, 1);
   assert.deepEqual(state.topologySizing, { mode: 'none', strength: 0.65 });
+  assert.deepEqual(state.datasetMeta, {
+    title: '',
+    description: '',
+    sources: [],
+    coveragePolicy: null,
+    episodeGuide: [],
+  });
   assert.deepEqual(state.familyRelations, []);
   assert.deepEqual(state.familyView, {
     layoutMode: 'lineage',

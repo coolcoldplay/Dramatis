@@ -29,13 +29,23 @@
   }
 
   function nodeNameSearchText(node) {
-    return String((node && node.name) || '').toLowerCase();
+    if (!node) return '';
+    return [node.name || ''].concat(Array.isArray(node.aliases) ? node.aliases : []).join(' ').toLowerCase();
+  }
+
+  function nodeNameSearchTerms(node) {
+    if (!node) return [];
+    return [node.name || ''].concat(Array.isArray(node.aliases) ? node.aliases : [])
+      .map(normalizeSearchQuery)
+      .filter(Boolean);
   }
 
   function nodeSearchText(node, tagCategories) {
     if (!node) return '';
     return [
       node.name || '',
+      (Array.isArray(node.aliases) ? node.aliases : []).join(' '),
+      (Array.isArray(node.titles) ? node.titles : []).join(' '),
       node.notes || '',
       node.gender || '',
       collectTagNames(node, tagCategories).join(' '),
@@ -47,12 +57,21 @@
     var opts = options || {};
     var fuzzy = opts.fuzzy === true;
     if (!q) return [];
-    return (nodes || [])
-      .filter(function(node) {
-        if (!node || node.hidden) return false;
-        var text = fuzzy ? nodeSearchText(node, tagCategories) : nodeNameSearchText(node);
-        return text.indexOf(q) !== -1;
-      })
+    var visibleNodes = (nodes || []).filter(function(node) { return node && !node.hidden; });
+    var matches;
+    if (fuzzy) {
+      matches = visibleNodes.filter(function(node) {
+        return nodeSearchText(node, tagCategories).indexOf(q) !== -1;
+      });
+    } else {
+      var exactMatches = visibleNodes.filter(function(node) {
+        return nodeNameSearchTerms(node).indexOf(q) !== -1;
+      });
+      matches = exactMatches.length ? exactMatches : visibleNodes.filter(function(node) {
+        return nodeNameSearchText(node).indexOf(q) !== -1;
+      });
+    }
+    return matches
       .map(function(node) { return node.id; })
       .filter(Boolean);
   }
@@ -77,6 +96,7 @@
     isHelpShortcut: isHelpShortcut,
     isSearchFocusShortcut: isSearchFocusShortcut,
     normalizeSearchQuery: normalizeSearchQuery,
+    nodeNameSearchTerms: nodeNameSearchTerms,
     nodeNameSearchText: nodeNameSearchText,
     nodeSearchText: nodeSearchText,
   };

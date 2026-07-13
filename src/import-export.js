@@ -1,10 +1,10 @@
 (function(root, factory) {
   if (typeof module === 'object' && module.exports) {
-    module.exports = factory();
+    module.exports = factory(require('./episode-timeline.js'));
   } else {
-    root.DramatisImportExport = factory();
+    root.DramatisImportExport = factory(root.DramatisEpisodeTimeline);
   }
-})(typeof globalThis !== 'undefined' ? globalThis : this, function() {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function(episodeTimeline) {
   function cloneLinkTypes(defaults, imported) {
     var base = defaults || {};
     var data = imported || {};
@@ -52,6 +52,33 @@
     return {
       mode: mode,
       strength: Math.min(1, Math.max(0, strength)),
+    };
+  }
+
+  function normalizeSources(value) {
+    return (Array.isArray(value) ? value : []).map(function(item) {
+      var source = item || {};
+      var normalized = {
+        id: source.id ? String(source.id) : '',
+        label: source.label ? String(source.label) : '',
+        url: source.url ? String(source.url) : '',
+        usage: source.usage ? String(source.usage) : '',
+      };
+      return normalized.id || normalized.label || normalized.url || normalized.usage ? normalized : null;
+    }).filter(Boolean);
+  }
+
+  function normalizeDatasetMeta(value) {
+    var input = value || {};
+    var normalizeGuide = episodeTimeline && episodeTimeline.normalizeEpisodeGuide;
+    return {
+      title: input.title ? String(input.title) : '',
+      description: input.description ? String(input.description) : '',
+      sources: normalizeSources(input.sources),
+      coveragePolicy: input.coveragePolicy && typeof input.coveragePolicy === 'object'
+        ? jsonClone(input.coveragePolicy, null)
+        : null,
+      episodeGuide: normalizeGuide ? normalizeGuide(input.episodeGuide) : [],
     };
   }
 
@@ -108,6 +135,7 @@
       linkTypes: cloneLinkTypes(opts.defaultLinkTypes, input.linkTypes),
       clusterSpacing: normalizeClusterSpacing(input.clusterSpacing),
       topologySizing: normalizeTopologySizing(input.topologySizing),
+      datasetMeta: normalizeDatasetMeta(input),
       familyRelations: familyGraph.familyRelations,
       familyView: familyGraph.familyView,
       migratedLegacyFamily: familyGraph.migratedLegacy,
@@ -146,8 +174,9 @@
     var familyView = familySchema && familySchema.normalizeFamilyView
       ? familySchema.normalizeFamilyView(source.familyView)
       : jsonClone(source.familyView || {}, {});
+    var datasetMeta = normalizeDatasetMeta(source.datasetMeta || source);
 
-    return {
+    var output = {
       version: 5,
       nodes: (source.nodes || []).map(function(node) {
         return withoutRuntimeFields(jsonClone(node, {}));
@@ -169,6 +198,12 @@
       familyRelations: familyRelations,
       familyView: familyView,
     };
+    if (datasetMeta.title) output.title = datasetMeta.title;
+    if (datasetMeta.description) output.description = datasetMeta.description;
+    if (datasetMeta.sources.length) output.sources = datasetMeta.sources;
+    if (datasetMeta.coveragePolicy) output.coveragePolicy = datasetMeta.coveragePolicy;
+    if (datasetMeta.episodeGuide.length) output.episodeGuide = datasetMeta.episodeGuide;
+    return output;
   }
 
   function buildLegacyExportGraph(state, options) {
@@ -193,6 +228,7 @@
     buildLegacyExportGraph: buildLegacyExportGraph,
     calculateNextId: calculateNextId,
     cloneLinkTypes: cloneLinkTypes,
+    normalizeDatasetMeta: normalizeDatasetMeta,
     normalizeImportedGraph: normalizeImportedGraph,
   };
 });

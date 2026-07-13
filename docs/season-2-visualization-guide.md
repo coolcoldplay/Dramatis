@@ -1,6 +1,6 @@
 # Twin Peaks Season 2 Visualization Guide
 
-Use `data/twin-peaks-season-2.json` with the current Dramatis import flow (`存档` -> `导入 JSON`). The dataset is designed to open as a curated atlas, not as an unfiltered force-directed hairball.
+Use `data/twin-peaks-season-2.json` with the current Dramatis import flow (`存档` -> `导入 JSON`). The complete v5 dataset contains 93 characters/entities, 146 episode event nodes, 630 graph links, 30 family relations, and an exact 22-episode guide.
 
 ## Recommended Views
 
@@ -29,7 +29,8 @@ Use `data/twin-peaks-season-2.json` with the current Dramatis import flow (`存�
 ## Import And Cleanup Tips
 
 - After import, use `显示` to keep line labels hidden unless you are making an annotated export.
-- Use the episode slider to inspect chronological buildup from S2E1 to S2E22.
+- Switch to review mode and use the episode slider to inspect chronological buildup from S2E1 to S2E22. The panel shows each episode's Chinese/English title, air date, and summary.
+- Search uses Chinese primary names and English aliases by default. Enable fuzzy search only when notes, titles, or tag labels should also match.
 - For a clean poster export, hide nodes tagged `Context/Hidden`, then export PNG/SVG.
 - For analysis, keep hidden nodes available and unhide individual plotlines as needed.
 
@@ -37,8 +38,8 @@ Use `data/twin-peaks-season-2.json` with the current Dramatis import flow (`存�
 
 Twin Peaks Season 2 is not just a social graph. Directly connecting every character to every interaction makes the diagram unreadable. Event nodes let the graph say: several people are connected through a shared event, clue, or location. That preserves plot causality while reducing long crossing edges.
 
-## Suggested Next Manual Pass
+## Optional Manual Pass
 
 - Add character portraits if desired.
-- Move clusters slightly after import if your canvas aspect ratio differs.
+- Move clusters slightly after import if a specific export aspect ratio needs a custom composition.
 - If a relationship feels too noisy, mark that edge hidden rather than deleting it; the extraction report keeps the reason for its inclusion.

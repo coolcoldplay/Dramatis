@@ -1,0 +1,4637 @@
+{
+  "source": "Twin Peaks Wiki episode appearance sections",
+  "sourceApi": "https://twinpeaks.fandom.com/api.php",
+  "scope": "Original-series Episodes 8-29 / Season 2 Episodes 1-22",
+  "episodes": [
+    {
+      "season": 2,
+      "episode": 1,
+      "raw": "S2E1",
+      "overallEpisode": 8,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_8",
+      "sourcePageId": 2791,
+      "sourceRevisionId": 53091,
+      "inUniverseDate": {
+        "month": "March",
+        "day": 3,
+        "weekday": "Friday"
+      },
+      "individuals": [
+        {
+          "canonical": "Teresa Banks",
+          "label": "Teresa Banks",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Emory Battis",
+          "label": "Emory Battis",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Gordon Cole",
+          "label": "Gordon Cole",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Diane Evans",
+          "label": "Diane Evans",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Beth",
+          "label": "Beth",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Giant",
+          "label": "Giant",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Hawk",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Eileen Hayward",
+          "label": "Eileen Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Gersten Hayward",
+          "label": "Gersten Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harriet Hayward",
+          "label": "Harriet Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley, Sr.",
+          "label": "Ed Hurley, Sr.",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Margaret Lanterman",
+          "label": "Margaret Lanterman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Phillip Michael Gerard",
+          "label": "Phillip Michael Gerard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Blackie O'Reilly",
+          "label": "Blackie O'Reilly",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sarah Palmer",
+          "label": "Sarah Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Cyril Pons",
+          "label": "Cyril Pons",
+          "qualifier": "video"
+        },
+        {
+          "canonical": "Ronette Pulaski",
+          "label": "Ronette Pulaski",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jacques Renault",
+          "label": "Jacques Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Albert Rosenfield",
+          "label": "Albert Rosenfield",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Waiter",
+          "label": "Waiter",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Waldo",
+          "label": "Waldo",
+          "qualifier": "mentioned"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 2,
+      "raw": "S2E2",
+      "overallEpisode": 9,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_9",
+      "sourcePageId": 2764,
+      "sourceRevisionId": 53003,
+      "inUniverseDate": {
+        "month": "March",
+        "day": 4,
+        "weekday": "Saturday"
+      },
+      "individuals": [
+        {
+          "canonical": "Emory Battis",
+          "label": "Emory Battis",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Diane Evans",
+          "label": "Diane Evans",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Giant",
+          "label": "The giant",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Margaret Lanterman",
+          "label": "Margaret Lanterman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Neff",
+          "label": "Neff",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Blackie O'Reilly",
+          "label": "Blackie O'Reilly",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sarah Palmer",
+          "label": "Sarah Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pierre Tremond",
+          "label": "Pierre Tremond",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ronette Pulaski",
+          "label": "Ronette Pulaski",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jacques Renault",
+          "label": "Jacques Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Albert Rosenfield",
+          "label": "Albert Rosenfield",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harold Smith",
+          "label": "Harold Smith",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Einar Thorson",
+          "label": "Einar Thorson",
+          "qualifier": "voice"
+        },
+        {
+          "canonical": "Mrs. Tremond",
+          "label": "Mrs. Tremond",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Waiter",
+          "label": "Waiter",
+          "qualifier": "mentioned"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 3,
+      "raw": "S2E3",
+      "overallEpisode": 10,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_10",
+      "sourcePageId": 2792,
+      "sourceRevisionId": 52974,
+      "inUniverseDate": {
+        "month": "March",
+        "day": 5,
+        "weekday": "Sunday"
+      },
+      "individuals": [
+        {
+          "canonical": "The arm",
+          "label": "The arm",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Emory Battis",
+          "label": "Emory Battis",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Giant",
+          "label": "Giant",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Susan Hurley",
+          "label": "Susan Hurley",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Eolani Jacoby",
+          "label": "Eolani Jacoby",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Mike",
+          "label": "Phillip Gerard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Blackie O'Reilly",
+          "label": "Blackie O'Reilly",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nancy O'Reilly",
+          "label": "Nancy O'Reilly",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sarah Palmer",
+          "label": "Sarah Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Ronette Pulaski",
+          "label": "Ronette Pulaski",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bernard Renault",
+          "label": "Bernard Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jacques Renault",
+          "label": "Jacques Renault",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jean Renault",
+          "label": "Jean Renault",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Albert Rosenfield",
+          "label": "Albert Rosenfield",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harold Smith",
+          "label": "Harold Smith",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 4,
+      "raw": "S2E4",
+      "overallEpisode": 11,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_11",
+      "sourcePageId": 2793,
+      "sourceRevisionId": 53009,
+      "inUniverseDate": {
+        "month": "March",
+        "day": 6,
+        "weekday": "Monday"
+      },
+      "individuals": [
+        {
+          "canonical": "Emory Battis",
+          "label": "Emory Battis",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bob (Twin Peaks Sheriff's Department)",
+          "label": "Bob",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Louie Budway",
+          "label": "Louie Budway",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Janet",
+          "label": "Janet",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Daryl Lodwick",
+          "label": "Daryl Lodwick",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike",
+          "label": "Mike",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Vivian Smythe Niles",
+          "label": "Vivian Smythe Niles",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jacques Renault",
+          "label": "Jacques Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jean Renault",
+          "label": "Jean Renault",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sid",
+          "label": "Sid",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harold Smith",
+          "label": "Harold Smith",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Clinton Sternwood",
+          "label": "Clinton Sternwood",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Toad",
+          "label": "Toad",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 5,
+      "raw": "S2E5",
+      "overallEpisode": 12,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_12",
+      "sourcePageId": 2794,
+      "sourceRevisionId": 53013,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Diane Evans",
+          "label": "Diane Evans",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Giant",
+          "label": "The giant",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Gwen",
+          "label": "Gwen",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josh",
+          "label": "Josh",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Larry",
+          "label": "Larry",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Daryl Lodwick",
+          "label": "Daryl Lodwick",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike",
+          "label": "Phillip Gerard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Blackie O'Reilly",
+          "label": "Blackie O'Reilly",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nancy O'Reilly",
+          "label": "Nancy O'Reilly",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sarah Palmer",
+          "label": "Sarah Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Tim Pinkle",
+          "label": "Tim Pinkle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jack Racine",
+          "label": "Jack Racine",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jean Renault",
+          "label": "Jean Renault",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Rick",
+          "label": "Rick",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Sid",
+          "label": "Sid",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harold Smith",
+          "label": "Harold Smith",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Clinton Sternwood",
+          "label": "Clinton Sternwood",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Tim",
+          "label": "Tim",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Toad",
+          "label": "Toad",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 6,
+      "raw": "S2E6",
+      "overallEpisode": 13,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_13",
+      "sourcePageId": 3404,
+      "sourceRevisionId": 52725,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Tom Brockman",
+          "label": "Tom Brockman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Cappy",
+          "label": "Cappy",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Gordon Cole",
+          "label": "Gordon Cole",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike",
+          "label": "Phillip Gerard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike",
+          "label": "Mike",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Blackie O'Reilly",
+          "label": "Blackie O'Reilly",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Joey Paulson",
+          "label": "Joey Paulson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bernard Renault",
+          "label": "Bernard Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jacques Renault",
+          "label": "Jacques Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jean Renault",
+          "label": "Jean Renault",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Albert Rosenfield",
+          "label": "Albert Rosenfield",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Harold Smith",
+          "label": "Harold Smith",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 7,
+      "raw": "S2E7",
+      "overallEpisode": 14,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_14",
+      "sourcePageId": 2796,
+      "sourceRevisionId": 53097,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Louis Armstrong",
+          "label": "Louis Armstrong",
+          "qualifier": "voice"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Betty Briggs",
+          "label": "Betty Briggs",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Gordon Cole",
+          "label": "Gordon Cole",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Julee Cruise (fictional)",
+          "label": "Julee Cruise",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Diane Evans",
+          "label": "Diane Evans",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Giant",
+          "label": "The giant",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Margaret Lanterman",
+          "label": "Margaret Lanterman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike",
+          "label": "Mike",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pale horse",
+          "label": "Pale horse",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sarah Palmer",
+          "label": "Sarah Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harold Smith",
+          "label": "Harold Smith",
+          "qualifier": "corpse"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Waiter",
+          "label": "Waiter",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 8,
+      "raw": "S2E8",
+      "overallEpisode": 15,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_15",
+      "sourcePageId": 2797,
+      "sourceRevisionId": 52730,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "The arm",
+          "label": "The arm",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Carl",
+          "label": "Carl",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Louise Dombrowski",
+          "label": "Louise Dombrowski",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Diane Evans",
+          "label": "Diane Evans",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "corpse"
+        },
+        {
+          "canonical": "Giant",
+          "label": "The giant",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Gwen",
+          "label": "Gwen",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "voice"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "voice"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike",
+          "label": "Mike",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jeff Moore (deputy)",
+          "label": "Jeff Moore",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ernie Niles",
+          "label": "Ernie Niles",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Vivian Smythe Niles",
+          "label": "Vivian Smythe Niles",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sarah Palmer",
+          "label": "Sarah Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jacques Renault",
+          "label": "Jacques Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Toad",
+          "label": "Toad",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman (president)",
+          "label": "Harry S. Truman (president)",
+          "qualifier": "photo"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 9,
+      "raw": "S2E9",
+      "overallEpisode": 16,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_16",
+      "sourcePageId": 2719,
+      "sourceRevisionId": 53075,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "The arm",
+          "label": "The arm",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Teresa Banks",
+          "label": "Teresa Banks",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Beth",
+          "label": "Beth",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "corpse"
+        },
+        {
+          "canonical": "Giant",
+          "label": "The giant",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike",
+          "label": "Mike",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Vivian Smythe Niles",
+          "label": "Vivian Smythe Niles",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sarah Palmer",
+          "label": "Sarah Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Pierre",
+          "label": "Pierre",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Albert Rosenfield",
+          "label": "Albert Rosenfield",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harold Smith",
+          "label": "Harold Smith",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mrs. Tremond",
+          "label": "Mrs. Tremond",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mrs. Tremond (second)",
+          "label": "Mrs. Tremond (second)",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Waiter",
+          "label": "Waiter",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Zipper",
+          "label": "Zipper",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 10,
+      "raw": "S2E10",
+      "overallEpisode": 17,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_17",
+      "sourcePageId": 2798,
+      "sourceRevisionId": 52728,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Emory Battis",
+          "label": "Emory Battis",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Caroline Earle",
+          "label": "Caroline Earle",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Greege",
+          "label": "Greege",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Roger Hardy",
+          "label": "Roger Hardy",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Eileen Hayward",
+          "label": "Eileen Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Preston King",
+          "label": "Preston King",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dougie Milford",
+          "label": "Dougie Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dwayne Milford",
+          "label": "Dwayne Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ernie Niles",
+          "label": "Ernie Niles",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Vivian Smythe",
+          "label": "Vivian Smythe Niles",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Blackie O'Reilly",
+          "label": "Blackie O'Reilly",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Sarah Palmer",
+          "label": "Sarah Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jacques Renault",
+          "label": "Jacques Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jean Renault",
+          "label": "Jean Renault",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Samantha",
+          "label": "Samantha",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Frederick Truman",
+          "label": "Frederick Truman",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 11,
+      "raw": "S2E11",
+      "overallEpisode": 18,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_18",
+      "sourcePageId": 2799,
+      "sourceRevisionId": 52720,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Betty Briggs",
+          "label": "Betty Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Clarence Brocklehurst",
+          "label": "Clarence Brocklehurst",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Denise Bryson",
+          "label": "Denise Bryson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Gordon Cole",
+          "label": "Gordon Cole",
+          "qualifier": "voice"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "voice"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Diane Evans",
+          "label": "Diane Evans",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Roger Hardy",
+          "label": "Roger Hardy",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Giant",
+          "label": "The giant",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "J.J. Horne",
+          "label": "J.J. Horne",
+          "qualifier": "video"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "video"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Preston King",
+          "label": "Preston King",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Margaret Lanterman",
+          "label": "Margaret Lanterman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Evelyn Marsh",
+          "label": "Evelyn Marsh",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jeffrey Marsh",
+          "label": "Jeffrey Marsh",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dougie Milford",
+          "label": "Dougie Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dwayne Milford",
+          "label": "Dwayne Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lana Budding Milford",
+          "label": "Lana Budding Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Nicky Needleman",
+          "label": "Nicky Needleman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ernie Niles",
+          "label": "Ernie Niles",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Vivian Smythe",
+          "label": "Vivian Smythe Niles",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jean Renault",
+          "label": "Jean Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman (president)",
+          "label": "Harry S. Truman (president)",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Buck Wingate",
+          "label": "Buck Wingate",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 12,
+      "raw": "S2E12",
+      "overallEpisode": 19,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_19",
+      "sourcePageId": 2800,
+      "sourceRevisionId": 52723,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Betty Briggs",
+          "label": "Betty Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Denise Bryson",
+          "label": "Denise Bryson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Diane Evans",
+          "label": "Diane Evans",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Roger Hardy",
+          "label": "Roger Hardy",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Preston King",
+          "label": "Preston King",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Irene Littlehorse",
+          "label": "Irene Littlehorse",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Evelyn Marsh",
+          "label": "Evelyn Marsh",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jeffrey Marsh",
+          "label": "Jeffrey Marsh",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dougie Milford",
+          "label": "Dougie Milford",
+          "qualifier": "corpse"
+        },
+        {
+          "canonical": "Dwayne Milford",
+          "label": "Dwayne Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lana Budding Milford",
+          "label": "Lana Budding Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nicky Needleman",
+          "label": "Nicky Needleman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ernie Niles",
+          "label": "Ernie Niles",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Vivian Smythe",
+          "label": "Vivian Smythe Niles",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Calvin Reilly",
+          "label": "Calvin Reilly",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jean Renault",
+          "label": "Jean Renault",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Malcolm Sloan",
+          "label": "Malcolm Sloan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Judy Swain",
+          "label": "Judy Swain",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Toad",
+          "label": "Toad",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman (president)",
+          "label": "Harry S. Truman (president)",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Buck Wingate",
+          "label": "Buck Wingate",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 13,
+      "raw": "S2E13",
+      "overallEpisode": 20,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_20",
+      "sourcePageId": 2667,
+      "sourceRevisionId": 52940,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Brunstons",
+          "label": "Mr. Brunston",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Brunstons",
+          "label": "Mrs. Brunston",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Denise Bryson",
+          "label": "Denise Bryson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donnie",
+          "label": "Donnie",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Preston King",
+          "label": "Preston King",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Evelyn Marsh",
+          "label": "Evelyn Marsh",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jeffrey Marsh",
+          "label": "Jeffrey Marsh",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nicky Needleman",
+          "label": "Nicky Needleman",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ernie Niles",
+          "label": "Ernie Niles",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Leland Palmer",
+          "label": "Leland Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Erik Powell",
+          "label": "Erik Powell",
+          "qualifier": "corpse"
+        },
+        {
+          "canonical": "Calvin Reilly",
+          "label": "Calvin Reilly",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Bernard Renault",
+          "label": "Bernard Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jacques Renault",
+          "label": "Jacques Renault",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jean Renault",
+          "label": "Jean Renault",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Malcolm Sloan",
+          "label": "Malcolm Sloan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman (president)",
+          "label": "Harry S. Truman (president)",
+          "qualifier": "photo"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 14,
+      "raw": "S2E14",
+      "overallEpisode": 21,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_21",
+      "sourcePageId": 2958,
+      "sourceRevisionId": 52951,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Denise Bryson",
+          "label": "Denise Bryson",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Gordon Cole",
+          "label": "Gordon Cole",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Caroline Earle",
+          "label": "Caroline Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jones",
+          "label": "Jones",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Evelyn Marsh",
+          "label": "Evelyn Marsh",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jeffrey Marsh",
+          "label": "Jeffrey Marsh",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dougie Milford",
+          "label": "Dougie Milford",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Dwayne Milford",
+          "label": "Dwayne Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lana Budding Milford",
+          "label": "Lana Budding Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nicky Needleman",
+          "label": "Nicky Needleman",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Erik Powell",
+          "label": "Erik Powell",
+          "qualifier": "corpse"
+        },
+        {
+          "canonical": "Malcolm Sloan",
+          "label": "Malcolm Sloan",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Randy St. Croix",
+          "label": "Randy St. Croix",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman (president)",
+          "label": "Harry S. Truman (president)",
+          "qualifier": "photo"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 15,
+      "raw": "S2E15",
+      "overallEpisode": 22,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_22",
+      "sourcePageId": 3323,
+      "sourceRevisionId": 52952,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "José Raúl Capablanca",
+          "label": "José Raúl Capablanca",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Gordon Cole",
+          "label": "Gordon Cole",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Cop",
+          "label": "Cop",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Caroline Earle",
+          "label": "Caroline Earle",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Johnny Horne",
+          "label": "Johnny Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Evelyn Marsh",
+          "label": "Evelyn Marsh",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jeffrey Marsh",
+          "label": "Jeffrey Marsh",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jeanie Pombelek",
+          "label": "Jeanie Pombelek",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Erik Powell",
+          "label": "Erik Powell",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Albert Rosenfield",
+          "label": "Albert Rosenfield",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Malcolm Sloan",
+          "label": "Malcolm Sloan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Toad",
+          "label": "Toad",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman (president)",
+          "label": "Harry S. Truman (president)",
+          "qualifier": "photo"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 16,
+      "raw": "S2E16",
+      "overallEpisode": 23,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_23",
+      "sourcePageId": 3324,
+      "sourceRevisionId": 52953,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "The arm",
+          "label": "The arm",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Annie Blackburn",
+          "label": "Annie Blackburn",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "José Raúl Capablanca",
+          "label": "José Raúl Capablanca",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Caroline Earle",
+          "label": "Caroline Earle",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hank Jennings",
+          "label": "Hank Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jonathan Kumagai",
+          "label": "Jonathan Kumagai",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Evelyn Marsh",
+          "label": "Evelyn Marsh",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "voice"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Albert Rosenfield",
+          "label": "Albert Rosenfield",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Randy St. Croix",
+          "label": "Randy St. Croix",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "John Justice Wheeler",
+          "label": "John Justice Wheeler",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 17,
+      "raw": "S2E17",
+      "overallEpisode": 24,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_24",
+      "sourcePageId": 3321,
+      "sourceRevisionId": 52782,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Annie Blackburn",
+          "label": "Annie Blackburn",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Gerald Craig",
+          "label": "Gerald Craig",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Eileen Hayward",
+          "label": "Eileen Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Gersten Hayward",
+          "label": "Gersten Hayward",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Harriet Hayward",
+          "label": "Harriet Hayward",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jones",
+          "label": "Jones",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Margaret Lanterman",
+          "label": "Margaret Lanterman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Samson Lanterman",
+          "label": "Samson Lanterman",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Vivian Smythe",
+          "label": "Vivian Smythe Niles",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Tim Pinkle",
+          "label": "Tim Pinkle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Randy St. Croix",
+          "label": "Randy St. Croix",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Susan",
+          "label": "Susan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Toad",
+          "label": "Toad",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "John Justice Wheeler",
+          "label": "John Justice Wheeler",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 18,
+      "raw": "S2E18",
+      "overallEpisode": 25,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_25",
+      "sourcePageId": 3325,
+      "sourceRevisionId": 52955,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Annie Blackburn",
+          "label": "Annie Blackburn",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Gordon Cole",
+          "label": "Gordon Cole",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Diane Evans",
+          "label": "Diane Evans",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Mike",
+          "label": "Phillip Gerard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Eileen Hayward",
+          "label": "Eileen Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "J.J. Horne",
+          "label": "J.J. Horne",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Jerry Horne",
+          "label": "Jerry Horne",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Johnny Horne",
+          "label": "Johnny Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "James Hurley",
+          "label": "James Hurley",
+          "qualifier": "voice"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jones",
+          "label": "Jones",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "John F. Kennedy",
+          "label": "John F. Kennedy",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Robert F. Kennedy",
+          "label": "Robert F. Kennedy",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Margaret Lanterman",
+          "label": "Margaret Lanterman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Randy St. Croix",
+          "label": "Randy St. Croix",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Toad",
+          "label": "Toad",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "John Justice Wheeler",
+          "label": "John Justice Wheeler",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 19,
+      "raw": "S2E19",
+      "overallEpisode": 26,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_26",
+      "sourcePageId": 3326,
+      "sourceRevisionId": 52957,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Annie Blackburn",
+          "label": "Annie Blackburn",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Gordon Cole",
+          "label": "Gordon Cole",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Gardner",
+          "label": "Mrs. Gardner",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Eileen Hayward",
+          "label": "Eileen Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dwayne Milford",
+          "label": "Dwayne Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lana Budding Milford",
+          "label": "Lana Budding Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jeff Moore (bellman)",
+          "label": "Jeff Moore",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Rusty Tomasky",
+          "label": "Rusty Tomasky",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "John Justice Wheeler",
+          "label": "John Justice Wheeler",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 20,
+      "raw": "S2E20",
+      "overallEpisode": 27,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_27",
+      "sourcePageId": 3059,
+      "sourceRevisionId": 52958,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Annie Blackburn",
+          "label": "Annie Blackburn",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Betty Briggs",
+          "label": "Betty Briggs",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Cappy",
+          "label": "Cappy",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Giant",
+          "label": "Giant",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Eileen Hayward",
+          "label": "Eileen Hayward",
+          "qualifier": "voice"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Jones",
+          "label": "Jones",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dwayne Milford",
+          "label": "Dwayne Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lana Budding Milford",
+          "label": "Lana Budding Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Vivian Smythe Niles",
+          "label": "Vivian Smythe Niles",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Roadie",
+          "label": "Roadie",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Randy St. Croix",
+          "label": "Randy St. Croix",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Rusty Tomasky",
+          "label": "Rusty Tomasky",
+          "qualifier": "corpse"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "John Justice Wheeler",
+          "label": "John Justice Wheeler",
+          "qualifier": "onscreen"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 21,
+      "raw": "S2E21",
+      "overallEpisode": 28,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_28",
+      "sourcePageId": 3094,
+      "sourceRevisionId": 52961,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "Annie Blackburn",
+          "label": "Annie Blackburn",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Caroline Earle",
+          "label": "Caroline Earle",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Diane Evans",
+          "label": "Diane Evans",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Brock Farmington",
+          "label": "Brock Farmington",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Eileen Hayward",
+          "label": "Eileen Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Margaret Lanterman",
+          "label": "Margaret Lanterman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Catherine Martell",
+          "label": "Catherine Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dwayne Milford",
+          "label": "Dwayne Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lana Budding Milford",
+          "label": "Lana Budding Milford",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Josie Packard",
+          "label": "Josie Packard",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Tim Pinkle",
+          "label": "Tim Pinkle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Toad",
+          "label": "Toad",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dick Tremayne",
+          "label": "Dick Tremayne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "John Justice Wheeler",
+          "label": "John Justice Wheeler",
+          "qualifier": "mentioned"
+        }
+      ]
+    },
+    {
+      "season": 2,
+      "episode": 22,
+      "raw": "S2E22",
+      "overallEpisode": 29,
+      "sourceUrl": "https://twinpeaks.fandom.com/wiki/Episode_29",
+      "sourcePageId": 2505,
+      "sourceRevisionId": 52960,
+      "inUniverseDate": null,
+      "individuals": [
+        {
+          "canonical": "The arm",
+          "label": "The arm",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "The arm (doppelganger)",
+          "label": "The arm's doppelganger",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Black Lodge performer",
+          "label": "Black Lodge performer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Annie Blackburn",
+          "label": "Annie Blackburn",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "BOB",
+          "label": "BOB",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andy Brennan",
+          "label": "Andy Brennan",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Betty Briggs",
+          "label": "Betty Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Bobby Briggs",
+          "label": "Bobby Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Garland Briggs",
+          "label": "Garland Briggs",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper",
+          "label": "Dale Cooper",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dale Cooper (doppelganger)",
+          "label": "Dale Cooper's doppelganger",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Caroline Earle (doppelganger)",
+          "label": "Caroline Earle's doppelganger",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Windom Earle",
+          "label": "Windom Earle",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Thomas Eckhardt",
+          "label": "Thomas Eckhardt",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Maddy Ferguson",
+          "label": "Maddy Ferguson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Giant",
+          "label": "Giant",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Hawk",
+          "label": "Tommy \"Hawk\" Hill",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Donna Hayward",
+          "label": "Donna Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Eileen Hayward",
+          "label": "Eileen Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Will Hayward",
+          "label": "Will Hayward",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Heidi",
+          "label": "Heidi",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Audrey Horne",
+          "label": "Audrey Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Benjamin Horne",
+          "label": "Benjamin Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sylvia Horne",
+          "label": "Sylvia Horne",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ed Hurley",
+          "label": "Big Ed Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Nadine Hurley",
+          "label": "Nadine Hurley",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Lawrence Jacoby",
+          "label": "Lawrence Jacoby",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Norma Jennings",
+          "label": "Norma Jennings",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leo Johnson",
+          "label": "Leo Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Shelly Briggs",
+          "label": "Shelly Johnson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Margaret Lanterman",
+          "label": "Margaret Lanterman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Samson Lanterman",
+          "label": "Samson Lanterman",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Pete Martell",
+          "label": "Pete Martell",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dell Mibbler",
+          "label": "Dell Mibbler",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Dwayne Milford, Jr.",
+          "label": "Dwayne Milford, Jr.",
+          "qualifier": "mentioned"
+        },
+        {
+          "canonical": "Lucy Brennan",
+          "label": "Lucy Moran",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Mike Nelson",
+          "label": "Mike Nelson",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Andrew Packard",
+          "label": "Andrew Packard",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Daisy Packard",
+          "label": "Daisy Packard",
+          "qualifier": "photo"
+        },
+        {
+          "canonical": "Laura Palmer",
+          "label": "Laura Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Laura Palmer (doppelganger)",
+          "label": "Laura Palmer's doppelganger",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Leland Palmer (doppelganger)",
+          "label": "Leland Palmer's doppelganger",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sarah Palmer",
+          "label": "Sarah Palmer",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Ronette Pulaski",
+          "label": "Ronette Pulaski",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Sleeping clerk",
+          "label": "Sleeping clerk",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Harry S. Truman",
+          "label": "Harry S. Truman",
+          "qualifier": "onscreen"
+        },
+        {
+          "canonical": "Waiter",
+          "label": "Waiter",
+          "qualifier": "onscreen"
+        }
+      ]
+    }
+  ]
+}

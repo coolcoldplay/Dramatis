@@ -10,6 +10,11 @@
 ```json
 {
   "version": 5,
+  "title": "作品或数据集名称",
+  "description": "数据集说明",
+  "sources": [],
+  "coveragePolicy": {},
+  "episodeGuide": [],
   "nodes": [],
   "links": [],
   "familyRelations": [],
@@ -28,6 +33,11 @@
 | 字段 | 类型 | 状态 | 说明 |
 |---|---|---|---|
 | `version` | number | 推荐 | 当前标准导出固定写 `5`。v4 仍可直接导入。 |
+| `title` | string | 可选 | 数据集标题；导入和标准导出会保留。 |
+| `description` | string | 可选 | 数据集用途或覆盖范围说明；导入和标准导出会保留。 |
+| `sources` | array | 可选 | 来源列表，可包含 `id`、`label`、`url`、`usage`。 |
+| `coveragePolicy` | object | 可选 | 收录、排除和时间精度规则等数据说明。 |
+| `episodeGuide` | array | 推荐 | 逐集标题、日期、摘要和关联节点；回顾模式会在时间线显示。 |
 | `nodes` | array | 必需 | 人物、事件、地点等节点。 |
 | `links` | array | 必需 | 主关系网中的二元剧情关系或行动。 |
 | `familyRelations` | array | 推荐 | 谱系图的权威多方关系数据。非空时不再从 `links[].familyRelation` 重复推断。 |
@@ -41,7 +51,24 @@
 | `topologySizing` | object | 可选 | 主图按拓扑属性调节节点大小。 |
 | `forceConfig` | object | 可选 | 主图力导向参数。 |
 
-`title`、`description`、`sources` 等说明性字段可以保留在手写数据中，但当前 UI 不使用，也不会由标准导出自动保留。
+### 1.1 `episodeGuide`
+
+```json
+{
+  "season": 2,
+  "episode": 1,
+  "raw": "S2E1",
+  "title": "愿巨人与君同在",
+  "englishTitle": "May the Giant Be with You",
+  "airDate": "1990-09-30",
+  "summary": "本集剧情摘要。",
+  "sourceUrl": "https://example.com/episode-1",
+  "eventNodeIds": ["event-s2e01-a"],
+  "participantNodeIds": ["person-a", "person-b"]
+}
+```
+
+`season` 与 `episode` 必须为正整数。同一季同一集只保留第一条记录，并按季、集排序。`eventNodeIds` 与 `participantNodeIds` 用于审计和后续逐集聚焦；当前时间线使用标题、播出日期和摘要，并按该集累计显示当时已出现的节点与连线。
 
 ## 2. `nodes`
 
@@ -64,7 +91,7 @@
 
 | 字段 | 类型 | 说明 |
 |---|---|---|
-| `aliases` | string[] | 别名；谱系精确搜索同时匹配姓名与别名。 |
+| `aliases` | string[] | 别名；主图和谱系图的名称搜索都同时匹配姓名与别名。 |
 | `titles` | string[] | 称号、职位或爵位。 |
 | `birth`,`death` | TimePoint | 出生/死亡年代与显示文本。 |
 | `generationLabel` | string | 显示用世代标签，不覆盖亲子关系计算。 |
