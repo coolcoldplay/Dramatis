@@ -1,0 +1,16 @@
+{
+  "version": 4,
+  "nodes": [
+    { "id": "N9", "name": "Laura Palmer" },
+    { "id": "N10", "name": "Leland Palmer" },
+    { "id": "N11", "name": "Sarah Palmer" },
+    { "id": "N21", "name": "Audrey Horne" },
+    { "id": "N22", "name": "Ben Horne" }
+  ],
+  "links": [
+    { "id": "L14", "source": "N10", "target": "N9", "familyRelation": "parent" },
+    { "id": "L22", "source": "N11", "target": "N10", "familyRelation": "spouse" },
+    { "id": "L23", "source": "N11", "target": "N9", "familyRelation": "parent" },
+    { "id": "L38", "source": "N21", "target": "N22", "familyRelation": "child" }
+  ]
+}

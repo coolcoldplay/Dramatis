@@ -1,0 +1,37 @@
+{
+  "version": 5,
+  "nodes": [
+    { "id": "N1", "name": "Parent One" },
+    { "id": "N2", "name": "Parent Two" },
+    { "id": "N3", "name": "Child" }
+  ],
+  "links": [],
+  "familyRelations": [
+    {
+      "id": "F1",
+      "kind": "union",
+      "subtype": "marriage",
+      "participants": [
+        { "nodeId": "N1", "role": "partner" },
+        { "nodeId": "N2", "role": "partner" }
+      ],
+      "certainty": "confirmed"
+    },
+    {
+      "id": "F2",
+      "kind": "parentage",
+      "subtype": "biological",
+      "contextId": "F1",
+      "participants": [
+        { "nodeId": "N1", "role": "parent" },
+        { "nodeId": "N2", "role": "parent" },
+        { "nodeId": "N3", "role": "child" }
+      ],
+      "certainty": "confirmed"
+    }
+  ],
+  "familyView": {
+    "layoutMode": "lineage",
+    "generationGap": 170
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "nodes": [{ "id": "P1" }, { "id": "P2" }, { "id": "C" }],
+  "familyRelations": [
+    {
+      "id": "F1",
+      "kind": "parentage",
+      "subtype": "biological",
+      "certainty": "disputed",
+      "participants": [{ "nodeId": "P1", "role": "parent" }, { "nodeId": "P2", "role": "parent" }, { "nodeId": "C", "role": "child" }]
+    }
+  ]
+}

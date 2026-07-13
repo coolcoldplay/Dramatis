@@ -1,0 +1,7 @@
+{
+  "nodes": [{ "id": "A" }, { "id": "B" }],
+  "familyRelations": [
+    { "id": "F1", "kind": "parentage", "participants": [{ "nodeId": "A", "role": "parent" }, { "nodeId": "B", "role": "child" }] },
+    { "id": "F2", "kind": "parentage", "participants": [{ "nodeId": "B", "role": "parent" }, { "nodeId": "A", "role": "child" }] }
+  ]
+}

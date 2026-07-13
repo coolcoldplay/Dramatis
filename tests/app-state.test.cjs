@@ -20,6 +20,16 @@ test('creates the default graph editing state', () => {
   assert.equal(state.forceConfig.linkDistance, 170);
   assert.equal(state.clusterSpacing, 1);
   assert.deepEqual(state.topologySizing, { mode: 'none', strength: 0.65 });
+  assert.deepEqual(state.familyRelations, []);
+  assert.deepEqual(state.familyView, {
+    layoutMode: 'lineage',
+    houseTagCategoryId: null,
+    generationGap: 150,
+    branchGap: 48,
+    componentGap: 120,
+    collapsedNodeIds: [],
+  });
+  assert.deepEqual(state.familyDiagnostics, []);
 });
 
 test('normalizes graph style defaults', () => {

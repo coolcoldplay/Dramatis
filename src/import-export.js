@@ -60,6 +60,10 @@
     var opts = options || {};
     var normalizeGraphStyle = opts.normalizeGraphStyle || function(style) { return style || {}; };
     var graphIndex = opts.graphIndex;
+    var familySchema = opts.familySchema;
+    var familyGraph = familySchema && familySchema.normalizeFamilyGraph
+      ? familySchema.normalizeFamilyGraph(input)
+      : { familyRelations: [], familyView: null, migratedLegacy: false };
 
     var nodes = (input.nodes || []).map(function(node) {
       return Object.assign({}, node, {
@@ -104,6 +108,9 @@
       linkTypes: cloneLinkTypes(opts.defaultLinkTypes, input.linkTypes),
       clusterSpacing: normalizeClusterSpacing(input.clusterSpacing),
       topologySizing: normalizeTopologySizing(input.topologySizing),
+      familyRelations: familyGraph.familyRelations,
+      familyView: familyGraph.familyView,
+      migratedLegacyFamily: familyGraph.migratedLegacy,
       forceConfig: input.forceConfig || {
         centerStrength: 0.05,
         chargeStrength: -650,

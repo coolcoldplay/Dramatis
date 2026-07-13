@@ -4,6 +4,7 @@ const test = require('node:test');
 const { normalizeImportedGraph } = require('../src/import-export.js');
 const graphIndex = require('../graph-index.js');
 const { normalizeGraphStyle } = require('../src/app-state.js');
+const familySchema = require('../src/family/family-schema.js');
 
 const defaultLinkTypes = {
   relation: {
@@ -53,6 +54,7 @@ test('normalizes imported graph data and resolves link endpoints', () => {
     defaultLinkTypes,
     graphIndex,
     normalizeGraphStyle,
+    familySchema,
   });
 
   assert.equal(result.nodes.length, 2);
@@ -72,6 +74,8 @@ test('normalizes imported graph data and resolves link endpoints', () => {
   assert.deepEqual(result.topologySizing, { mode: 'degree', strength: 0.8 });
   assert.equal(result.nextId, 10);
   assert.equal(result.droppedLinks.length, 1);
+  assert.deepEqual(result.familyRelations, []);
+  assert.equal(result.familyView.layoutMode, 'lineage');
 });
 
 test('normalizes missing cluster spacing to the default', () => {
@@ -79,8 +83,27 @@ test('normalizes missing cluster spacing to the default', () => {
     defaultLinkTypes,
     graphIndex,
     normalizeGraphStyle,
+    familySchema,
   });
 
   assert.equal(result.clusterSpacing, 1);
   assert.deepEqual(result.topologySizing, { mode: 'none', strength: 0.65 });
+});
+
+test('imports v5 family relations and migrates v4 links', () => {
+  const v5 = normalizeImportedGraph({
+    familyRelations: [{
+      id: 'F1', kind: 'union', subtype: 'marriage',
+      participants: [{ nodeId: 'N1', role: 'partner' }, { nodeId: 'N2', role: 'partner' }],
+    }],
+  }, { defaultLinkTypes, graphIndex, normalizeGraphStyle, familySchema });
+  assert.equal(v5.familyRelations[0].id, 'F1');
+  assert.equal(v5.migratedLegacyFamily, false);
+
+  const v4 = normalizeImportedGraph({
+    links: [{ id: 'L1', source: 'N1', target: 'N2', familyRelation: 'sibling' }],
+    nodes: [{ id: 'N1', name: 'A' }, { id: 'N2', name: 'B' }],
+  }, { defaultLinkTypes, graphIndex, normalizeGraphStyle, familySchema });
+  assert.equal(v4.familyRelations[0].kind, 'kinship');
+  assert.equal(v4.migratedLegacyFamily, true);
 });

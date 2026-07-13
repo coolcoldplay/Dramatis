@@ -59,6 +59,18 @@
         mode: 'none',
         strength: 0.65,
       },
+      familyRelations: [],
+      familyView: root.DramatisFamilySchema && root.DramatisFamilySchema.normalizeFamilyView
+        ? root.DramatisFamilySchema.normalizeFamilyView({})
+        : {
+          layoutMode: 'lineage',
+          houseTagCategoryId: null,
+          generationGap: 150,
+          branchGap: 48,
+          componentGap: 120,
+          collapsedNodeIds: [],
+        },
+      familyDiagnostics: [],
       graphIndex: null,
       _pendingLinkFrom: null,
       forceConfig: {

@@ -18,6 +18,9 @@
 <script src="search-highlight.js"></script>
 <script src="topology-sizing.js"></script>
 <script src="link-label-declutter.js"></script>
+<script src="src/family/family-schema.js"></script>
+<script src="src/family/family-index.js"></script>
+<script src="src/family/family-validator.js"></script>
 <script src="src/app-state.js"></script>
 <script src="src/episode-timeline.js"></script>
 <script src="src/import-export.js"></script>
@@ -5444,6 +5447,7 @@ document.getElementById('import-input').addEventListener('change', e => {
         defaultLinkTypes: state.linkTypes,
         graphIndex: window.DramatisGraphIndex,
         normalizeGraphStyle,
+        familySchema: window.DramatisFamilySchema,
       });
       state.nodes = imported.nodes;
       state.links = imported.links;
@@ -5455,6 +5459,9 @@ document.getElementById('import-input').addEventListener('change', e => {
       state.forceConfig = imported.forceConfig;
       state.clusterSpacing = normalizeClusterSpacing(imported.clusterSpacing);
       state.topologySizing = normalizeTopologySizing(imported.topologySizing);
+      state.familyRelations = imported.familyRelations;
+      state.familyView = imported.familyView;
+      state.familyDiagnostics = [];
       setLabelDeclutterDistanceBoosts(new Map());
       rebuildGraphIndex();
 
@@ -5489,6 +5496,9 @@ document.getElementById('btn-clear').addEventListener('click', () => {
   state.nextId = 1;
   state.selectedNodes.clear();
   state.currentEpisode = null;
+  state.familyRelations = [];
+  state.familyView = DramatisFamilySchema.normalizeFamilyView({});
+  state.familyDiagnostics = [];
   invalidateGraphIndex();
   render(true);
 });
